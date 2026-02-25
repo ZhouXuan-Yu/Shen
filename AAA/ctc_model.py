@@ -25,11 +25,15 @@ except ImportError:  # pragma: no cover
 
 class TemporalConvBiLSTM(nn.Module):
     """
-    1D-CNN + BiLSTM 时序分类模型
+    1D-CNN + BiLSTM 时序分类模型（为字符级 CTC 专门调整的安全结构）
 
-    约定：
-    - num_classes 为 CTC 的类别数，包含 blank（索引 0）
-    - 输入特征维度默认为 512（来自 ResNet18）
+    设计要点：
+    - 输入特征维度默认为 512（来自 ResNet18），形状 (B, T, 512)
+    - 1D-CNN 仅做“特征平滑 + 局部时序建模”，**绝不改变时间长度 T**
+      * kernel_size=3, padding=1, stride=1 -> 输出长度与输入完全一致
+      * 不使用 MaxPool / stride=2，避免 T 过小导致 CTC 报错（T < L）
+    - BiLSTM 使用 pack_padded_sequence 提升变长序列计算效率
+    - 分类层输出维度为 num_classes（= len(vocab) + 1，包含 1 个 blank）
     """
 
     def __init__(
@@ -38,7 +42,8 @@ class TemporalConvBiLSTM(nn.Module):
         hidden_size: int = 256,
         num_layers: int = 2,
         num_classes: int = 1000,
-        dropout: float = 0.5,
+        dropout: float = 0.1,
+        num_cnn_layers: int = 1,
     ):
         super().__init__()
 
@@ -46,22 +51,41 @@ class TemporalConvBiLSTM(nn.Module):
         self.hidden_size = hidden_size
         self.num_classes = num_classes
 
-        # 1D 时序卷积：在时间维上做卷积与降采样
-        self.temporal_conv = nn.Sequential(
+        # 1D 时序卷积层：在时间维上做卷积，但不改变长度
+        conv_layers: list[nn.Module] = []
+
+        # 第 1 层卷积：kernel_size=3, padding=1, stride=1 保证 T 不变
+        conv_layers.append(
             nn.Conv1d(
                 in_channels=input_size,
                 out_channels=input_size,
-                kernel_size=5,
+                kernel_size=3,
                 stride=1,
-                padding=2,
-            ),
-            nn.BatchNorm1d(input_size),
-            nn.ReLU(inplace=True),
-            nn.Dropout(dropout),
-            nn.MaxPool1d(kernel_size=2, stride=2),  # T -> T/2
+                padding=1,
+            )
         )
+        conv_layers.append(nn.BatchNorm1d(input_size))
+        conv_layers.append(nn.ReLU(inplace=True))
+        conv_layers.append(nn.Dropout(dropout))
 
-        # BiLSTM
+        # 可选的第 2 层卷积，同样保持长度不变
+        if num_cnn_layers >= 2:
+            conv_layers.append(
+                nn.Conv1d(
+                    in_channels=input_size,
+                    out_channels=input_size,
+                    kernel_size=3,
+                    stride=1,
+                    padding=1,
+                )
+            )
+            conv_layers.append(nn.BatchNorm1d(input_size))
+            conv_layers.append(nn.ReLU(inplace=True))
+            conv_layers.append(nn.Dropout(dropout))
+
+        self.temporal_conv = nn.Sequential(*conv_layers)
+
+        # BiLSTM：input_size=512, hidden_size=256, num_layers=2, bidirectional=True
         self.lstm = nn.LSTM(
             input_size=input_size,
             hidden_size=hidden_size,
@@ -84,19 +108,16 @@ class TemporalConvBiLSTM(nn.Module):
             feature_lengths: (B,) 原始序列长度 T
 
         Returns:
-            log_probs: (T', B, num_classes)
-            output_lengths: (B,) 降采样后的长度 T'
+            log_probs: (T, B, num_classes)
+            output_lengths: (B,) 与输入相同的长度 T（不做降采样）
         """
         # Conv1d 期望输入 (B, C, T)
         x = x.permute(0, 2, 1)  # (B, C, T)
-        x = self.temporal_conv(x)  # (B, C, T')
-        x = x.permute(0, 2, 1)  # (B, T', C)
+        x = self.temporal_conv(x)  # (B, C, T) —— 长度完全不变
+        x = x.permute(0, 2, 1)  # (B, T, C)
 
-        # 时间维长度（MaxPool1d stride=2）
-        output_lengths = torch.div(
-            feature_lengths, 2, rounding_mode="floor"
-        )
-        output_lengths = output_lengths.clamp(min=1)
+        # output_lengths 与原始 feature_lengths 完全一致
+        output_lengths = feature_lengths.clone()
 
         # pack_padded_sequence 需要 CPU 上的长度
         packed = nn.utils.rnn.pack_padded_sequence(
@@ -106,11 +127,11 @@ class TemporalConvBiLSTM(nn.Module):
         packed_out, _ = self.lstm(packed)
         lstm_out, _ = nn.utils.rnn.pad_packed_sequence(
             packed_out, batch_first=True
-        )  # (B, T', 2H)
+        )  # (B, T, 2H)
 
-        logits = self.fc(lstm_out)  # (B, T', C)
+        logits = self.fc(lstm_out)  # (B, T, C)
 
-        # CTC 要求 (T', B, C)
+        # CTC 要求 (T, B, C)
         logits = logits.permute(1, 0, 2)
         log_probs = self.log_softmax(logits)
 
@@ -170,7 +191,6 @@ class CTCTrainer:
         """
         with torch.no_grad():
             B = log_probs.shape[1]
-            offset = 0
             token_correct = 0
             token_total = 0
             seq_correct = 0
@@ -193,9 +213,9 @@ class CTCTrainer:
                     pred_seq.append(idx)
                     prev = idx
 
+                # 这里的 labels 是 (B, L_max) 的 padding 序列
                 L_b = int(label_lengths[b].item())
-                tgt_seq = labels[offset : offset + L_b].tolist()
-                offset += L_b
+                tgt_seq = labels[b, :L_b].tolist()
 
                 if L_b == 0:
                     continue
@@ -226,7 +246,8 @@ class CTCTrainer:
 
         for batch in tqdm(dataloader, desc="Train", unit="batch"):
             features = batch["features"].to(self.device)          # (B, T, C)
-            labels = batch["labels"].to(self.device)              # (sum_L,)
+            # (B, L_max) 的 padding 标签
+            labels = batch["labels"].to(self.device)
             feature_lengths = batch["feature_lengths"].to(self.device)  # (B,)
             label_lengths = batch["label_lengths"].to(self.device)      # (B,)
 
@@ -235,6 +256,7 @@ class CTCTrainer:
             # AMP 前向与反向
             with torch.cuda.amp.autocast(enabled=self.use_amp):
                 log_probs, out_lengths = self.model(features, feature_lengths)
+                # nn.CTCLoss 支持 targets 为 (B, L_max)，配合 label_lengths 使用
                 loss = self.criterion(
                     log_probs, labels, out_lengths, label_lengths
                 )

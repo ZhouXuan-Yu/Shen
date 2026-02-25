@@ -78,7 +78,7 @@ def ctc_greedy_decode(
     vocab: Vocabulary,
 ) -> List[str]:
     """
-    最简单的 CTC greedy 解码：
+    最简单的 CTC greedy 解码（字符级）：
     - 每个时间步取概率最大的类别
     - 折叠重复的 ID
     - 去掉 blank（ID=0）
@@ -86,7 +86,7 @@ def ctc_greedy_decode(
     Args:
         log_probs: (T, 1, C)  或 (T, B, C) 这里只用 B=1
     Returns:
-        tokens: 解码后的 gloss token 列表
+        tokens: 解码后的字符列表（汉字 / 标点等）
     """
     # (T, 1, C) -> (T, C)
     log_probs = log_probs.squeeze(1)  # (T, C)
@@ -119,7 +119,11 @@ def predict_from_features(
     device: torch.device,
 ) -> Tuple[List[str], str]:
     """
-    给定一段特征序列 (T, 512)，做一次前向 + CTC 解码
+    给定一段特征序列 (T, 512)，做一次前向 + 字符级 CTC 解码
+
+    返回：
+    - tokens: 字符列表，例如 ['小', '生', '命', '到', '家', '。']
+    - sentence: 直接拼接后的中文句子，例如 "小生命到家。"
     """
     if features.ndim != 2:
         raise ValueError(f"features 形状应为 (T, 512)，当前为 {features.shape}")
@@ -150,7 +154,8 @@ def predict_from_features(
     # ----------------------------------------------------
 
     tokens = ctc_greedy_decode(log_probs, vocab)
-    sentence = " ".join(tokens) if tokens else "(空预测)"
+    # 字符级 CTC：直接拼成一句中文，不再用空格分隔
+    sentence = "".join(tokens) if tokens else "(空预测)"
     return tokens, sentence
 
 
@@ -247,7 +252,7 @@ def main():
         )
 
     print("\n=== 推理结果 ===")
-    print(f"Gloss tokens: {tokens}")
+    print(f"字符序列: {tokens}")
     print(f"预测句子: {sentence}")
 
 

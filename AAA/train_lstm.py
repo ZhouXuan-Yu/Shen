@@ -9,6 +9,7 @@
 """
 
 import os
+import time
 from dataclasses import dataclass
 from typing import Any, Dict
 
@@ -16,7 +17,7 @@ import torch
 from torch.utils.data import DataLoader
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
-from ctc_dataset import CSLFeatureDataset, Vocabulary, collate_fn
+from ctc_dataset import CSLFeatureDataset, Vocabulary, collate_fn, process_gloss_to_chars
 from ctc_model import TemporalConvBiLSTM, CTCTrainer
 
 
@@ -30,16 +31,17 @@ class Config:
 
     OUTPUT_DIR: str = os.path.join("output", "ctc_lstm")
 
-    # 模型参数（加大容量，减小 dropout，提升表达能力）
+    # 模型参数（字符级 CTC，略微减小隐藏维度与层数，便于稳定收敛）
     INPUT_SIZE: int = 512
-    HIDDEN_SIZE: int = 512
-    NUM_LAYERS: int = 3
-    DROPOUT: float = 0.3
+    HIDDEN_SIZE: int = 256
+    NUM_LAYERS: int = 2
+    DROPOUT: float = 0.1
 
-    # 训练参数（更大 batch、更长训练、更稳定收敛）
-    BATCH_SIZE: int = 32
-    # 根据语音/手语 CTC 训练经验，稍低学习率 + 慢一些的衰减更稳定
-    LR: float = 5e-4
+    # 训练参数
+    # - 字符级标签后，标签序列变长，优化相对更难，可适当减小 batch_size
+    # - 学习率使用 1e-3（或 5e-4）是 CTC 训练的常见选择
+    BATCH_SIZE: int = 24
+    LR: float = 1e-3
     WEIGHT_DECAY: float = 1e-4
     EPOCHS: int = 80
     DEVICE: torch.device = torch.device(
@@ -66,12 +68,44 @@ cfg = Config()
 os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
 
 
+def _safe_torch_save(obj: Dict[str, Any], path: str, desc: str = "") -> None:
+    """
+    更健壮的保存函数：
+    - 在 Windows 上，若目标文件被其它进程占用（错误码 1224），直接 torch.save 会抛异常中断训练
+    - 这里捕获这类异常，给出清晰提示并继续训练，避免整轮训练浪费
+    """
+    try:
+        torch.save(obj, path)
+    except RuntimeError as e:
+        msg = str(e)
+        # inline_container.cc:745 open file failed with error code: 1224
+        if "open file failed" in msg and "1224" in msg:
+            print(
+                f"[警告] 保存 {desc or path} 失败：{e}\n"
+                f"  可能原因：文件正被其它程序占用（例如被编辑器/杀毒软件/同步工具打开）。\n"
+                f"  建议：关闭所有可能占用 {path} 的程序后，再重新启动训练或断点续训。"
+            )
+            return
+        raise
+
+
 def build_vocabulary() -> Vocabulary:
-    """从 train/dev 标签构建 gloss 词表"""
+    """
+    从 train/dev 标签构建**字符级**词表。
+
+    对应规划中的「Gloss -> 单字序列」：
+    - 先用 process_gloss_to_chars 将 "小/生命/到/家/。" 变成 ['小','生','命','到','家','。']
+    - 再用 Vocabulary.build_vocab 统计所有出现的字符，分配索引。
+
+    词表约定：
+    - 0: <blank>（CTC blank）
+    - 1: <unk>
+    - 2..N: 实际汉字 / 标点
+    """
     import pandas as pd
 
     vocab = Vocabulary()
-    gloss_seqs = []
+    char_seqs = []
 
     for split in ["train", "dev"]:
         csv_path = os.path.join(cfg.LABEL_DIR, f"{split}.csv")
@@ -91,13 +125,14 @@ def build_vocabulary() -> Vocabulary:
 
         if df is None:
             raise RuntimeError(f"无法在 {csv_path} 中找到 Number/Translator 列")
-        for gloss_str in df["Gloss"]:
-            tokens = [t.strip() for t in str(gloss_str).split("/") if t.strip()]
-            if tokens:
-                gloss_seqs.append(tokens)
 
-    vocab.build_vocab(gloss_seqs)
-    print(f"Vocabulary size (including <blank>, <unk>): {len(vocab)}")
+        for gloss_str in df["Gloss"]:
+            chars = process_gloss_to_chars(gloss_str)
+            if chars:
+                char_seqs.append(chars)
+
+    vocab.build_vocab(char_seqs)
+    print(f"Char-level vocabulary size (including <blank>, <unk>): {len(vocab)}")
     return vocab
 
 
@@ -250,7 +285,7 @@ def main(resume: bool = False) -> None:
         if val_stats.loss < best_val_loss:
             best_val_loss = val_stats.loss
             epochs_no_improve = 0
-            torch.save(
+            _safe_torch_save(
                 {
                     "epoch": epoch,
                     "model_state_dict": model.state_dict(),
@@ -258,6 +293,7 @@ def main(resume: bool = False) -> None:
                     "config": _build_ckpt_config(vocab),
                 },
                 best_path,
+                desc="最佳模型 best_model.pt",
             )
             print(f"[保存最佳模型] {best_path} (val_loss={best_val_loss:.4f})")
         else:
@@ -267,7 +303,7 @@ def main(resume: bool = False) -> None:
             )
 
         # 另存一份「最近一次状态」用于断点续训
-        torch.save(
+        _safe_torch_save(
             {
                 "epoch": epoch,
                 "model_state_dict": model.state_dict(),
@@ -279,6 +315,7 @@ def main(resume: bool = False) -> None:
                 "config": _build_ckpt_config(vocab),
             },
             last_ckpt_path,
+            desc="断点续训 checkpoint last_checkpoint.pt",
         )
 
         # 提前停止：若验证集若干轮未提升，则终止训练
