@@ -1,0 +1,19 @@
+# language_output_policy.yaml
+version: 1
+name: ChineseOutputPolicy
+enabled: true
+
+defaults:
+  output_language: zh-CN
+  display_thinking: false # 是否显示完整思维过程（禁止，设为 false）
+  thinking_summary_style: full # 简要摘要风格：brief(简要要点) / full(如有需给出更详细要点)
+
+response_style:
+  allow_thinking_display: false # 禁止展示完整推理文本
+  default_format: "short_answer" # 默认回答格式
+  include_summary_when_no_answer: true
+  summary_format: "bullet_points" # 使用要点形式总结
+
+process_explanation:
+  when_request_thinking: "provide_brief_points" # 请求思考时提供简要要点摘要，不暴露完整推理
+  when_not_requesting_thinking: "no_thinking" # 未请求思考则不输出相关内容

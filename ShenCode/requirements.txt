@@ -1,0 +1,23 @@
+# PyTorch (CUDA 12.4)
+# Install with: pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+torch==2.5.1
+torchvision==0.20.1
+
+# Model Zoo
+timm==1.0.12
+
+# Video Processing
+decord==0.6.0
+opencv-python==4.10.0.84
+
+# Data Processing
+numpy==1.26.4
+pandas==2.2.3
+pillow==10.4.0
+
+# Utilities
+tqdm==4.67.1
+pyyaml==6.0.2
+
+# Training Monitoring
+tensorboard==2.18.0

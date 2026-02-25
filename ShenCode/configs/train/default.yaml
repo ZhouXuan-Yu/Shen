@@ -1,0 +1,41 @@
+# Default training configuration for few-shot sign language recognition
+
+# Data settings
+data:
+  manifest: "data/processed/manifest.jsonl"
+  num_frames: 8
+  frame_sampling: "uniform" # uniform, random, center
+  input_size: 224
+  num_workers: 4
+
+# Model settings
+model:
+  name: "resnet18" # resnet18, resnet34, mobilenetv2, shufflenetv2, efficientnet_b0
+  pretrained: true
+  aggregation: "mean" # mean, max
+
+# Training settings
+training:
+  epochs: 50
+  batch_size: 8
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  optimizer: "adam" # adam, sgd
+  scheduler: "cosine" # cosine, step, none
+  warmup_epochs: 5
+  label_smoothing: 0.1
+
+# Few-shot settings
+fewshot:
+  k: 5
+  seed: 0
+
+# Logging and checkpointing
+logging:
+  log_interval: 10 # log every N batches
+  save_interval: 5 # save checkpoint every N epochs
+  tensorboard: true
+
+# Reproducibility
+seed: 42
+deterministic: true

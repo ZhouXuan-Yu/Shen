@@ -1,0 +1,20 @@
+# IDE and environment
+.cursor/
+__pycache__/
+*.pyc
+
+# Datasets and large raw data
+dataset/
+
+# Numpy arrays (do not upload)
+*.npy
+*.npz
+
+# Video files (do not upload)
+*.mp4
+*.avi
+*.mov
+
+# Large training checkpoints (keep locally, don't push to GitHub)
+AAA/output/ctc_lstm/last_checkpoint.pt
+

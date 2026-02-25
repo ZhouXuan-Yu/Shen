@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-02-05 21:06:29",
+  "device": "cuda",
+  "config": {
+    "model": "resnet50",
+    "num_samples": 3171,
+    "num_epochs": 1,
+    "batch_size": 8,
+    "frame_num": 8,
+    "num_workers": 4
+  },
+  "final_metrics": {
+    "val_accuracy": 61.111111111111114,
+    "precision_macro": 0.08728482661785292,
+    "f1_macro": 0.08864826670837475
+  },
+  "best_metrics": {
+    "best_val_accuracy": 61.111111111111114,
+    "best_epoch": 1
+  },
+  "training_time": {
+    "total_time_minutes": 33.62651247183482
+  }
+}

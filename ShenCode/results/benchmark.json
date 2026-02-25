@@ -1,0 +1,189 @@
+{
+  "environment": {
+    "torch_version": "2.5.1+cu124",
+    "cuda_available": true,
+    "cuda_version": "12.4",
+    "cudnn_version": 90100,
+    "gpu_name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "gpu_count": 1
+  },
+  "config": {
+    "num_classes": 226,
+    "input_size": 224,
+    "num_frames": 8,
+    "batch_sizes": [
+      1,
+      16
+    ]
+  },
+  "models": {
+    "resnet18": {
+      "model_name": "resnet18",
+      "num_classes": 226,
+      "input_size": 224,
+      "num_frames": 8,
+      "parameters": {
+        "total_params": 11292450,
+        "trainable_params": 11292450,
+        "total_params_M": 11.29245,
+        "trainable_params_M": 11.29245
+      },
+      "batch_results": {
+        "batch_1": {
+          "latency": {
+            "mean_ms": 9.934689000001526,
+            "std_ms": 0.44986685698814427,
+            "min_ms": 9.305999999924097,
+            "max_ms": 10.792000000947155,
+            "p50_ms": 10.052099998574704,
+            "p95_ms": 10.623000001942273,
+            "p99_ms": 10.789100000692997
+          },
+          "throughput": {
+            "samples_per_sec": 102.37220521681537,
+            "batches_per_sec": 102.37220521681537,
+            "total_samples": 522,
+            "duration_sec": 5.099040299995977
+          },
+          "peak_memory": {
+            "peak_memory_bytes": 109940736,
+            "peak_memory_MB": 104.84765625
+          }
+        },
+        "batch_16": {
+          "latency": {
+            "mean_ms": 121.57691999971576,
+            "std_ms": 0.6138563595962727,
+            "min_ms": 120.31050000223331,
+            "max_ms": 123.2297000096878,
+            "p50_ms": 121.6402999998536,
+            "p95_ms": 122.5265999964904,
+            "p99_ms": 123.15729999681935
+          },
+          "throughput": {
+            "samples_per_sec": 131.8576480344243,
+            "batches_per_sec": 8.241103002151519,
+            "total_samples": 816,
+            "duration_sec": 6.188492000001133
+          },
+          "peak_memory": {
+            "peak_memory_bytes": 953421824,
+            "peak_memory_MB": 909.25390625
+          }
+        }
+      }
+    },
+    "resnet34": {
+      "model_name": "resnet34",
+      "num_classes": 226,
+      "input_size": 224,
+      "num_frames": 8,
+      "parameters": {
+        "total_params": 21400610,
+        "trainable_params": 21400610,
+        "total_params_M": 21.40061,
+        "trainable_params_M": 21.40061
+      },
+      "batch_results": {
+        "batch_1": {
+          "latency": {
+            "mean_ms": 17.924946499042562,
+            "std_ms": 0.3659830422035505,
+            "min_ms": 17.095100003643893,
+            "max_ms": 20.063699994352646,
+            "p50_ms": 17.920300000696443,
+            "p95_ms": 18.563499994343147,
+            "p99_ms": 19.59579999675043
+          },
+          "throughput": {
+            "samples_per_sec": 56.078624898753475,
+            "batches_per_sec": 56.078624898753475,
+            "total_samples": 286,
+            "duration_sec": 5.099982400002773
+          },
+          "peak_memory": {
+            "peak_memory_bytes": 150413312,
+            "peak_memory_MB": 143.4453125
+          }
+        },
+        "batch_16": {
+          "latency": {
+            "mean_ms": 220.34727449972706,
+            "std_ms": 0.5911275801986655,
+            "min_ms": 219.22539999650326,
+            "max_ms": 222.15260000666603,
+            "p50_ms": 220.28780000982806,
+            "p95_ms": 221.40239999862388,
+            "p99_ms": 221.9242999999551
+          },
+          "throughput": {
+            "samples_per_sec": 72.43273840145699,
+            "batches_per_sec": 4.527046150091062,
+            "total_samples": 448,
+            "duration_sec": 6.185048499988625
+          },
+          "peak_memory": {
+            "peak_memory_bytes": 993894400,
+            "peak_memory_MB": 947.8515625
+          }
+        }
+      }
+    },
+    "mobilenetv2": {
+      "model_name": "mobilenetv2",
+      "num_classes": 226,
+      "input_size": 224,
+      "num_frames": 8,
+      "parameters": {
+        "total_params": 2513378,
+        "trainable_params": 2513378,
+        "total_params_M": 2.513378,
+        "trainable_params_M": 2.513378
+      },
+      "batch_results": {
+        "batch_1": {
+          "latency": {
+            "mean_ms": 10.08163099984813,
+            "std_ms": 0.9254242084230259,
+            "min_ms": 9.188600000925362,
+            "max_ms": 15.718100010417402,
+            "p50_ms": 10.032300007878803,
+            "p95_ms": 11.528700008057058,
+            "p99_ms": 14.480099998763762
+          },
+          "throughput": {
+            "samples_per_sec": 101.96254351090643,
+            "batches_per_sec": 101.96254351090643,
+            "total_samples": 511,
+            "duration_sec": 5.011644300000626
+          },
+          "peak_memory": {
+            "peak_memory_bytes": 107248128,
+            "peak_memory_MB": 102.27978515625
+          }
+        },
+        "batch_16": {
+          "latency": {
+            "mean_ms": 141.32560099911643,
+            "std_ms": 3.3164215248163056,
+            "min_ms": 135.26130000536796,
+            "max_ms": 146.70300000580028,
+            "p50_ms": 142.98949998919852,
+            "p95_ms": 144.3433999957051,
+            "p99_ms": 144.58350000495557
+          },
+          "throughput": {
+            "samples_per_sec": 116.1048536182523,
+            "batches_per_sec": 7.256553351140769,
+            "total_samples": 688,
+            "duration_sec": 5.92567820000113
+          },
+          "peak_memory": {
+            "peak_memory_bytes": 1432418816,
+            "peak_memory_MB": 1366.06103515625
+          }
+        }
+      }
+    }
+  }
+}

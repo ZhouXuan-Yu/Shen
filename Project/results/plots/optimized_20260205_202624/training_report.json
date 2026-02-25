@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-02-05 21:06:29",
+  "final_metrics": {
+    "train_loss": 3.585337178532963,
+    "val_loss": 3.2317259299634684,
+    "train_acc": 51.49795017344686,
+    "val_acc": 61.111111111111114
+  },
+  "best_metrics": {
+    "best_val_loss": 3.2317259299634684,
+    "best_val_acc": 61.111111111111114,
+    "best_epoch": 1
+  },
+  "training_time": {
+    "total_time_seconds": 2016.947830438614,
+    "avg_epoch_time": 2016.947830438614,
+    "num_epochs": 1
+  },
+  "class_performance": {
+    "top_10": []
+  }
+}
