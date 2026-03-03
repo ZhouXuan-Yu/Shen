@@ -51,11 +51,30 @@ export const useRecognitionStore = defineStore('recognition', () => {
     localStorage.setItem('recognitionHistory', JSON.stringify(history.value))
   }
 
+  function toggleFavorite(id: string) {
+    const item = history.value.find(h => h.id === id)
+    if (!item) return
+
+    item.favorite = !item.favorite
+    localStorage.setItem('recognitionHistory', JSON.stringify(history.value))
+  }
+
+  const favoriteHistory = computed(() => history.value.filter(h => h.favorite))
+
   function loadHistory() {
     const saved = localStorage.getItem('recognitionHistory')
     if (saved) {
       try {
-        history.value = JSON.parse(saved)
+        const parsed = JSON.parse(saved) as HistoryRecord[]
+
+        // 兼容旧数据：早期缩略图使用 blob: URL，刷新后会失效报错，这里统一清理掉
+        history.value = parsed.map((item) => {
+          if (item.thumbnail && item.thumbnail.startsWith('blob:')) {
+            const { thumbnail, ...rest } = item
+            return rest as HistoryRecord
+          }
+          return item
+        })
       } catch {
         history.value = []
       }
@@ -91,6 +110,8 @@ export const useRecognitionStore = defineStore('recognition', () => {
     loadHistory,
     clearHistory,
     setLoading,
+    toggleFavorite,
+    favoriteHistory,
   }
 })
 

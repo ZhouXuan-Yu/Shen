@@ -130,11 +130,18 @@ export interface WordCategory {
 export interface HistoryRecord {
   id: string
   type: 'realtime' | 'upload_image' | 'upload_video' | 'image_sequence'
+  /**
+   * 缩略图地址
+   * - 对于上传图片：使用 base64 data URL，避免 blob URL 失效
+   * - 对于视频/实时：可以为空，由前端根据类型展示占位图标
+   */
   thumbnail?: string
   result: string
   confidence: number
   duration?: number
   createdAt: string
+  /** 是否被用户标记为收藏 */
+  favorite?: boolean
 }
 
 // ==================== 管理后台类型 ====================

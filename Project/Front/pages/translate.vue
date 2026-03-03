@@ -259,9 +259,18 @@
                       <p class="text-white/80 text-sm">基于 {{ uploadedFiles.length }} 张连贯图片分析</p>
                     </div>
                   </div>
-                  <div class="text-right">
-                    <div class="text-3xl font-bold">{{ Math.round(result.confidence) }}%</div>
-                    <div class="text-xs text-white/80">置信度</div>
+                  <div class="flex items-center gap-4">
+                    <div class="text-right">
+                      <div class="text-3xl font-bold">{{ Math.round(result.confidence) }}%</div>
+                      <div class="text-xs text-white/80">置信度</div>
+                    </div>
+                    <button
+                      class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors"
+                      :class="isCurrentFavorite ? 'text-pink-300' : 'text-white/80'"
+                      @click.stop="toggleCurrentFavorite"
+                    >
+                      <i :class="isCurrentFavorite ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -573,6 +582,26 @@ const outputFormat = ref('text')
 const recognitionStore = useRecognitionStore()
 const toast = useToast()
 const speech = useSpeech()
+const currentHistoryId = ref<string | null>(null)
+
+const isCurrentFavorite = computed(() => {
+  if (!currentHistoryId.value) return false
+  return recognitionStore.history.find(h => h.id === currentHistoryId.value)?.favorite === true
+})
+
+function toggleCurrentFavorite() {
+  if (!currentHistoryId.value) return
+  recognitionStore.toggleFavorite(currentHistoryId.value)
+}
+
+function fileToDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = () => reject(new Error('预览图生成失败'))
+    reader.readAsDataURL(file)
+  })
+}
 
 // 处理文件选择
 function handleFileSelect(event: Event) {
@@ -735,16 +764,28 @@ async function startTranslation() {
       meaning: top.meaning,
       confidence: top.confidence,
       actions: ['起始动作', '过渡动作', '收尾动作'],
-  }
+    }
+
+    let thumbnailDataUrl: string | undefined
+    try {
+      thumbnailDataUrl = await fileToDataUrl(target.file)
+    } catch (e) {
+      console.warn('生成历史缩略图失败，将使用占位图:', e)
+    }
+
+    const historyId = data.id || Date.now().toString()
 
     recognitionStore.addToHistory({
-      id: data.id || Date.now().toString(),
+      id: historyId,
       type: 'upload_image',
       result: top.text,
       confidence: top.confidence,
-      thumbnail: target.previewUrl,
+      thumbnail: thumbnailDataUrl,
       createdAt: data.createdAt || new Date().toISOString(),
+      favorite: false,
     })
+
+    currentHistoryId.value = historyId
 
   uploadStatus.value = '翻译完成'
   uploadStatusIcon.value = 'bi bi-check-circle-fill'

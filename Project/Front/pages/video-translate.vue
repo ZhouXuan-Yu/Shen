@@ -172,14 +172,25 @@
               <div
                 class="result-fade-in rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4"
               >
-                <p class="mb-1 text-xs text-slate-500">识别文本</p>
-                <p class="break-words text-2xl font-semibold leading-snug text-slate-900">
-                  {{ result.text }}
-                </p>
-                <p class="mt-2 text-xs text-slate-500">
-                  置信度：<span class="font-semibold text-emerald-600">{{ Math.round(result.confidence) }}%</span>
-                  <span v-if="result.videoDuration"> ｜ 视频时长约 {{ result.videoDuration.toFixed(1) }} 秒</span>
-                </p>
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="mb-1 text-xs text-slate-500">识别文本</p>
+                    <p class="break-words text-2xl font-semibold leading-snug text-slate-900">
+                      {{ result.text }}
+                    </p>
+                    <p class="mt-2 text-xs text-slate-500">
+                      置信度：<span class="font-semibold text-emerald-600">{{ Math.round(result.confidence) }}%</span>
+                      <span v-if="result.videoDuration"> ｜ 视频时长约 {{ result.videoDuration.toFixed(1) }} 秒</span>
+                    </p>
+                  </div>
+                  <button
+                    class="mt-1 w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center hover:bg-emerald-200 transition-colors"
+                    :class="isCurrentFavorite ? 'text-pink-500' : 'text-emerald-700'"
+                    @click.stop="toggleCurrentFavorite"
+                  >
+                    <i :class="isCurrentFavorite ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
+                  </button>
+                </div>
               </div>
 
               <div class="flex flex-wrap gap-3">
@@ -240,11 +251,13 @@ useSeoMeta({
   description: '上传手语视频，通过 CTC 模型对整段视频进行识别与翻译。',
 })
 
-import type { ApiResponse, UploadRecognitionResponse } from '~/types'
+import type { ApiResponse, UploadRecognitionResponse, HistoryRecord } from '~/types'
 
 const config = useRuntimeConfig()
 const toast = useToast()
 const speech = useSpeech()
+const recognitionStore = useRecognitionStore()
+const route = useRoute()
 
 interface VideoResult {
   text: string
@@ -259,6 +272,17 @@ const uploading = ref(false)
 const uploadProgress = ref(0)
 const uploadStatus = ref('')
 const result = ref<VideoResult | null>(null)
+const currentHistoryId = ref<string | null>(null)
+
+const isCurrentFavorite = computed(() => {
+  if (!currentHistoryId.value) return false
+  return recognitionStore.history.find(h => h.id === currentHistoryId.value)?.favorite === true
+})
+
+function toggleCurrentFavorite() {
+  if (!currentHistoryId.value) return
+  recognitionStore.toggleFavorite(currentHistoryId.value)
+}
 
 function handleFileSelect(event: Event) {
   const input = event.target as HTMLInputElement
@@ -356,6 +380,20 @@ async function startVideoTranslation() {
       videoDuration: data.videoDuration || 0,
     }
 
+    const historyId = data.id || Date.now().toString()
+
+    recognitionStore.addToHistory({
+      id: historyId,
+      type: 'upload_video',
+      result: top.text,
+      confidence: top.confidence,
+      duration: data.videoDuration || 0,
+      createdAt: data.createdAt || new Date().toISOString(),
+      favorite: false,
+    })
+
+    currentHistoryId.value = historyId
+
     uploadStatus.value = '翻译完成'
     uploadProgress.value = 100
     toast.success('视频翻译完成')
@@ -386,6 +424,28 @@ onUnmounted(() => {
   if (videoPreviewUrl.value) {
     URL.revokeObjectURL(videoPreviewUrl.value)
   }
+})
+
+onMounted(() => {
+  const historyId = route.query.historyId as string | undefined
+  if (!historyId) return
+
+  if (process.client) {
+    recognitionStore.loadHistory()
+  }
+
+  const record = (recognitionStore.history as HistoryRecord[]).find(
+    (h) => h.id === historyId && h.type === 'upload_video',
+  )
+
+  if (!record) return
+
+  result.value = {
+    text: record.result,
+    confidence: record.confidence,
+    videoDuration: record.duration || 0,
+  }
+  currentHistoryId.value = record.id
 })
 </script>
 

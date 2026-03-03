@@ -14,18 +14,12 @@
 
         <!-- 桌面端导航 -->
         <nav class="hidden md:flex items-center gap-2">
-          <!-- <NuxtLink
-            to="/recognize"
-            class="nav-link"
-            active-class="nav-link-active"
-          >
-            <i class="bi bi-camera-video mr-1.5"></i>
-            实时翻译
-          </NuxtLink> -->
+          <!-- 受保护功能入口在点击时做登录校验 -->
           <NuxtLink
             to="/translate"
             class="nav-link"
             active-class="nav-link-active"
+            @click.prevent="handleProtectedNav('/translate')"
           >
             <i class="bi bi-images mr-1.5"></i>
             图片翻译
@@ -34,6 +28,7 @@
             to="/video-translate"
             class="nav-link"
             active-class="nav-link-active"
+            @click.prevent="handleProtectedNav('/video-translate')"
           >
             <i class="bi bi-camera-reels mr-1.5"></i>
             视频翻译
@@ -68,18 +63,11 @@
 
           <!-- 用户菜单 -->
           <template v-if="authStore.isAuthenticated">
-            <NuxtLink to="/profile" class="flex items-center gap-2 group">
-              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 overflow-hidden shadow-md group-hover:shadow-lg transition-shadow">
-                <img
-                  v-if="authStore.userAvatar"
-                  :src="authStore.userAvatar"
-                  alt="头像"
-                  class="w-full h-full object-cover"
-                />
-                <div v-else class="w-full h-full flex items-center justify-center text-white">
-                  <i class="bi bi-person-fill"></i>
-                </div>
-              </div>
+            <NuxtLink
+              to="/profile"
+              class="inline-flex items-center justify-center h-10 px-4 rounded-lg border border-gray-200 bg-white/80 text-sm font-medium text-gray-900 hover:bg-gray-900 hover:text-white transition-colors"
+            >
+              个人
             </NuxtLink>
           </template>
           <template v-else>
@@ -119,7 +107,7 @@
           <NuxtLink
             to="/recognize"
             class="mobile-nav-link"
-            @click="mobileMenuOpen = false"
+            @click.prevent="handleProtectedNav('/recognize', true)"
           >
             <i class="bi bi-camera-video mr-3"></i>
             <span>实时翻译</span>
@@ -128,7 +116,7 @@
           <NuxtLink
             to="/translate"
             class="mobile-nav-link"
-            @click="mobileMenuOpen = false"
+            @click.prevent="handleProtectedNav('/translate', true)"
           >
             <i class="bi bi-images mr-3"></i>
             <span>图片翻译</span>
@@ -137,7 +125,7 @@
           <NuxtLink
             to="/video-translate"
             class="mobile-nav-link"
-            @click="mobileMenuOpen = false"
+            @click.prevent="handleProtectedNav('/video-translate', true)"
           >
             <i class="bi bi-camera-reels mr-3"></i>
             <span>视频翻译</span>
@@ -215,6 +203,7 @@
 const authStore = useAuthStore()
 const mobileMenuOpen = ref(false)
 const toast = useToast()
+const router = useRouter()
 
 async function handleLogout() {
   await authStore.logout()
@@ -224,6 +213,28 @@ async function handleLogout() {
 
 function toggleTheme() {
   toast.info('主题切换功能开发中')
+}
+
+async function handleProtectedNav(path: string, isMobile = false) {
+  if (authStore.isAuthenticated) {
+    if (isMobile) {
+      mobileMenuOpen.value = false
+    }
+    await router.push(path)
+    return
+  }
+
+  if (isMobile) {
+    mobileMenuOpen.value = false
+  }
+
+  toast.info('请先登录后再使用该功能')
+  await router.push({
+    path: '/auth/login',
+    query: {
+      redirect: path,
+    },
+  })
 }
 
 // 初始化认证状态
