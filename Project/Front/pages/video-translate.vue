@@ -68,7 +68,8 @@
             @dragover.prevent
             @drop.prevent="handleDrop"
           >
-            <div v-if="!videoFile" class="space-y-4">
+            <!-- 上传提示：当没有任何视频可预览时显示 -->
+            <div v-if="!videoPreviewUrl" class="space-y-4">
               <div
                 class="w-20 h-20 mx-auto mb-3 rounded-2xl bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-300/40"
               >
@@ -98,6 +99,7 @@
               </p>
             </div>
 
+            <!-- 有可用视频地址（本次上传 / 历史回放）时显示播放器 -->
             <div v-else class="space-y-4">
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center gap-2">
@@ -106,10 +108,10 @@
                   </div>
                   <div class="text-left">
                     <p class="font-medium text-slate-800 truncate max-w-[180px]">
-                      {{ videoFile.name }}
+                      {{ videoFile ? videoFile.name : '视频预览' }}
                     </p>
                     <p class="text-xs text-slate-500">
-                      {{ formatSize(videoFile.size) }}
+                      {{ videoFile ? formatSize(videoFile.size) : '来自历史记录' }}
                     </p>
                   </div>
                 </div>
@@ -126,20 +128,15 @@
                   v-if="videoPreviewUrl"
                   :src="videoPreviewUrl"
                   controls
-                  class="w-full rounded-xl"
+                  playsinline
+                  class="w-full rounded-xl bg-black"
                 ></video>
                 <div
                   v-else-if="result"
                   class="flex flex-col items-center justify-center gap-2 text-xs text-slate-400 px-6 py-10 text-center"
                 >
                   <i class="bi bi-film text-2xl text-slate-300"></i>
-                  <span>历史记录仅保存翻译结果，原始视频未保存，因此无法在此回放。</span>
-                </div>
-                <div
-                  v-else
-                  class="text-xs text-slate-400 px-6 py-10 text-center"
-                >
-                  上传视频后，这里将展示预览并支持播放。
+                  <span>当前历史记录未保存原始视频文件，仅能查看文字结果。</span>
                 </div>
               </div>
             </div>
