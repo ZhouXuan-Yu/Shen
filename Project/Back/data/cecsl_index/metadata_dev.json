@@ -1,0 +1,4127 @@
+{
+  "split": "dev",
+  "model_name": "BAAI/bge-small-zh-v1.5",
+  "data_root": "D:/Aprogress/Shen/dataset/CE-CSL/CE-CSL",
+  "samples": [
+    {
+      "sample_id": "dev-00001",
+      "split": "dev",
+      "video_path": "dev/A/dev-00001.mp4",
+      "sentence": "10年的禁鱼区不是很长时间。",
+      "gloss": "10/年/鱼/禁止1/区/时间/长/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00002",
+      "split": "dev",
+      "video_path": "dev/A/dev-00002.mp4",
+      "sentence": "2023年的高考有一千多万考生。",
+      "gloss": "2/0/2/3/年/高/考试1/学生/一/千/多/万/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00003",
+      "split": "dev",
+      "video_path": "dev/A/dev-00003.mp4",
+      "sentence": "一本书看几分钟才会被吸引。",
+      "gloss": "书/看1/多少/分钟/吸引/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00004",
+      "split": "dev",
+      "video_path": "dev/A/dev-00004.mp4",
+      "sentence": "上班的时间都是固定的。",
+      "gloss": "上班2/时间/固定/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00005",
+      "split": "dev",
+      "video_path": "dev/A/dev-00005.mp4",
+      "sentence": "上课的时间还很长。",
+      "gloss": "上课/时间/还/长/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00006",
+      "split": "dev",
+      "video_path": "dev/A/dev-00006.mp4",
+      "sentence": "上车请买票。",
+      "gloss": "上/汽车/票/买/要/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00007",
+      "split": "dev",
+      "video_path": "dev/A/dev-00007.mp4",
+      "sentence": "上车请投币。",
+      "gloss": "上/公交车/投入/钱/要/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00008",
+      "split": "dev",
+      "video_path": "dev/A/dev-00008.mp4",
+      "sentence": "上车需要系安全带。",
+      "gloss": "上/汽车/安全带1/要/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00009",
+      "split": "dev",
+      "video_path": "dev/A/dev-00009.mp4",
+      "sentence": "下一次强降雨出现在重庆。",
+      "gloss": "下/次/大/雨/在/重庆/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00010",
+      "split": "dev",
+      "video_path": "dev/A/dev-00010.mp4",
+      "sentence": "下午的公交车人很少。",
+      "gloss": "下午/公交车/人/少/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00011",
+      "split": "dev",
+      "video_path": "dev/A/dev-00011.mp4",
+      "sentence": "下雨了，你要去哪里？",
+      "gloss": "雨/你/去/哪/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00012",
+      "split": "dev",
+      "video_path": "dev/A/dev-00012.mp4",
+      "sentence": "不容易的事情太多了。",
+      "gloss": "不/容易/事情1/多/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00013",
+      "split": "dev",
+      "video_path": "dev/A/dev-00013.mp4",
+      "sentence": "不清楚的事不要答应。",
+      "gloss": "不/清楚/事情1/答应/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00014",
+      "split": "dev",
+      "video_path": "dev/A/dev-00014.mp4",
+      "sentence": "不要做无益的事。",
+      "gloss": "利益/没有/事情1/做/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00015",
+      "split": "dev",
+      "video_path": "dev/A/dev-00015.mp4",
+      "sentence": "不要喝太多酒。",
+      "gloss": "酒/喝/多/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00016",
+      "split": "dev",
+      "video_path": "dev/A/dev-00016.mp4",
+      "sentence": "不要哭了。",
+      "gloss": "哭/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00017",
+      "split": "dev",
+      "video_path": "dev/A/dev-00017.mp4",
+      "sentence": "中国不是粮食出口国。",
+      "gloss": "中国/粮食/出口/国家/不是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00018",
+      "split": "dev",
+      "video_path": "dev/A/dev-00018.mp4",
+      "sentence": "中国有千万军队。",
+      "gloss": "中国/军队/千/万/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00019",
+      "split": "dev",
+      "video_path": "dev/A/dev-00019.mp4",
+      "sentence": "中国的教育是失败的。",
+      "gloss": "中国/教育/失败2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00020",
+      "split": "dev",
+      "video_path": "dev/A/dev-00020.mp4",
+      "sentence": "中文是中国人的。",
+      "gloss": "中国/文化2/属于3/中国人/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00021",
+      "split": "dev",
+      "video_path": "dev/A/dev-00021.mp4",
+      "sentence": "为什么北方的夏季比南方亮的快？",
+      "gloss": "北/方/夏天/比/南2/方/亮/早上1/为什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00022",
+      "split": "dev",
+      "video_path": "dev/A/dev-00022.mp4",
+      "sentence": "买一个洗衣机回来洗衣服。",
+      "gloss": "洗衣机/买/洗/衣服/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00023",
+      "split": "dev",
+      "video_path": "dev/A/dev-00023.mp4",
+      "sentence": "买了条鱼回来做饭。",
+      "gloss": "鱼/买/烹饪/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00024",
+      "split": "dev",
+      "video_path": "dev/A/dev-00024.mp4",
+      "sentence": "买了老母鸡回来做饭。",
+      "gloss": "老/母/鸡/买/烹饪/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00025",
+      "split": "dev",
+      "video_path": "dev/A/dev-00025.mp4",
+      "sentence": "五点钟我要去开会。",
+      "gloss": "5点/我/开会/要/。",
+      "note": "5点"
+    },
+    {
+      "sample_id": "dev-00026",
+      "split": "dev",
+      "video_path": "dev/A/dev-00026.mp4",
+      "sentence": "五百万可以买多少衣服啊？",
+      "gloss": "五/百/万/衣服/买/多少/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00027",
+      "split": "dev",
+      "video_path": "dev/A/dev-00027.mp4",
+      "sentence": "人生还有很长。",
+      "gloss": "人生/时间/长/。",
+      "note": "人生"
+    },
+    {
+      "sample_id": "dev-00028",
+      "split": "dev",
+      "video_path": "dev/A/dev-00028.mp4",
+      "sentence": "人齐了就吃饭吧。",
+      "gloss": "人/够/吃饭/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00029",
+      "split": "dev",
+      "video_path": "dev/A/dev-00029.mp4",
+      "sentence": "什么是最重要的财富？",
+      "gloss": "最2/重要/东西/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00030",
+      "split": "dev",
+      "video_path": "dev/A/dev-00030.mp4",
+      "sentence": "什么是爱情呢？",
+      "gloss": "爱情/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00031",
+      "split": "dev",
+      "video_path": "dev/A/dev-00031.mp4",
+      "sentence": "今天体测下雨了。",
+      "gloss": "今天/体育/检查/雨/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00032",
+      "split": "dev",
+      "video_path": "dev/A/dev-00032.mp4",
+      "sentence": "今天发挥超常，考的还可以。",
+      "gloss": "今天/表现1/好/考试/可以/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00033",
+      "split": "dev",
+      "video_path": "dev/A/dev-00033.mp4",
+      "sentence": "今天多云转小雨。",
+      "gloss": "今天/阴/变/雨/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00034",
+      "split": "dev",
+      "video_path": "dev/A/dev-00034.mp4",
+      "sentence": "今天我妈妈送我上学。",
+      "gloss": "今天/妈妈/护送/我/上学/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00035",
+      "split": "dev",
+      "video_path": "dev/A/dev-00035.mp4",
+      "sentence": "今天我想吃泡面了。",
+      "gloss": "今天/我/想/吃/方便面/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00036",
+      "split": "dev",
+      "video_path": "dev/A/dev-00036.mp4",
+      "sentence": "今天我来做家务吧。",
+      "gloss": "今天/我/做/家/劳动/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00037",
+      "split": "dev",
+      "video_path": "dev/A/dev-00037.mp4",
+      "sentence": "今天我请客。",
+      "gloss": "今天/我/请客/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00038",
+      "split": "dev",
+      "video_path": "dev/A/dev-00038.mp4",
+      "sentence": "今天是我的生日。",
+      "gloss": "今天/我/生日/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00039",
+      "split": "dev",
+      "video_path": "dev/A/dev-00039.mp4",
+      "sentence": "今天是星期五，明天就放假了。",
+      "gloss": "今天/星期五/明天/放假/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00040",
+      "split": "dev",
+      "video_path": "dev/A/dev-00040.mp4",
+      "sentence": "今天气温24度。",
+      "gloss": "今天/温度/20/4/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00041",
+      "split": "dev",
+      "video_path": "dev/A/dev-00041.mp4",
+      "sentence": "今天的作业写什么？",
+      "gloss": "今天/作业/写字/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00042",
+      "split": "dev",
+      "video_path": "dev/A/dev-00042.mp4",
+      "sentence": "今天黑板由我来擦。",
+      "gloss": "今天/黑板/我/擦/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00043",
+      "split": "dev",
+      "video_path": "dev/A/dev-00043.mp4",
+      "sentence": "他为什么送你花呀？",
+      "gloss": "他/给（你）/花/为什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00044",
+      "split": "dev",
+      "video_path": "dev/A/dev-00044.mp4",
+      "sentence": "他从没做过饭。",
+      "gloss": "他/烹饪/经历/没有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00045",
+      "split": "dev",
+      "video_path": "dev/A/dev-00045.mp4",
+      "sentence": "他会变魔术。",
+      "gloss": "他/魔术2/会/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00046",
+      "split": "dev",
+      "video_path": "dev/A/dev-00046.mp4",
+      "sentence": "他是我最信任的朋友。",
+      "gloss": "他/我/最/信任/朋友/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00047",
+      "split": "dev",
+      "video_path": "dev/A/dev-00047.mp4",
+      "sentence": "他有一个姐姐。",
+      "gloss": "他/姐姐/有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00048",
+      "split": "dev",
+      "video_path": "dev/A/dev-00048.mp4",
+      "sentence": "他的样子真的可笑。",
+      "gloss": "他/样子/可以/笑/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00049",
+      "split": "dev",
+      "video_path": "dev/A/dev-00049.mp4",
+      "sentence": "他的精气神挺好的。",
+      "gloss": "他/精神/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00050",
+      "split": "dev",
+      "video_path": "dev/A/dev-00050.mp4",
+      "sentence": "休息一下再去玩。",
+      "gloss": "休息/完了/去/玩1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00051",
+      "split": "dev",
+      "video_path": "dev/A/dev-00051.mp4",
+      "sentence": "休息会吧我们等会继续。",
+      "gloss": "休息/完了/继续/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00052",
+      "split": "dev",
+      "video_path": "dev/A/dev-00052.mp4",
+      "sentence": "你不能一直高效的工作。",
+      "gloss": "一直/高/效果/工作1/不行2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00053",
+      "split": "dev",
+      "video_path": "dev/A/dev-00053.mp4",
+      "sentence": "你不要按电梯。",
+      "gloss": "你/按钮/电梯/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00054",
+      "split": "dev",
+      "video_path": "dev/A/dev-00054.mp4",
+      "sentence": "你不要生气了可以吗？",
+      "gloss": "你/生气/不/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00055",
+      "split": "dev",
+      "video_path": "dev/A/dev-00055.mp4",
+      "sentence": "你为什么会沉迷短视频？",
+      "gloss": "你/沉迷/短/视频/为什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00056",
+      "split": "dev",
+      "video_path": "dev/B/dev-00056.mp4",
+      "sentence": "你习惯这样的生活吗？",
+      "gloss": "这里/样子/生活/你/习惯/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00057",
+      "split": "dev",
+      "video_path": "dev/B/dev-00057.mp4",
+      "sentence": "你今天没喝酒吧。",
+      "gloss": "你/今天/喝酒/没有2/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00058",
+      "split": "dev",
+      "video_path": "dev/B/dev-00058.mp4",
+      "sentence": "你俩真有缘分。",
+      "gloss": "你俩/缘分/有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00059",
+      "split": "dev",
+      "video_path": "dev/B/dev-00059.mp4",
+      "sentence": "你们去干嘛了？",
+      "gloss": "你们/去/做/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00060",
+      "split": "dev",
+      "video_path": "dev/B/dev-00060.mp4",
+      "sentence": "你们可以安静一下吗？",
+      "gloss": "你们/安静/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00061",
+      "split": "dev",
+      "video_path": "dev/B/dev-00061.mp4",
+      "sentence": "你们吃饭要吃面包吗？",
+      "gloss": "你们/吃饭/面包/要/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00062",
+      "split": "dev",
+      "video_path": "dev/B/dev-00062.mp4",
+      "sentence": "你们喝啤酒吗？",
+      "gloss": "你们/啤酒/喝/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00063",
+      "split": "dev",
+      "video_path": "dev/B/dev-00063.mp4",
+      "sentence": "你们国家的语言是什么？",
+      "gloss": "你们/国家/语言/是/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00064",
+      "split": "dev",
+      "video_path": "dev/B/dev-00064.mp4",
+      "sentence": "你们学校有纪律吗？",
+      "gloss": "你们/学校/纪律/有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00065",
+      "split": "dev",
+      "video_path": "dev/B/dev-00065.mp4",
+      "sentence": "你们就羡慕我吧。",
+      "gloss": "你们/一直/羡慕/我/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00066",
+      "split": "dev",
+      "video_path": "dev/B/dev-00066.mp4",
+      "sentence": "你们要吃什么烤串？",
+      "gloss": "你们/烤串/吃/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00067",
+      "split": "dev",
+      "video_path": "dev/B/dev-00067.mp4",
+      "sentence": "你会多少个英语单词？",
+      "gloss": "英语/词/你/会/多少/？",
+      "note": "英语"
+    },
+    {
+      "sample_id": "dev-00068",
+      "split": "dev",
+      "video_path": "dev/B/dev-00068.mp4",
+      "sentence": "你会开车吗？",
+      "gloss": "你/驾驶/会/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00069",
+      "split": "dev",
+      "video_path": "dev/B/dev-00069.mp4",
+      "sentence": "你会讲英语吗？",
+      "gloss": "你/英语/说/会/？",
+      "note": "英语"
+    },
+    {
+      "sample_id": "dev-00070",
+      "split": "dev",
+      "video_path": "dev/B/dev-00070.mp4",
+      "sentence": "你刚刚怎么不帮忙啊？",
+      "gloss": "你/刚才/帮助/没有2/为什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00071",
+      "split": "dev",
+      "video_path": "dev/B/dev-00071.mp4",
+      "sentence": "你动过手术吗？",
+      "gloss": "你/手术/经历/有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00072",
+      "split": "dev",
+      "video_path": "dev/B/dev-00072.mp4",
+      "sentence": "你去俱乐部玩了吗？",
+      "gloss": "你/去/俱乐部/玩1/有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00073",
+      "split": "dev",
+      "video_path": "dev/B/dev-00073.mp4",
+      "sentence": "你可以再说一遍吗，我没听清楚。",
+      "gloss": "你/再/说/1/可以/我/听/清楚/没有2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00074",
+      "split": "dev",
+      "video_path": "dev/B/dev-00074.mp4",
+      "sentence": "你可以加入我们吗？",
+      "gloss": "你/参加/我们/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00075",
+      "split": "dev",
+      "video_path": "dev/B/dev-00075.mp4",
+      "sentence": "你可以帮我完成一个任务吗？",
+      "gloss": "你/帮助（我）/完成/1/任务/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00076",
+      "split": "dev",
+      "video_path": "dev/B/dev-00076.mp4",
+      "sentence": "你向右走就到车站了。",
+      "gloss": "你/向/右/走/车站/到/可以/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00077",
+      "split": "dev",
+      "video_path": "dev/B/dev-00077.mp4",
+      "sentence": "你在开玩笑吗？",
+      "gloss": "你/现在/玩笑/是/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00078",
+      "split": "dev",
+      "video_path": "dev/B/dev-00078.mp4",
+      "sentence": "你平时无聊的时候都去干嘛？",
+      "gloss": "你/平时/无聊/时候/做/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00079",
+      "split": "dev",
+      "video_path": "dev/B/dev-00079.mp4",
+      "sentence": "你平时有存钱吗？",
+      "gloss": "你/平时/存款/有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00080",
+      "split": "dev",
+      "video_path": "dev/B/dev-00080.mp4",
+      "sentence": "你应该向左转的。",
+      "gloss": "你/应该/向/左/拐弯/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00081",
+      "split": "dev",
+      "video_path": "dev/B/dev-00081.mp4",
+      "sentence": "你应该学会处理紧急情况和突发事件。",
+      "gloss": "你/应该/学习/会/处理/着急/情况/和/突发/事情/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00082",
+      "split": "dev",
+      "video_path": "dev/B/dev-00082.mp4",
+      "sentence": "你应该注意你的饮食。",
+      "gloss": "你/应该/注意/你/吃/喝/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00083",
+      "split": "dev",
+      "video_path": "dev/B/dev-00083.mp4",
+      "sentence": "你得花更多时间来练发音。",
+      "gloss": "你/应该/用/多/时间/练习/发音/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00084",
+      "split": "dev",
+      "video_path": "dev/B/dev-00084.mp4",
+      "sentence": "你微笑的样子真好看。",
+      "gloss": "你/笑/样子/美丽/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00085",
+      "split": "dev",
+      "video_path": "dev/B/dev-00085.mp4",
+      "sentence": "你必须干这件事。",
+      "gloss": "这里/事情/你/必须/做/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00086",
+      "split": "dev",
+      "video_path": "dev/B/dev-00086.mp4",
+      "sentence": "你怎么不去实验室看看？",
+      "gloss": "实验室/看1/你/不/去/为什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00087",
+      "split": "dev",
+      "video_path": "dev/B/dev-00087.mp4",
+      "sentence": "你怎么定位到我的位置的？",
+      "gloss": "我/位置1/你/怎么/决定/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00088",
+      "split": "dev",
+      "video_path": "dev/B/dev-00088.mp4",
+      "sentence": "你怎么穿成这样就出门了？",
+      "gloss": "你/怎么/穿/这里/样子/去/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00089",
+      "split": "dev",
+      "video_path": "dev/B/dev-00089.mp4",
+      "sentence": "你想学数学吗？",
+      "gloss": "数学/你/想/学习/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00090",
+      "split": "dev",
+      "video_path": "dev/B/dev-00090.mp4",
+      "sentence": "你想要什么圣诞礼物？",
+      "gloss": "圣诞节/礼物/你/想/要/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00091",
+      "split": "dev",
+      "video_path": "dev/B/dev-00091.mp4",
+      "sentence": "你愿意尝试一下新事物吗？",
+      "gloss": "新/事情/你/愿意/实验1/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00092",
+      "split": "dev",
+      "video_path": "dev/B/dev-00092.mp4",
+      "sentence": "你昨天没倒垃圾。",
+      "gloss": "你/昨天/垃圾/倒/没有2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00093",
+      "split": "dev",
+      "video_path": "dev/B/dev-00093.mp4",
+      "sentence": "你晚上出来玩吗？",
+      "gloss": "你/晚上/去/玩1/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00094",
+      "split": "dev",
+      "video_path": "dev/B/dev-00094.mp4",
+      "sentence": "你之前也不能喝酒吗？",
+      "gloss": "你/之前/一样/喝酒/不行/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00095",
+      "split": "dev",
+      "video_path": "dev/B/dev-00095.mp4",
+      "sentence": "你最近过得怎么样？",
+      "gloss": "你/最近/生活/怎么样/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00096",
+      "split": "dev",
+      "video_path": "dev/B/dev-00096.mp4",
+      "sentence": "你有去上大学吗？",
+      "gloss": "你/大学/经历/有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00097",
+      "split": "dev",
+      "video_path": "dev/B/dev-00097.mp4",
+      "sentence": "你有参考资料吗？",
+      "gloss": "你/参考/材料2/有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00098",
+      "split": "dev",
+      "video_path": "dev/B/dev-00098.mp4",
+      "sentence": "你有收到信用卡吗？",
+      "gloss": "你/信用卡/接受/到/有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00099",
+      "split": "dev",
+      "video_path": "dev/B/dev-00099.mp4",
+      "sentence": "你朋友好会打游戏。",
+      "gloss": "你/朋友/游戏/擅长/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00100",
+      "split": "dev",
+      "video_path": "dev/B/dev-00100.mp4",
+      "sentence": "你毕业去当兵吗？",
+      "gloss": "你/毕业/去/做/兵/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00101",
+      "split": "dev",
+      "video_path": "dev/B/dev-00101.mp4",
+      "sentence": "你的刘海会遮住眼睛吗？",
+      "gloss": "你/刘海/眼/挡/会/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00102",
+      "split": "dev",
+      "video_path": "dev/B/dev-00102.mp4",
+      "sentence": "你的圣诞礼物是什么？",
+      "gloss": "你/圣诞节/礼物/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00103",
+      "split": "dev",
+      "video_path": "dev/B/dev-00103.mp4",
+      "sentence": "你的声音我太熟悉了。",
+      "gloss": "你/声音/我/熟悉/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00104",
+      "split": "dev",
+      "video_path": "dev/B/dev-00104.mp4",
+      "sentence": "你的家庭成员有哪些？",
+      "gloss": "你/家/成员/有/哪些2/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00105",
+      "split": "dev",
+      "video_path": "dev/B/dev-00105.mp4",
+      "sentence": "你的小目标是什么？",
+      "gloss": "你/小/目标/是/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00106",
+      "split": "dev",
+      "video_path": "dev/B/dev-00106.mp4",
+      "sentence": "你的想法是什么？",
+      "gloss": "你/想/法1/是/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00107",
+      "split": "dev",
+      "video_path": "dev/B/dev-00107.mp4",
+      "sentence": "你的房间好漂亮。",
+      "gloss": "你/房/美丽/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00108",
+      "split": "dev",
+      "video_path": "dev/B/dev-00108.mp4",
+      "sentence": "你的房间怎么这么乱啊。",
+      "gloss": "你/房/乱/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00109",
+      "split": "dev",
+      "video_path": "dev/C/dev-00109.mp4",
+      "sentence": "你的手什么时候开始痛的？",
+      "gloss": "你/手/开始/疼/时间/多少/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00110",
+      "split": "dev",
+      "video_path": "dev/C/dev-00110.mp4",
+      "sentence": "你的电话号码是多少？",
+      "gloss": "你/电话/号码/多少/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00111",
+      "split": "dev",
+      "video_path": "dev/C/dev-00111.mp4",
+      "sentence": "你的笑声太大了。",
+      "gloss": "你/笑/声音/大/很1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00112",
+      "split": "dev",
+      "video_path": "dev/C/dev-00112.mp4",
+      "sentence": "你的英语发音真好。",
+      "gloss": "你/英语/发音/好/真2/。",
+      "note": "英语"
+    },
+    {
+      "sample_id": "dev-00113",
+      "split": "dev",
+      "video_path": "dev/C/dev-00113.mp4",
+      "sentence": "你真的想要幸福吗？",
+      "gloss": "你/想/要/幸福/真2/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00114",
+      "split": "dev",
+      "video_path": "dev/C/dev-00114.mp4",
+      "sentence": "你真的能自己来吗？",
+      "gloss": "你/自己/来/真2/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00115",
+      "split": "dev",
+      "video_path": "dev/C/dev-00115.mp4",
+      "sentence": "你穿的是什么鞋子？",
+      "gloss": "你/穿/鞋/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00116",
+      "split": "dev",
+      "video_path": "dev/C/dev-00116.mp4",
+      "sentence": "你能不能再等我一会？",
+      "gloss": "你/再/等我/时间/短/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00117",
+      "split": "dev",
+      "video_path": "dev/C/dev-00117.mp4",
+      "sentence": "你能不能闭嘴？",
+      "gloss": "你/闭嘴/可以/？",
+      "note": "闭嘴"
+    },
+    {
+      "sample_id": "dev-00118",
+      "split": "dev",
+      "video_path": "dev/C/dev-00118.mp4",
+      "sentence": "你能告诉我上海站在哪里吗？",
+      "gloss": "你/告诉（我）/上海/站/在/哪/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00119",
+      "split": "dev",
+      "video_path": "dev/C/dev-00119.mp4",
+      "sentence": "你能帮妈妈一会吗？",
+      "gloss": "你/帮助/妈妈/时间/短/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00120",
+      "split": "dev",
+      "video_path": "dev/C/dev-00120.mp4",
+      "sentence": "你能帮我登记手续吗？",
+      "gloss": "你/帮助（我）/登记/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00121",
+      "split": "dev",
+      "video_path": "dev/C/dev-00121.mp4",
+      "sentence": "你能成功我很高兴。",
+      "gloss": "你/成功1/我/高兴/很1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00122",
+      "split": "dev",
+      "video_path": "dev/C/dev-00122.mp4",
+      "sentence": "你能把发夹给我吗？",
+      "gloss": "你/发夹/给我/可以/？",
+      "note": "发夹"
+    },
+    {
+      "sample_id": "dev-00123",
+      "split": "dev",
+      "video_path": "dev/C/dev-00123.mp4",
+      "sentence": "你能把水龙头打开吗？",
+      "gloss": "你/水龙头/打开/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00124",
+      "split": "dev",
+      "video_path": "dev/C/dev-00124.mp4",
+      "sentence": "你能跟我分享小秘密吗？",
+      "gloss": "你/给(我)/分享/小/秘密/可以/？",
+      "note": "分享"
+    },
+    {
+      "sample_id": "dev-00125",
+      "split": "dev",
+      "video_path": "dev/C/dev-00125.mp4",
+      "sentence": "你能送我一个纪念品吗？",
+      "gloss": "你/送(我)/纪念品/可以/？",
+      "note": "纪念品"
+    },
+    {
+      "sample_id": "dev-00126",
+      "split": "dev",
+      "video_path": "dev/C/dev-00126.mp4",
+      "sentence": "你药喝完了吗？",
+      "gloss": "你/药/喝/完/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00127",
+      "split": "dev",
+      "video_path": "dev/C/dev-00127.mp4",
+      "sentence": "你表演的真棒。",
+      "gloss": "你/表演/好/很/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00128",
+      "split": "dev",
+      "video_path": "dev/C/dev-00128.mp4",
+      "sentence": "你如果乱来看我怎么收拾你。",
+      "gloss": "你/如果/乱/看/我/收拾/你/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00129",
+      "split": "dev",
+      "video_path": "dev/C/dev-00129.mp4",
+      "sentence": "你要是迟到我就扣你工资。",
+      "gloss": "你/如果/迟到2/你/工资/降/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00130",
+      "split": "dev",
+      "video_path": "dev/C/dev-00130.mp4",
+      "sentence": "你见过最好笑的事情是什么？",
+      "gloss": "你/见/过/事情/最2/好/笑/什么/？",
+      "note": "过"
+    },
+    {
+      "sample_id": "dev-00131",
+      "split": "dev",
+      "video_path": "dev/C/dev-00131.mp4",
+      "sentence": "你讲话有一种巴黎口音。",
+      "gloss": "你/讲话/声音/像/巴黎/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00132",
+      "split": "dev",
+      "video_path": "dev/C/dev-00132.mp4",
+      "sentence": "你说话算数吗？",
+      "gloss": "你/说话/算/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00133",
+      "split": "dev",
+      "video_path": "dev/C/dev-00133.mp4",
+      "sentence": "你走错教室了。",
+      "gloss": "你/走/教室/错/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00134",
+      "split": "dev",
+      "video_path": "dev/C/dev-00134.mp4",
+      "sentence": "你还是坐公交车吧。",
+      "gloss": "你/还是/坐/公交/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00135",
+      "split": "dev",
+      "video_path": "dev/C/dev-00135.mp4",
+      "sentence": "你还是给我吧。",
+      "gloss": "你/还是/给我/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00136",
+      "split": "dev",
+      "video_path": "dev/C/dev-00136.mp4",
+      "sentence": "你还要上课多久？",
+      "gloss": "你/又/要/上课/时间/多少/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00137",
+      "split": "dev",
+      "video_path": "dev/C/dev-00137.mp4",
+      "sentence": "你还记得妈妈怎么说的吗？",
+      "gloss": "你/妈妈/说/什么/记得/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00138",
+      "split": "dev",
+      "video_path": "dev/C/dev-00138.mp4",
+      "sentence": "你这么做有些过分了。",
+      "gloss": "你/做/这样/过分/有/。",
+      "note": "过分"
+    },
+    {
+      "sample_id": "dev-00139",
+      "split": "dev",
+      "video_path": "dev/C/dev-00139.mp4",
+      "sentence": "你这么干迟早会出事的。",
+      "gloss": "你/这样/做/以后/出事/会/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00140",
+      "split": "dev",
+      "video_path": "dev/C/dev-00140.mp4",
+      "sentence": "你长得确实帅。",
+      "gloss": "你/样子/帅/真2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00141",
+      "split": "dev",
+      "video_path": "dev/C/dev-00141.mp4",
+      "sentence": "你需要花费更多的钱才能得到。",
+      "gloss": "你/要/花钱/多/收获/可以/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00142",
+      "split": "dev",
+      "video_path": "dev/C/dev-00142.mp4",
+      "sentence": "你需要帮忙吗？",
+      "gloss": "你/帮助/要/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00143",
+      "split": "dev",
+      "video_path": "dev/C/dev-00143.mp4",
+      "sentence": "停车我要下车。",
+      "gloss": "停车/我/下车/要/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00144",
+      "split": "dev",
+      "video_path": "dev/C/dev-00144.mp4",
+      "sentence": "健康才是最重要的。",
+      "gloss": "健康/最2/重要/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00145",
+      "split": "dev",
+      "video_path": "dev/C/dev-00145.mp4",
+      "sentence": "健康是最大的财富。",
+      "gloss": "健康/最2/大/富/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00146",
+      "split": "dev",
+      "video_path": "dev/C/dev-00146.mp4",
+      "sentence": "公交车今天迟到了。",
+      "gloss": "公交/今天/迟到/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00147",
+      "split": "dev",
+      "video_path": "dev/C/dev-00147.mp4",
+      "sentence": "公务员是很好的职业。",
+      "gloss": "公务员/职业/好/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00148",
+      "split": "dev",
+      "video_path": "dev/C/dev-00148.mp4",
+      "sentence": "我真的赚不到钱。",
+      "gloss": "我/赚/不行/真2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00149",
+      "split": "dev",
+      "video_path": "dev/C/dev-00149.mp4",
+      "sentence": "你真可怜。",
+      "gloss": "你/可怜/真2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00150",
+      "split": "dev",
+      "video_path": "dev/C/dev-00150.mp4",
+      "sentence": "准备出去玩。",
+      "gloss": "准备/出去/玩/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00151",
+      "split": "dev",
+      "video_path": "dev/C/dev-00151.mp4",
+      "sentence": "创新创业大赛你有参加吗？",
+      "gloss": "创新/创/业/比赛/你/参加/有/？",
+      "note": "创业"
+    },
+    {
+      "sample_id": "dev-00152",
+      "split": "dev",
+      "video_path": "dev/C/dev-00152.mp4",
+      "sentence": "别人的看法不重要。",
+      "gloss": "其他/人/看法/重要/不/。",
+      "note": "其他"
+    },
+    {
+      "sample_id": "dev-00153",
+      "split": "dev",
+      "video_path": "dev/C/dev-00153.mp4",
+      "sentence": "前面就是上海了，要到了。",
+      "gloss": "前/上海/是/到/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00154",
+      "split": "dev",
+      "video_path": "dev/C/dev-00154.mp4",
+      "sentence": "原来那个东西是你的。",
+      "gloss": "原来/东西/你/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00155",
+      "split": "dev",
+      "video_path": "dev/C/dev-00155.mp4",
+      "sentence": "原来那个人是你啊。",
+      "gloss": "原来/人/你/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00156",
+      "split": "dev",
+      "video_path": "dev/C/dev-00156.mp4",
+      "sentence": "去哪里才能找资料？",
+      "gloss": "找/资料/去/哪/？",
+      "note": "资料"
+    },
+    {
+      "sample_id": "dev-00157",
+      "split": "dev",
+      "video_path": "dev/C/dev-00157.mp4",
+      "sentence": "叙利亚讲英语吗？",
+      "gloss": "叙利亚/讲/英语/？",
+      "note": "英语"
+    },
+    {
+      "sample_id": "dev-00158",
+      "split": "dev",
+      "video_path": "dev/C/dev-00158.mp4",
+      "sentence": "可以租给我空房间吗？",
+      "gloss": "空/房间/借/给（我）/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00159",
+      "split": "dev",
+      "video_path": "dev/C/dev-00159.mp4",
+      "sentence": "台湾是中国的。",
+      "gloss": "台湾/中国/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00160",
+      "split": "dev",
+      "video_path": "dev/C/dev-00160.mp4",
+      "sentence": "吃完饭应该来杯奶茶。",
+      "gloss": "吃完/应该/奶茶/喝/。",
+      "note": "奶茶"
+    },
+    {
+      "sample_id": "dev-00161",
+      "split": "dev",
+      "video_path": "dev/C/dev-00161.mp4",
+      "sentence": "各地考生在同一天参加高考。",
+      "gloss": "全部/国/学生/参加/高/考/时间/一样/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00162",
+      "split": "dev",
+      "video_path": "dev/C/dev-00162.mp4",
+      "sentence": "合作愉快。",
+      "gloss": "合作/开心/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00163",
+      "split": "dev",
+      "video_path": "dev/D/dev-00163.mp4",
+      "sentence": "听了这事之后你有什么感想吗？",
+      "gloss": "这/事/听/完/你/感想/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00164",
+      "split": "dev",
+      "video_path": "dev/D/dev-00164.mp4",
+      "sentence": "和你度过了一个美好的晚上。",
+      "gloss": "和/你/过/一/美好/晚/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00165",
+      "split": "dev",
+      "video_path": "dev/D/dev-00165.mp4",
+      "sentence": "那个男的很熟悉。",
+      "gloss": "那/男/熟悉/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00166",
+      "split": "dev",
+      "video_path": "dev/D/dev-00166.mp4",
+      "sentence": "因为人口多，所以消费市场规模大。",
+      "gloss": "因为/人/口/多/所以/消费2/市场/规模/大/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00167",
+      "split": "dev",
+      "video_path": "dev/D/dev-00167.mp4",
+      "sentence": "国家公园在哪里？",
+      "gloss": "国家/公园/在哪/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00168",
+      "split": "dev",
+      "video_path": "dev/D/dev-00168.mp4",
+      "sentence": "在大学我感到非常迷茫。",
+      "gloss": "在/大学/我/感觉/迷茫/很1/。",
+      "note": "迷茫"
+    },
+    {
+      "sample_id": "dev-00169",
+      "split": "dev",
+      "video_path": "dev/D/dev-00169.mp4",
+      "sentence": "在所有职业中，建筑工人有一定危险性。",
+      "gloss": "在/所有/职业/中/建筑1/工人/危险/性/有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00170",
+      "split": "dev",
+      "video_path": "dev/D/dev-00170.mp4",
+      "sentence": "在这边明天的高考。",
+      "gloss": "在/这/明天/高考/。",
+      "note": "高考"
+    },
+    {
+      "sample_id": "dev-00171",
+      "split": "dev",
+      "video_path": "dev/D/dev-00171.mp4",
+      "sentence": "地图上可以找到这个地方吗？",
+      "gloss": "地图1/找/到/这/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00172",
+      "split": "dev",
+      "video_path": "dev/D/dev-00172.mp4",
+      "sentence": "地图上没有这个地方。",
+      "gloss": "地图1/没有/这/地方/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00173",
+      "split": "dev",
+      "video_path": "dev/D/dev-00173.mp4",
+      "sentence": "地铁车门要关了，快上车。",
+      "gloss": "地铁/门/关/快/上车/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00174",
+      "split": "dev",
+      "video_path": "dev/D/dev-00174.mp4",
+      "sentence": "坐在那学习很好。",
+      "gloss": "坐/那/学习/很1/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00175",
+      "split": "dev",
+      "video_path": "dev/D/dev-00175.mp4",
+      "sentence": "垃圾食品以后不要吃了。",
+      "gloss": "垃圾/食品/以后/吃/不要/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00176",
+      "split": "dev",
+      "video_path": "dev/D/dev-00176.mp4",
+      "sentence": "多久了，还没发现。",
+      "gloss": "久/还/没/发现/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00177",
+      "split": "dev",
+      "video_path": "dev/D/dev-00177.mp4",
+      "sentence": "大家请坐，不用客气。",
+      "gloss": "大家/请/坐/不/用/客气/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00178",
+      "split": "dev",
+      "video_path": "dev/D/dev-00178.mp4",
+      "sentence": "大家都很棒。",
+      "gloss": "大家/都/很1/棒/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00179",
+      "split": "dev",
+      "video_path": "dev/D/dev-00179.mp4",
+      "sentence": "天文学好难学呀。",
+      "gloss": "天文/学/难/学/很1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00180",
+      "split": "dev",
+      "video_path": "dev/D/dev-00180.mp4",
+      "sentence": "太自信不是好事。",
+      "gloss": "太1/自信/不是/好/事/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00181",
+      "split": "dev",
+      "video_path": "dev/D/dev-00181.mp4",
+      "sentence": "女性在工作中不输男性。",
+      "gloss": "女/在/工作/中/男/平衡/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00182",
+      "split": "dev",
+      "video_path": "dev/D/dev-00182.mp4",
+      "sentence": "如何才能把事情干的更好？",
+      "gloss": "如何/可以/让/事情/变/更/好/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00183",
+      "split": "dev",
+      "video_path": "dev/D/dev-00183.mp4",
+      "sentence": "妈妈喜欢在睡前给我讲故事。",
+      "gloss": "妈妈/喜欢/睡觉/之前/给（我）/讲/故事/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00184",
+      "split": "dev",
+      "video_path": "dev/D/dev-00184.mp4",
+      "sentence": "妈妈安排我去打扫卫生。",
+      "gloss": "妈妈/安排/我/去/打扫/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00185",
+      "split": "dev",
+      "video_path": "dev/D/dev-00185.mp4",
+      "sentence": "妈妈，我的行李呢？",
+      "gloss": "妈妈/我/行李/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00186",
+      "split": "dev",
+      "video_path": "dev/D/dev-00186.mp4",
+      "sentence": "学习英语重要吗？",
+      "gloss": "学习/英语/重要/？",
+      "note": "英语"
+    },
+    {
+      "sample_id": "dev-00187",
+      "split": "dev",
+      "video_path": "dev/D/dev-00187.mp4",
+      "sentence": "宽敞点的场地。",
+      "gloss": "宽/地方/。",
+      "note": "宽敞"
+    },
+    {
+      "sample_id": "dev-00188",
+      "split": "dev",
+      "video_path": "dev/D/dev-00188.mp4",
+      "sentence": "帮我向你父母问好。",
+      "gloss": "帮助（我）/给/爸爸/妈妈/问/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00189",
+      "split": "dev",
+      "video_path": "dev/D/dev-00189.mp4",
+      "sentence": "当然啦，那个男人我认识。",
+      "gloss": "肯定/那个/男/我/认识/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00190",
+      "split": "dev",
+      "video_path": "dev/D/dev-00190.mp4",
+      "sentence": "恢复精神状态没那么快。",
+      "gloss": "恢复/精神/状态/慢/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00191",
+      "split": "dev",
+      "video_path": "dev/D/dev-00191.mp4",
+      "sentence": "想一想去哪里玩。",
+      "gloss": "想/去/哪里/玩/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00192",
+      "split": "dev",
+      "video_path": "dev/D/dev-00192.mp4",
+      "sentence": "想学开车。",
+      "gloss": "想/学/开车/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00193",
+      "split": "dev",
+      "video_path": "dev/D/dev-00193.mp4",
+      "sentence": "感冒没那么快好。",
+      "gloss": "感冒/好/慢/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00194",
+      "split": "dev",
+      "video_path": "dev/D/dev-00194.mp4",
+      "sentence": "我一定能成功。",
+      "gloss": "我/一定/可以/成功/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00195",
+      "split": "dev",
+      "video_path": "dev/D/dev-00195.mp4",
+      "sentence": "我不会让你失望的。",
+      "gloss": "我/不会/让/你/失望/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00196",
+      "split": "dev",
+      "video_path": "dev/D/dev-00196.mp4",
+      "sentence": "我不会踢足球。",
+      "gloss": "我/不会/足球/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00197",
+      "split": "dev",
+      "video_path": "dev/D/dev-00197.mp4",
+      "sentence": "我不同意你这样干。",
+      "gloss": "我/不/同意/你/这样/干/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00198",
+      "split": "dev",
+      "video_path": "dev/D/dev-00198.mp4",
+      "sentence": "我不喜欢吃甜食。",
+      "gloss": "我/不/喜欢/吃/甜/食物/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00199",
+      "split": "dev",
+      "video_path": "dev/D/dev-00199.mp4",
+      "sentence": "我不喜欢吃苹果。",
+      "gloss": "我/不/喜欢/吃/苹果/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00200",
+      "split": "dev",
+      "video_path": "dev/D/dev-00200.mp4",
+      "sentence": "我不喜欢吃凤梨。",
+      "gloss": "我/不/喜欢/吃/凤梨/。",
+      "note": "凤梨"
+    },
+    {
+      "sample_id": "dev-00201",
+      "split": "dev",
+      "video_path": "dev/D/dev-00201.mp4",
+      "sentence": "我不喜欢咸食。",
+      "gloss": "我/不/喜欢/吃/咸/食物/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00202",
+      "split": "dev",
+      "video_path": "dev/D/dev-00202.mp4",
+      "sentence": "我不喜欢烟味。",
+      "gloss": "我/不/喜欢/抽烟/闻/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00203",
+      "split": "dev",
+      "video_path": "dev/D/dev-00203.mp4",
+      "sentence": "我不相信你能完成。",
+      "gloss": "我/不信/你/可以/完成/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00204",
+      "split": "dev",
+      "video_path": "dev/D/dev-00204.mp4",
+      "sentence": "我不知道怎么去管理自己的时间。",
+      "gloss": "我/不知道1/怎么/去/管理/自己/时间/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00205",
+      "split": "dev",
+      "video_path": "dev/D/dev-00205.mp4",
+      "sentence": "我不能喝酒。",
+      "gloss": "我/不能2/喝酒/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00206",
+      "split": "dev",
+      "video_path": "dev/D/dev-00206.mp4",
+      "sentence": "我不能回答你的问题。",
+      "gloss": "我/不能2/回答/你/问题/。",
+      "note": "回答"
+    },
+    {
+      "sample_id": "dev-00207",
+      "split": "dev",
+      "video_path": "dev/D/dev-00207.mp4",
+      "sentence": "我今天发挥的怎么样？",
+      "gloss": "我/今天/发挥/怎么样/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00208",
+      "split": "dev",
+      "video_path": "dev/D/dev-00208.mp4",
+      "sentence": "我今早和爸爸一起出门。",
+      "gloss": "我/今天/早上1/和/爸爸/一起/出门/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00209",
+      "split": "dev",
+      "video_path": "dev/E/dev-00209.mp4",
+      "sentence": "我们一起照张相吧。",
+      "gloss": "我们/一起/拍照/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00210",
+      "split": "dev",
+      "video_path": "dev/E/dev-00210.mp4",
+      "sentence": "我们上去就好了。",
+      "gloss": "我们/上/去/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00211",
+      "split": "dev",
+      "video_path": "dev/E/dev-00211.mp4",
+      "sentence": "我们什么时候去打篮球？",
+      "gloss": "我们/去/篮球/时间/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00212",
+      "split": "dev",
+      "video_path": "dev/E/dev-00212.mp4",
+      "sentence": "我们重新开始吧。",
+      "gloss": "我们/再/新/开始/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00213",
+      "split": "dev",
+      "video_path": "dev/E/dev-00213.mp4",
+      "sentence": "我们从那个方面发展好一点。",
+      "gloss": "我们/那个/方面/发展/好/一点/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00214",
+      "split": "dev",
+      "video_path": "dev/E/dev-00214.mp4",
+      "sentence": "我们去吃饭吧。",
+      "gloss": "我们/去/吃饭/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00215",
+      "split": "dev",
+      "video_path": "dev/E/dev-00215.mp4",
+      "sentence": "我们去打高尔夫球怎么样？",
+      "gloss": "我们/去/高尔夫球/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00216",
+      "split": "dev",
+      "video_path": "dev/E/dev-00216.mp4",
+      "sentence": "我们叫外卖吧。",
+      "gloss": "我们/外卖/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00217",
+      "split": "dev",
+      "video_path": "dev/E/dev-00217.mp4",
+      "sentence": "我们周末要补课吗？",
+      "gloss": "我们/周末/加/课/？",
+      "note": "周末"
+    },
+    {
+      "sample_id": "dev-00218",
+      "split": "dev",
+      "video_path": "dev/E/dev-00218.mp4",
+      "sentence": "我们喝茶还是喝咖啡？",
+      "gloss": "我们/茶/咖啡/喝/哪个/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00219",
+      "split": "dev",
+      "video_path": "dev/E/dev-00219.mp4",
+      "sentence": "我们国家要发展农业经济。",
+      "gloss": "我们/国家/要/发展/农业/经济/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00220",
+      "split": "dev",
+      "video_path": "dev/E/dev-00220.mp4",
+      "sentence": "我们应该在学习中自我提升。",
+      "gloss": "我们/应该/在/学习/中/自己/提升/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00221",
+      "split": "dev",
+      "video_path": "dev/E/dev-00221.mp4",
+      "sentence": "我们应该有自己的兴趣爱好。",
+      "gloss": "我们/应该/有/自己/兴趣/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00222",
+      "split": "dev",
+      "video_path": "dev/E/dev-00222.mp4",
+      "sentence": "我们应该每天吃一点水果。",
+      "gloss": "我们/应该/每天/水果/吃/一点/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00223",
+      "split": "dev",
+      "video_path": "dev/E/dev-00223.mp4",
+      "sentence": "我们应该重视粮食安全。",
+      "gloss": "我们/应该/重视/粮食/安全/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00224",
+      "split": "dev",
+      "video_path": "dev/E/dev-00224.mp4",
+      "sentence": "我们打车吧。",
+      "gloss": "我们/打车/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00225",
+      "split": "dev",
+      "video_path": "dev/E/dev-00225.mp4",
+      "sentence": "我们明天去打网球吧。",
+      "gloss": "我们/明天/去/网球/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00226",
+      "split": "dev",
+      "video_path": "dev/E/dev-00226.mp4",
+      "sentence": "我们晚上去吃点不一样的吧。",
+      "gloss": "我们/晚上/去/吃/点/新鲜/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00227",
+      "split": "dev",
+      "video_path": "dev/E/dev-00227.mp4",
+      "sentence": "我们有机会获胜吗？",
+      "gloss": "我们/有/机会/胜利1/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00228",
+      "split": "dev",
+      "video_path": "dev/E/dev-00228.mp4",
+      "sentence": "我们来年不见不散。",
+      "gloss": "我们/以后/再/见/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00229",
+      "split": "dev",
+      "video_path": "dev/E/dev-00229.mp4",
+      "sentence": "我们来聊聊家常吧。",
+      "gloss": "我们/来/聊天/家/常常/事/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00230",
+      "split": "dev",
+      "video_path": "dev/E/dev-00230.mp4",
+      "sentence": "我们正是拼搏的时候。",
+      "gloss": "我们/拼搏/时间/正好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00231",
+      "split": "dev",
+      "video_path": "dev/E/dev-00231.mp4",
+      "sentence": "我们继续读书吧。",
+      "gloss": "我们/读书/继续/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00232",
+      "split": "dev",
+      "video_path": "dev/E/dev-00232.mp4",
+      "sentence": "我们英语老师很漂亮。",
+      "gloss": "我们/英语/老师/漂亮/。",
+      "note": "英语"
+    },
+    {
+      "sample_id": "dev-00233",
+      "split": "dev",
+      "video_path": "dev/E/dev-00233.mp4",
+      "sentence": "我们要关心别人的情绪。",
+      "gloss": "我们/要/关心/别人/心情/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00234",
+      "split": "dev",
+      "video_path": "dev/E/dev-00234.mp4",
+      "sentence": "我们要坚定文化自信。",
+      "gloss": "我们/要/坚定/文化/自信/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00235",
+      "split": "dev",
+      "video_path": "dev/E/dev-00235.mp4",
+      "sentence": "我们要坚强点。",
+      "gloss": "我们/要/坚强/点/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00236",
+      "split": "dev",
+      "video_path": "dev/E/dev-00236.mp4",
+      "sentence": "我们要实事求事。",
+      "gloss": "我们/要/实事求是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00237",
+      "split": "dev",
+      "video_path": "dev/E/dev-00237.mp4",
+      "sentence": "我们要实现自我价值。",
+      "gloss": "我们/要/实现/自己/价值/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00238",
+      "split": "dev",
+      "video_path": "dev/E/dev-00238.mp4",
+      "sentence": "我们要尽可能去学习专业技能。",
+      "gloss": "我们/要/尽力/学习/专业/技能/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00239",
+      "split": "dev",
+      "video_path": "dev/E/dev-00239.mp4",
+      "sentence": "我们要建设新时代强国。",
+      "gloss": "我们/要/建设/新/时代/强/国/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00240",
+      "split": "dev",
+      "video_path": "dev/E/dev-00240.mp4",
+      "sentence": "我们要敢于实践。",
+      "gloss": "我们/要/勇敢/实践/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00241",
+      "split": "dev",
+      "video_path": "dev/E/dev-00241.mp4",
+      "sentence": "我们要有好的习惯。",
+      "gloss": "我们/要/有/好/习惯/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00242",
+      "split": "dev",
+      "video_path": "dev/E/dev-00242.mp4",
+      "sentence": "我们还是老规矩。",
+      "gloss": "我们/还是/旧/规矩/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00243",
+      "split": "dev",
+      "video_path": "dev/E/dev-00243.mp4",
+      "sentence": "我会做饭很奇怪吗？",
+      "gloss": "我/做饭/会/奇怪/？",
+      "note": "做饭"
+    },
+    {
+      "sample_id": "dev-00244",
+      "split": "dev",
+      "video_path": "dev/E/dev-00244.mp4",
+      "sentence": "我会给你一份满意的答案。",
+      "gloss": "我/会/给（你）/满意/答案/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00245",
+      "split": "dev",
+      "video_path": "dev/E/dev-00245.mp4",
+      "sentence": "我住在城市中心。",
+      "gloss": "我/城市/中心/住/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00246",
+      "split": "dev",
+      "video_path": "dev/E/dev-00246.mp4",
+      "sentence": "我先完成我的功课。",
+      "gloss": "我/先/做/自己/作业/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00247",
+      "split": "dev",
+      "video_path": "dev/E/dev-00247.mp4",
+      "sentence": "我准备下车了。",
+      "gloss": "我/准备/下车/。",
+      "note": "下车"
+    },
+    {
+      "sample_id": "dev-00248",
+      "split": "dev",
+      "video_path": "dev/E/dev-00248.mp4",
+      "sentence": "我刚买了自行车。",
+      "gloss": "我/刚/买/自行车/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00249",
+      "split": "dev",
+      "video_path": "dev/E/dev-00249.mp4",
+      "sentence": "我刚刚没赶上飞机。",
+      "gloss": "我/刚刚/飞机/去/迟/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00250",
+      "split": "dev",
+      "video_path": "dev/E/dev-00250.mp4",
+      "sentence": "我刚才说话影响到你了吗？",
+      "gloss": "我/刚才/说话/影响/你/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00251",
+      "split": "dev",
+      "video_path": "dev/E/dev-00251.mp4",
+      "sentence": "我本来没有这个意思。",
+      "gloss": "我/本来/这个/意思/没有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00252",
+      "split": "dev",
+      "video_path": "dev/E/dev-00252.mp4",
+      "sentence": "我去找警察打听一下。",
+      "gloss": "我/去/找/警察/问/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00253",
+      "split": "dev",
+      "video_path": "dev/E/dev-00253.mp4",
+      "sentence": "我去美容院消费了。",
+      "gloss": "我/去/美容院/花钱/。",
+      "note": "美容院"
+    },
+    {
+      "sample_id": "dev-00254",
+      "split": "dev",
+      "video_path": "dev/E/dev-00254.mp4",
+      "sentence": "我可以看书吗？",
+      "gloss": "我/书/看/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00255",
+      "split": "dev",
+      "video_path": "dev/E/dev-00255.mp4",
+      "sentence": "我同意你的想法。",
+      "gloss": "我/同意/你/想法/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00256",
+      "split": "dev",
+      "video_path": "dev/E/dev-00256.mp4",
+      "sentence": "我周末通常去画画。",
+      "gloss": "我/周末/常常/去/画画/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00257",
+      "split": "dev",
+      "video_path": "dev/E/dev-00257.mp4",
+      "sentence": "我喜欢吃卷心菜。",
+      "gloss": "我/卷/心/菜/喜欢/吃/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00258",
+      "split": "dev",
+      "video_path": "dev/E/dev-00258.mp4",
+      "sentence": "我喜欢吃美食。",
+      "gloss": "我/美丽/吃/喜欢/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00259",
+      "split": "dev",
+      "video_path": "dev/E/dev-00259.mp4",
+      "sentence": "我喜欢吃菠萝。",
+      "gloss": "我/菠萝/喜欢/吃/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00260",
+      "split": "dev",
+      "video_path": "dev/F/dev-00260.mp4",
+      "sentence": "我喜欢夏季。",
+      "gloss": "夏天/我/喜欢/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00261",
+      "split": "dev",
+      "video_path": "dev/F/dev-00261.mp4",
+      "sentence": "我喜欢牛奶。",
+      "gloss": "牛奶/我/喜欢/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00262",
+      "split": "dev",
+      "video_path": "dev/F/dev-00262.mp4",
+      "sentence": "我喜欢苹果。",
+      "gloss": "苹果/我/喜欢/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00263",
+      "split": "dev",
+      "video_path": "dev/F/dev-00263.mp4",
+      "sentence": "我回忆起了小时候。",
+      "gloss": "我/想/小孩/时候/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00264",
+      "split": "dev",
+      "video_path": "dev/F/dev-00264.mp4",
+      "sentence": "我国很重视对土地的保护。",
+      "gloss": "土地/保护/我/国/重视/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00265",
+      "split": "dev",
+      "video_path": "dev/F/dev-00265.mp4",
+      "sentence": "我国最大的粮食输出基地是黑龙江。",
+      "gloss": "我/国/粮食/生产/基本/地/黑龙江/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00266",
+      "split": "dev",
+      "video_path": "dev/F/dev-00266.mp4",
+      "sentence": "我国的黑土地在东北。",
+      "gloss": "我/国/土地/黑/在/东1/北1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00267",
+      "split": "dev",
+      "video_path": "dev/F/dev-00267.mp4",
+      "sentence": "我国经济在持续回升。",
+      "gloss": "我/国/经济/升/继续/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00268",
+      "split": "dev",
+      "video_path": "dev/F/dev-00268.mp4",
+      "sentence": "我国重要的农业生产基地是东北。",
+      "gloss": "我/国/重要/农业/生产1/基础/地/东1/北1/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00269",
+      "split": "dev",
+      "video_path": "dev/F/dev-00269.mp4",
+      "sentence": "我国必须要进口煤炭。",
+      "gloss": "煤/进口/我/国/要/一定/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00270",
+      "split": "dev",
+      "video_path": "dev/F/dev-00270.mp4",
+      "sentence": "我在台北新公园这里。",
+      "gloss": "我/台北/新/公园/附近/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00271",
+      "split": "dev",
+      "video_path": "dev/F/dev-00271.mp4",
+      "sentence": "我在整理我的房间。",
+      "gloss": "我/房间/整理/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00272",
+      "split": "dev",
+      "video_path": "dev/F/dev-00272.mp4",
+      "sentence": "我在这观察你很久了。",
+      "gloss": "我/看/你/时间/长/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00273",
+      "split": "dev",
+      "video_path": "dev/F/dev-00273.mp4",
+      "sentence": "我处理一下工作上的事。",
+      "gloss": "我/工作/事情/我/处理2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00274",
+      "split": "dev",
+      "video_path": "dev/F/dev-00274.mp4",
+      "sentence": "我妈妈还没给我生活费。",
+      "gloss": "我/生活/钱/我/妈妈/给（我）/没有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00275",
+      "split": "dev",
+      "video_path": "dev/F/dev-00275.mp4",
+      "sentence": "我学到了很多东西。",
+      "gloss": "我/学/东西/多/有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00276",
+      "split": "dev",
+      "video_path": "dev/F/dev-00276.mp4",
+      "sentence": "我家住在乡村里。",
+      "gloss": "农村/我/住/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00277",
+      "split": "dev",
+      "video_path": "dev/F/dev-00277.mp4",
+      "sentence": "我对国外的文化很感兴趣。",
+      "gloss": "中国/外/文化/我/兴趣/有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00278",
+      "split": "dev",
+      "video_path": "dev/F/dev-00278.mp4",
+      "sentence": "我就是这么自信。",
+      "gloss": "我/自信/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00279",
+      "split": "dev",
+      "video_path": "dev/F/dev-00279.mp4",
+      "sentence": "我就来过几次。",
+      "gloss": "我/以前/来/一些/完了/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00280",
+      "split": "dev",
+      "video_path": "dev/F/dev-00280.mp4",
+      "sentence": "我帮你签个名吧。",
+      "gloss": "我/帮助/签字/好不好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00281",
+      "split": "dev",
+      "video_path": "dev/F/dev-00281.mp4",
+      "sentence": "我应该坐哪路车？",
+      "gloss": "公交车/我/几/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00282",
+      "split": "dev",
+      "video_path": "dev/F/dev-00282.mp4",
+      "sentence": "我开会的时候不要叫我。",
+      "gloss": "我/开会/时间/叫2/我/不行1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00283",
+      "split": "dev",
+      "video_path": "dev/F/dev-00283.mp4",
+      "sentence": "我开车过来找你吧。",
+      "gloss": "我/找/你/开车/好不好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00284",
+      "split": "dev",
+      "video_path": "dev/F/dev-00284.mp4",
+      "sentence": "我当然要去。",
+      "gloss": "我/去/肯定/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00285",
+      "split": "dev",
+      "video_path": "dev/F/dev-00285.mp4",
+      "sentence": "我很健康没什么好担心的。",
+      "gloss": "我/健康/担心/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00286",
+      "split": "dev",
+      "video_path": "dev/F/dev-00286.mp4",
+      "sentence": "我很少用电子邮件。",
+      "gloss": "我/用/电子邮件/少/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00287",
+      "split": "dev",
+      "video_path": "dev/F/dev-00287.mp4",
+      "sentence": "我很紧张怎么办？",
+      "gloss": "我/紧张/怎么办/？",
+      "note": "怎么办"
+    },
+    {
+      "sample_id": "dev-00288",
+      "split": "dev",
+      "video_path": "dev/F/dev-00288.mp4",
+      "sentence": "我得出去一下，有急事。",
+      "gloss": "我/出门/着急/事情/有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00289",
+      "split": "dev",
+      "video_path": "dev/F/dev-00289.mp4",
+      "sentence": "我得去办公室找老师。",
+      "gloss": "我/去/办公室/找/老师/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00290",
+      "split": "dev",
+      "video_path": "dev/F/dev-00290.mp4",
+      "sentence": "我得去打印一下文件。",
+      "gloss": "文件1/我/打印/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00291",
+      "split": "dev",
+      "video_path": "dev/F/dev-00291.mp4",
+      "sentence": "我忘记我今天晚上要去约会。",
+      "gloss": "今天/晚上/约会/我/忘/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00292",
+      "split": "dev",
+      "video_path": "dev/F/dev-00292.mp4",
+      "sentence": "我想买一本书。",
+      "gloss": "我/买/书/一/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00293",
+      "split": "dev",
+      "video_path": "dev/F/dev-00293.mp4",
+      "sentence": "我想出门开车兜风。",
+      "gloss": "我/想/开车/出去/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00294",
+      "split": "dev",
+      "video_path": "dev/F/dev-00294.mp4",
+      "sentence": "我想创造一个新的东西。",
+      "gloss": "新/东西/我/创造/想/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00295",
+      "split": "dev",
+      "video_path": "dev/F/dev-00295.mp4",
+      "sentence": "我想吃完饭去看书。",
+      "gloss": "我/想/等/吃饭/完了/去/书/看/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00296",
+      "split": "dev",
+      "video_path": "dev/F/dev-00296.mp4",
+      "sentence": "我想回家去创业。",
+      "gloss": "我/回/家/创造1/业/想/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00297",
+      "split": "dev",
+      "video_path": "dev/F/dev-00297.mp4",
+      "sentence": "我想开一家宠物医院。",
+      "gloss": "开/宠物/医院/我/想/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00298",
+      "split": "dev",
+      "video_path": "dev/F/dev-00298.mp4",
+      "sentence": "我想成为一个投资人。",
+      "gloss": "希望/我/投资/人/工作/以后/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00299",
+      "split": "dev",
+      "video_path": "dev/F/dev-00299.mp4",
+      "sentence": "我想成为运动员。",
+      "gloss": "希望/我/运动/员/工作/以后/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00300",
+      "split": "dev",
+      "video_path": "dev/F/dev-00300.mp4",
+      "sentence": "我想跟你分享有趣的事。",
+      "gloss": "趣味/故事/我/告诉/你/想/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00301",
+      "split": "dev",
+      "video_path": "dev/F/dev-00301.mp4",
+      "sentence": "我感觉现在就业圧力好大。",
+      "gloss": "我/感觉/就业/压/力/大/现在/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00302",
+      "split": "dev",
+      "video_path": "dev/F/dev-00302.mp4",
+      "sentence": "我很清楚你的身份。",
+      "gloss": "你/身份/我/知道/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00303",
+      "split": "dev",
+      "video_path": "dev/F/dev-00303.mp4",
+      "sentence": "我手机没电关机了。",
+      "gloss": "我/手机/电/没有/关/了/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00304",
+      "split": "dev",
+      "video_path": "dev/F/dev-00304.mp4",
+      "sentence": "我拍的照片怎么样？",
+      "gloss": "我/拍照/照片/怎么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00305",
+      "split": "dev",
+      "video_path": "dev/F/dev-00305.mp4",
+      "sentence": "我早上七点必须出门。",
+      "gloss": "我/门/出/早上/七点/必须/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00306",
+      "split": "dev",
+      "video_path": "dev/F/dev-00306.mp4",
+      "sentence": "我早晨起来做饭。",
+      "gloss": "早上1/我/起床/烹饪/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00307",
+      "split": "dev",
+      "video_path": "dev/F/dev-00307.mp4",
+      "sentence": "我是个开朗的男孩子。",
+      "gloss": "我/开朗/男孩/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00308",
+      "split": "dev",
+      "video_path": "dev/F/dev-00308.mp4",
+      "sentence": "我是党员。",
+      "gloss": "我/党/员/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00309",
+      "split": "dev",
+      "video_path": "dev/F/dev-00309.mp4",
+      "sentence": "我最不擅长游泳。",
+      "gloss": "我/游泳/不行2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00310",
+      "split": "dev",
+      "video_path": "dev/G/dev-00310.mp4",
+      "sentence": "我最想成为的职业是医生。",
+      "gloss": "我/最2/想/做/职业/是/医生/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00311",
+      "split": "dev",
+      "video_path": "dev/G/dev-00311.mp4",
+      "sentence": "我最擅长画画。",
+      "gloss": "我/最2/擅长/什么/画画/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00312",
+      "split": "dev",
+      "video_path": "dev/G/dev-00312.mp4",
+      "sentence": "我有一个哥哥。",
+      "gloss": "我/有/哥哥/一/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00313",
+      "split": "dev",
+      "video_path": "dev/G/dev-00313.mp4",
+      "sentence": "我有一只宠物狗。",
+      "gloss": "我/有/狗1/一/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00314",
+      "split": "dev",
+      "video_path": "dev/G/dev-00314.mp4",
+      "sentence": "我有个问题想请教你一下。",
+      "gloss": "我/有/问题/想/问/你/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00315",
+      "split": "dev",
+      "video_path": "dev/G/dev-00315.mp4",
+      "sentence": "我有你的电话号码。",
+      "gloss": "你/电话/号码/我/有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00316",
+      "split": "dev",
+      "video_path": "dev/G/dev-00316.mp4",
+      "sentence": "我有很多优点。",
+      "gloss": "我/优点/多/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00317",
+      "split": "dev",
+      "video_path": "dev/G/dev-00317.mp4",
+      "sentence": "我有很多缺点。",
+      "gloss": "我/缺点/多/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00318",
+      "split": "dev",
+      "video_path": "dev/G/dev-00318.mp4",
+      "sentence": "我有点事，请你稍等一下。",
+      "gloss": "我/有/事情2/你/等/一会儿/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00319",
+      "split": "dev",
+      "video_path": "dev/G/dev-00319.mp4",
+      "sentence": "我期待和你们下次见面。",
+      "gloss": "我/期待/和/你们/再/见面/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00320",
+      "split": "dev",
+      "video_path": "dev/G/dev-00320.mp4",
+      "sentence": "我妈妈好像生病了。",
+      "gloss": "我/妈妈/好像/病/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00321",
+      "split": "dev",
+      "video_path": "dev/G/dev-00321.mp4",
+      "sentence": "我比较喜欢室内活动。",
+      "gloss": "房子/内/活动/我/喜欢/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00322",
+      "split": "dev",
+      "video_path": "dev/G/dev-00322.mp4",
+      "sentence": "我没去参加志愿者服务。",
+      "gloss": "志愿/服务/我/参加/没有2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00323",
+      "split": "dev",
+      "video_path": "dev/G/dev-00323.mp4",
+      "sentence": "我没有做过饭。",
+      "gloss": "我/炒/经历1/没有2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00324",
+      "split": "dev",
+      "video_path": "dev/G/dev-00324.mp4",
+      "sentence": "我没有烟瘾。",
+      "gloss": "我/吸烟/上瘾2/没有2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00325",
+      "split": "dev",
+      "video_path": "dev/G/dev-00325.mp4",
+      "sentence": "我玩游戏你要一起吗？",
+      "gloss": "咱俩/玩/游戏/要/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00326",
+      "split": "dev",
+      "video_path": "dev/G/dev-00326.mp4",
+      "sentence": "我现在在上海旅游。",
+      "gloss": "我/现在/在/上海/旅游/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00327",
+      "split": "dev",
+      "video_path": "dev/G/dev-00327.mp4",
+      "sentence": "我现在很困。",
+      "gloss": "我/现在/瞌睡/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00328",
+      "split": "dev",
+      "video_path": "dev/G/dev-00328.mp4",
+      "sentence": "我现在想吃面包。",
+      "gloss": "我/现在/想/吃/面包/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00329",
+      "split": "dev",
+      "video_path": "dev/G/dev-00329.mp4",
+      "sentence": "我现在过的很幸福。",
+      "gloss": "我/现在/生活/幸福/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00330",
+      "split": "dev",
+      "video_path": "dev/G/dev-00330.mp4",
+      "sentence": "我现在还没有人生目标。",
+      "gloss": "我/现在/人生/目标/没有2/。",
+      "note": "人生"
+    },
+    {
+      "sample_id": "dev-00331",
+      "split": "dev",
+      "video_path": "dev/G/dev-00331.mp4",
+      "sentence": "我的同学医术都还好。",
+      "gloss": "我/同学/医生/技术/都/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00332",
+      "split": "dev",
+      "video_path": "dev/G/dev-00332.mp4",
+      "sentence": "我的故乡在北京。",
+      "gloss": "我/老家/北京/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00333",
+      "split": "dev",
+      "video_path": "dev/G/dev-00333.mp4",
+      "sentence": "我的故事你们想听吗？",
+      "gloss": "我/自己/故事/你们/听/要/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00334",
+      "split": "dev",
+      "video_path": "dev/G/dev-00334.mp4",
+      "sentence": "我的文化课成绩不是很好。",
+      "gloss": "我/文化2/成绩/一般/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00335",
+      "split": "dev",
+      "video_path": "dev/G/dev-00335.mp4",
+      "sentence": "我的条件你答应吗？",
+      "gloss": "我/说/条件/你/同意2/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00336",
+      "split": "dev",
+      "video_path": "dev/G/dev-00336.mp4",
+      "sentence": "我的榜样是妈妈。",
+      "gloss": "妈妈/是/我/榜样/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00337",
+      "split": "dev",
+      "video_path": "dev/G/dev-00337.mp4",
+      "sentence": "我的爱好是打羽毛球。",
+      "gloss": "我/羽毛球/喜欢/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00338",
+      "split": "dev",
+      "video_path": "dev/G/dev-00338.mp4",
+      "sentence": "我的父亲在工地上班。",
+      "gloss": "我/爸爸/工作/在/工地/。",
+      "note": "工地"
+    },
+    {
+      "sample_id": "dev-00339",
+      "split": "dev",
+      "video_path": "dev/G/dev-00339.mp4",
+      "sentence": "我们的友谊很长久。",
+      "gloss": "我们/友谊/悠久/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00340",
+      "split": "dev",
+      "video_path": "dev/G/dev-00340.mp4",
+      "sentence": "我的睡眠不好。",
+      "gloss": "我/睡觉/坏/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00341",
+      "split": "dev",
+      "video_path": "dev/G/dev-00341.mp4",
+      "sentence": "我的责任是做好这个项目。",
+      "gloss": "这个/项目/我/负责/做/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00342",
+      "split": "dev",
+      "video_path": "dev/G/dev-00342.mp4",
+      "sentence": "我的鞋子太大了。",
+      "gloss": "我/鞋/大/很1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00343",
+      "split": "dev",
+      "video_path": "dev/G/dev-00343.mp4",
+      "sentence": "我看你就是没有智慧。",
+      "gloss": "我/看/你/智慧/没有2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00344",
+      "split": "dev",
+      "video_path": "dev/G/dev-00344.mp4",
+      "sentence": "我真的害怕打针。",
+      "gloss": "注射/我/害怕/真1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00345",
+      "split": "dev",
+      "video_path": "dev/G/dev-00345.mp4",
+      "sentence": "我给姥姥买了她爱吃的西瓜。",
+      "gloss": "姥姥/喜欢/西瓜2/我/买/给/她/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00346",
+      "split": "dev",
+      "video_path": "dev/G/dev-00346.mp4",
+      "sentence": "我肚子饿了找个地方吃饭吧。",
+      "gloss": "我/饿/找/吃饭/地方/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00347",
+      "split": "dev",
+      "video_path": "dev/G/dev-00347.mp4",
+      "sentence": "我能满足你所有愿望。",
+      "gloss": "你/全部/心愿/我/满足/可以/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00348",
+      "split": "dev",
+      "video_path": "dev/G/dev-00348.mp4",
+      "sentence": "我能用一下你的洗衣液吗？",
+      "gloss": "你/洗衣液/我/借/可以/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00349",
+      "split": "dev",
+      "video_path": "dev/G/dev-00349.mp4",
+      "sentence": "我要一份带鱼。",
+      "gloss": "我/带鱼/要/一/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00350",
+      "split": "dev",
+      "video_path": "dev/G/dev-00350.mp4",
+      "sentence": "我要去邮局。",
+      "gloss": "我/邮局/去/要/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00351",
+      "split": "dev",
+      "video_path": "dev/G/dev-00351.mp4",
+      "sentence": "我觉得还是算了吧。",
+      "gloss": "我/感觉/算了/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00352",
+      "split": "dev",
+      "video_path": "dev/G/dev-00352.mp4",
+      "sentence": "我该在哪里等你？",
+      "gloss": "我/在/哪里/等/你/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00353",
+      "split": "dev",
+      "video_path": "dev/G/dev-00353.mp4",
+      "sentence": "我跟他没有关系。",
+      "gloss": "他/我/没关系1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00354",
+      "split": "dev",
+      "video_path": "dev/G/dev-00354.mp4",
+      "sentence": "我跟你永远不会有爱情。",
+      "gloss": "咱俩/恋爱/永远/不/。",
+      "note": "永远"
+    },
+    {
+      "sample_id": "dev-00355",
+      "split": "dev",
+      "video_path": "dev/G/dev-00355.mp4",
+      "sentence": "我过一会准备去健身房。",
+      "gloss": "我/准备/去/健身房/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00356",
+      "split": "dev",
+      "video_path": "dev/G/dev-00356.mp4",
+      "sentence": "我还是不懂你在说什么。",
+      "gloss": "你/说/什么/我/不懂/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00357",
+      "split": "dev",
+      "video_path": "dev/G/dev-00357.mp4",
+      "sentence": "我还没去吃饭。",
+      "gloss": "我/吃饭/没有2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00358",
+      "split": "dev",
+      "video_path": "dev/G/dev-00358.mp4",
+      "sentence": "我还没发生活费。",
+      "gloss": "我/生活/钱/给（我）/没有2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00359",
+      "split": "dev",
+      "video_path": "dev/G/dev-00359.mp4",
+      "sentence": "我这个朋友长的帅吧。",
+      "gloss": "我/他/朋友/帅/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00360",
+      "split": "dev",
+      "video_path": "dev/G/dev-00360.mp4",
+      "sentence": "我这周有空想出去旅游。",
+      "gloss": "我/现在/一周/时间/有/想/旅游/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00361",
+      "split": "dev",
+      "video_path": "dev/G/dev-00361.mp4",
+      "sentence": "我这样穿可以吗？",
+      "gloss": "我/穿/这样/可以/？",
+      "note": "这样"
+    },
+    {
+      "sample_id": "dev-00362",
+      "split": "dev",
+      "video_path": "dev/G/dev-00362.mp4",
+      "sentence": "我送你去医院检查身体。",
+      "gloss": "我/送/你/去/医院/做/身体/检查/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00363",
+      "split": "dev",
+      "video_path": "dev/G/dev-00363.mp4",
+      "sentence": "我送你的书喜欢吗？",
+      "gloss": "我/给（你）/书/你/喜欢/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00364",
+      "split": "dev",
+      "video_path": "dev/H/dev-00364.mp4",
+      "sentence": "我非常欣赏你的能力。",
+      "gloss": "你/能力/欣赏/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00365",
+      "split": "dev",
+      "video_path": "dev/H/dev-00365.mp4",
+      "sentence": "我需要一个机会。",
+      "gloss": "机会/我/需要1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00366",
+      "split": "dev",
+      "video_path": "dev/H/dev-00366.mp4",
+      "sentence": "我需要一台新电脑。",
+      "gloss": "新1/电脑/1/我/需要1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00367",
+      "split": "dev",
+      "video_path": "dev/H/dev-00367.mp4",
+      "sentence": "房子还没弄好。",
+      "gloss": "房/建设/好/没/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00368",
+      "split": "dev",
+      "video_path": "dev/H/dev-00368.mp4",
+      "sentence": "手机有优点和缺点。",
+      "gloss": "手机/优点/缺点/有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00369",
+      "split": "dev",
+      "video_path": "dev/H/dev-00369.mp4",
+      "sentence": "扔掉了。",
+      "gloss": "扔/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00370",
+      "split": "dev",
+      "video_path": "dev/H/dev-00370.mp4",
+      "sentence": "早餐都没吃。",
+      "gloss": "早/饭/没有2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00371",
+      "split": "dev",
+      "video_path": "dev/H/dev-00371.mp4",
+      "sentence": "明天是什么天气？",
+      "gloss": "明天/天气/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00372",
+      "split": "dev",
+      "video_path": "dev/H/dev-00372.mp4",
+      "sentence": "明天放假你可以享受一天。",
+      "gloss": "明天/休息/你/舒服/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00373",
+      "split": "dev",
+      "video_path": "dev/I/dev-00373.mp4",
+      "sentence": "明天气温是27度。",
+      "gloss": "明天/温度/20/7/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00374",
+      "split": "dev",
+      "video_path": "dev/I/dev-00374.mp4",
+      "sentence": "明年我就毕业了。",
+      "gloss": "明年/毕业/。",
+      "note": "明年"
+    },
+    {
+      "sample_id": "dev-00375",
+      "split": "dev",
+      "video_path": "dev/I/dev-00375.mp4",
+      "sentence": "晚上来我家聚餐。",
+      "gloss": "晚上/来/我/家/和/吃饭/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00376",
+      "split": "dev",
+      "video_path": "dev/I/dev-00376.mp4",
+      "sentence": "最美好的是不期而遇。",
+      "gloss": "突然/相遇/美/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00377",
+      "split": "dev",
+      "video_path": "dev/I/dev-00377.mp4",
+      "sentence": "最近有点不顺心。",
+      "gloss": "最近/不/顺利/心/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00378",
+      "split": "dev",
+      "video_path": "dev/I/dev-00378.mp4",
+      "sentence": "最近粮价不会出现波动。",
+      "gloss": "最近/米1/价格/稳定/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00379",
+      "split": "dev",
+      "video_path": "dev/I/dev-00379.mp4",
+      "sentence": "最高档的法国餐厅在哪里？",
+      "gloss": "高/级别/法国/餐厅/在/哪/？",
+      "note": "高级"
+    },
+    {
+      "sample_id": "dev-00380",
+      "split": "dev",
+      "video_path": "dev/I/dev-00380.mp4",
+      "sentence": "有你们的支持我很开心。",
+      "gloss": "你们/支持/我/高兴/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00381",
+      "split": "dev",
+      "video_path": "dev/I/dev-00381.mp4",
+      "sentence": "有拖延症是不好的。",
+      "gloss": "拖拉/不/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00382",
+      "split": "dev",
+      "video_path": "dev/J/dev-00382.mp4",
+      "sentence": "有没有想过去旅游？",
+      "gloss": "旅游/去/想/有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00383",
+      "split": "dev",
+      "video_path": "dev/J/dev-00383.mp4",
+      "sentence": "楼下还挺热闹的。",
+      "gloss": "楼/下/热闹2/很2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00384",
+      "split": "dev",
+      "video_path": "dev/J/dev-00384.mp4",
+      "sentence": "比起电视剧，我更喜欢看综艺节目。",
+      "gloss": "电视机/文艺/表演/我/喜欢/更1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00385",
+      "split": "dev",
+      "video_path": "dev/J/dev-00385.mp4",
+      "sentence": "没多少时间看书了？",
+      "gloss": "书/看1/时间/没有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00386",
+      "split": "dev",
+      "video_path": "dev/J/dev-00386.mp4",
+      "sentence": "法国人讲法语。",
+      "gloss": "法国/人/法1/说/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00387",
+      "split": "dev",
+      "video_path": "dev/J/dev-00387.mp4",
+      "sentence": "海边的天空真美。",
+      "gloss": "海/边/天空/美/很2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00388",
+      "split": "dev",
+      "video_path": "dev/J/dev-00388.mp4",
+      "sentence": "渔业枯竭的问题很严重。",
+      "gloss": "渔业/枯竭/严重/很2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00389",
+      "split": "dev",
+      "video_path": "dev/J/dev-00389.mp4",
+      "sentence": "漂亮的女人不可信。",
+      "gloss": "漂亮/姑娘/相信/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00390",
+      "split": "dev",
+      "video_path": "dev/J/dev-00390.mp4",
+      "sentence": "漫画故事是我的最爱。",
+      "gloss": "漫画/故事/我/爱/最1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00391",
+      "split": "dev",
+      "video_path": "dev/J/dev-00391.mp4",
+      "sentence": "现在这个季节是你喜欢的吗？",
+      "gloss": "季节/现在/你/喜欢/是/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00392",
+      "split": "dev",
+      "video_path": "dev/J/dev-00392.mp4",
+      "sentence": "生活一切顺心就好了。",
+      "gloss": "生活/全/心/顺利/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00393",
+      "split": "dev",
+      "video_path": "dev/J/dev-00393.mp4",
+      "sentence": "生活中遇到挫折怎么办？",
+      "gloss": "生活/挫折/相遇/怎么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00394",
+      "split": "dev",
+      "video_path": "dev/J/dev-00394.mp4",
+      "sentence": "电子产品的出现丰富我们的生活。",
+      "gloss": "出现1/电子/产品/我们/生活/丰富/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00395",
+      "split": "dev",
+      "video_path": "dev/J/dev-00395.mp4",
+      "sentence": "白衣服比较好看。",
+      "gloss": "衣服/白/好看/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00396",
+      "split": "dev",
+      "video_path": "dev/J/dev-00396.mp4",
+      "sentence": "看来我真的感冒了。",
+      "gloss": "看/我/感冒/真2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00397",
+      "split": "dev",
+      "video_path": "dev/J/dev-00397.mp4",
+      "sentence": "看看我们的合照。",
+      "gloss": "看/我们/和/照片/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00398",
+      "split": "dev",
+      "video_path": "dev/J/dev-00398.mp4",
+      "sentence": "真是太丢人了。",
+      "gloss": "丢脸/是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00399",
+      "split": "dev",
+      "video_path": "dev/J/dev-00399.mp4",
+      "sentence": "票价多少钱？",
+      "gloss": "票/价格/多少/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00400",
+      "split": "dev",
+      "video_path": "dev/J/dev-00400.mp4",
+      "sentence": "粮食是最宝贵的东西。",
+      "gloss": "粮食/东西1/宝贵/最1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00401",
+      "split": "dev",
+      "video_path": "dev/J/dev-00401.mp4",
+      "sentence": "给你30秒考虑一下。",
+      "gloss": "30/秒钟/你/考虑/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00402",
+      "split": "dev",
+      "video_path": "dev/J/dev-00402.mp4",
+      "sentence": "给我开个银行账户。",
+      "gloss": "银行/账户/开门/我/要/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00403",
+      "split": "dev",
+      "video_path": "dev/J/dev-00403.mp4",
+      "sentence": "美国人讲英语。",
+      "gloss": "美国/人/英语/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00404",
+      "split": "dev",
+      "video_path": "dev/J/dev-00404.mp4",
+      "sentence": "美好的一天就应该出太阳。",
+      "gloss": "一天/美/太阳/应该/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00405",
+      "split": "dev",
+      "video_path": "dev/J/dev-00405.mp4",
+      "sentence": "美好的心情从现在开始。",
+      "gloss": "心情/美/现在/开始/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00406",
+      "split": "dev",
+      "video_path": "dev/J/dev-00406.mp4",
+      "sentence": "老师很不开心。",
+      "gloss": "老师/难受/很2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00407",
+      "split": "dev",
+      "video_path": "dev/J/dev-00407.mp4",
+      "sentence": "老师很支持这个项目。",
+      "gloss": "项目/老师/支持/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00408",
+      "split": "dev",
+      "video_path": "dev/J/dev-00408.mp4",
+      "sentence": "能不能帮帮我？",
+      "gloss": "帮助/我/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00409",
+      "split": "dev",
+      "video_path": "dev/J/dev-00409.mp4",
+      "sentence": "能帮到你就好了。",
+      "gloss": "帮助/你/可以/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00410",
+      "split": "dev",
+      "video_path": "dev/J/dev-00410.mp4",
+      "sentence": "艺术馆在哪个方向？",
+      "gloss": "艺术/家/方向/哪里/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00411",
+      "split": "dev",
+      "video_path": "dev/K/dev-00411.mp4",
+      "sentence": "茶的发源地在中国。",
+      "gloss": "茶/发源地/是/中国/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00412",
+      "split": "dev",
+      "video_path": "dev/K/dev-00412.mp4",
+      "sentence": "西瓜又大又圆，看着好想吃。",
+      "gloss": "这里/西瓜1/看1/大/圆/好/想/吃/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00413",
+      "split": "dev",
+      "video_path": "dev/K/dev-00413.mp4",
+      "sentence": "西红柿的营养很丰富。",
+      "gloss": "西红柿/营养/很2/丰富/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00414",
+      "split": "dev",
+      "video_path": "dev/K/dev-00414.mp4",
+      "sentence": "要下雨了，我们要防范山洪。",
+      "gloss": "等/一会儿/雨/我们/防洪/需要/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00415",
+      "split": "dev",
+      "video_path": "dev/K/dev-00415.mp4",
+      "sentence": "见到你很高兴。",
+      "gloss": "见面/你/高兴/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00416",
+      "split": "dev",
+      "video_path": "dev/K/dev-00416.mp4",
+      "sentence": "规则是领导者制定的。",
+      "gloss": "规则/领导1/人/制定/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00417",
+      "split": "dev",
+      "video_path": "dev/K/dev-00417.mp4",
+      "sentence": "解决问题才是根本。",
+      "gloss": "问题/解决/最2/重要/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00418",
+      "split": "dev",
+      "video_path": "dev/K/dev-00418.mp4",
+      "sentence": "警察在这条街干什么？",
+      "gloss": "警察/在/这里/街道/做/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00419",
+      "split": "dev",
+      "video_path": "dev/K/dev-00419.mp4",
+      "sentence": "请你珍惜每一秒钟。",
+      "gloss": "每/秒钟/你/珍惜/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00420",
+      "split": "dev",
+      "video_path": "dev/K/dev-00420.mp4",
+      "sentence": "请在位置上等候发车。",
+      "gloss": "大家/坐/好/等/汽车1/发动2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00421",
+      "split": "dev",
+      "video_path": "dev/K/dev-00421.mp4",
+      "sentence": "请排队下车。",
+      "gloss": "大家/排队/下车/。",
+      "note": "下车"
+    },
+    {
+      "sample_id": "dev-00422",
+      "split": "dev",
+      "video_path": "dev/K/dev-00422.mp4",
+      "sentence": "请问卧室在哪里？",
+      "gloss": "卧室/在/哪/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00423",
+      "split": "dev",
+      "video_path": "dev/K/dev-00423.mp4",
+      "sentence": "谁给你的胆子。",
+      "gloss": "你/胆量/大/是不是/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00424",
+      "split": "dev",
+      "video_path": "dev/K/dev-00424.mp4",
+      "sentence": "跟你完全不是一个档次的。",
+      "gloss": "和/你/比较/档次/不一样/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00425",
+      "split": "dev",
+      "video_path": "dev/K/dev-00425.mp4",
+      "sentence": "躺下来我检查一下身体。",
+      "gloss": "躺/好/身体/检查/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00426",
+      "split": "dev",
+      "video_path": "dev/K/dev-00426.mp4",
+      "sentence": "车门要关闭了快上车。",
+      "gloss": "汽车1/准备/关/上车/快/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00427",
+      "split": "dev",
+      "video_path": "dev/K/dev-00427.mp4",
+      "sentence": "车门要关闭了快下车。",
+      "gloss": "汽车1/准备/关/下车/快/。",
+      "note": "下车"
+    },
+    {
+      "sample_id": "dev-00428",
+      "split": "dev",
+      "video_path": "dev/K/dev-00428.mp4",
+      "sentence": "运动的时候要先热身。",
+      "gloss": "运动/以前/首先/身体/热1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00429",
+      "split": "dev",
+      "video_path": "dev/K/dev-00429.mp4",
+      "sentence": "害怕你出事了。",
+      "gloss": "担心/你/出事/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00430",
+      "split": "dev",
+      "video_path": "dev/K/dev-00430.mp4",
+      "sentence": "还愣着干什么呢，快点动起来呀。",
+      "gloss": "发呆/做/什么/起来/行动/快/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00431",
+      "split": "dev",
+      "video_path": "dev/K/dev-00431.mp4",
+      "sentence": "还是第一次见到这个单词。",
+      "gloss": "这里/单/词/看1/第一次/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00432",
+      "split": "dev",
+      "video_path": "dev/K/dev-00432.mp4",
+      "sentence": "还有四分钟出租车就到了。",
+      "gloss": "等/四分钟/出租车/到/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00433",
+      "split": "dev",
+      "video_path": "dev/K/dev-00433.mp4",
+      "sentence": "还有四分钟要下雨了。",
+      "gloss": "等/四分钟/雨/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00434",
+      "split": "dev",
+      "video_path": "dev/K/dev-00434.mp4",
+      "sentence": "这不是你应该关注的。",
+      "gloss": "关心/这里/你/不行1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00435",
+      "split": "dev",
+      "video_path": "dev/K/dev-00435.mp4",
+      "sentence": "这东西也太危险了。",
+      "gloss": "这里/东西/危险1/很1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00436",
+      "split": "dev",
+      "video_path": "dev/K/dev-00436.mp4",
+      "sentence": "这个东西太烫了。",
+      "gloss": "这里/东西/烫/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00437",
+      "split": "dev",
+      "video_path": "dev/K/dev-00437.mp4",
+      "sentence": "这个东西的用途是什么？",
+      "gloss": "这里/东西2/作用/是/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00438",
+      "split": "dev",
+      "video_path": "dev/K/dev-00438.mp4",
+      "sentence": "这个事情，我必须跟你说。",
+      "gloss": "这里/事情2/必须/告诉（你）/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00439",
+      "split": "dev",
+      "video_path": "dev/K/dev-00439.mp4",
+      "sentence": "这个人很自信。",
+      "gloss": "这里/人/自信/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00440",
+      "split": "dev",
+      "video_path": "dev/K/dev-00440.mp4",
+      "sentence": "这个人绝对有问题。",
+      "gloss": "这里/人/问题/肯定/有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00441",
+      "split": "dev",
+      "video_path": "dev/K/dev-00441.mp4",
+      "sentence": "这个任务我争取早点解决。",
+      "gloss": "这里/任务/解决/我/时间/抓紧/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00442",
+      "split": "dev",
+      "video_path": "dev/K/dev-00442.mp4",
+      "sentence": "这个任务我来做。",
+      "gloss": "这里/任务/我/做/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00443",
+      "split": "dev",
+      "video_path": "dev/K/dev-00443.mp4",
+      "sentence": "这个任务我觉得有难度。",
+      "gloss": "这里/任务/感觉/困难1/有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00444",
+      "split": "dev",
+      "video_path": "dev/K/dev-00444.mp4",
+      "sentence": "这个公寓出租吗？",
+      "gloss": "这里/房/租/可以/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00445",
+      "split": "dev",
+      "video_path": "dev/K/dev-00445.mp4",
+      "sentence": "这个吸尘器多少钱？",
+      "gloss": "这里/吸尘器/钱/多少/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00446",
+      "split": "dev",
+      "video_path": "dev/K/dev-00446.mp4",
+      "sentence": "这个房间是很舒适。",
+      "gloss": "这里/房/舒服/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00447",
+      "split": "dev",
+      "video_path": "dev/K/dev-00447.mp4",
+      "sentence": "这个方法值得一试。",
+      "gloss": "这里/方法/试一试/可以/。",
+      "note": "试一试"
+    },
+    {
+      "sample_id": "dev-00448",
+      "split": "dev",
+      "video_path": "dev/K/dev-00448.mp4",
+      "sentence": "这个是我单位的同事。",
+      "gloss": "这里/我/单位/同事/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00449",
+      "split": "dev",
+      "video_path": "dev/K/dev-00449.mp4",
+      "sentence": "这个是我的领导。",
+      "gloss": "这里/我/领导2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00450",
+      "split": "dev",
+      "video_path": "dev/K/dev-00450.mp4",
+      "sentence": "这个是洗手间吗？",
+      "gloss": "这里/卫生间/是不是/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00451",
+      "split": "dev",
+      "video_path": "dev/K/dev-00451.mp4",
+      "sentence": "这个池塘有鱼吗？",
+      "gloss": "这里/池塘/鱼/有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00452",
+      "split": "dev",
+      "video_path": "dev/K/dev-00452.mp4",
+      "sentence": "这个球拍不值钱。",
+      "gloss": "乒乓球拍/这里/便宜/。",
+      "note": "乒乓球拍"
+    },
+    {
+      "sample_id": "dev-00453",
+      "split": "dev",
+      "video_path": "dev/K/dev-00453.mp4",
+      "sentence": "这个球拍确实不错。",
+      "gloss": "乒乓球拍/这里/好/。",
+      "note": "乒乓球拍"
+    },
+    {
+      "sample_id": "dev-00454",
+      "split": "dev",
+      "video_path": "dev/K/dev-00454.mp4",
+      "sentence": "这个电视剧好好看。",
+      "gloss": "这里/电视机/好/看1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00455",
+      "split": "dev",
+      "video_path": "dev/K/dev-00455.mp4",
+      "sentence": "这个电话号码是谁的？",
+      "gloss": "这里/电话/号码/是/谁/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00456",
+      "split": "dev",
+      "video_path": "dev/K/dev-00456.mp4",
+      "sentence": "这个男人真的帅。",
+      "gloss": "这里/男/真2/帅/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00457",
+      "split": "dev",
+      "video_path": "dev/K/dev-00457.mp4",
+      "sentence": "这个纪念品我真的很喜欢。",
+      "gloss": "这里/纪念品/我/喜欢/。",
+      "note": "纪念品"
+    },
+    {
+      "sample_id": "dev-00458",
+      "split": "dev",
+      "video_path": "dev/K/dev-00458.mp4",
+      "sentence": "这个船能开多少快？",
+      "gloss": "这里/船/驾驶/速度/多少/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00459",
+      "split": "dev",
+      "video_path": "dev/K/dev-00459.mp4",
+      "sentence": "这个项目需要团队合作。",
+      "gloss": "这里/项目/团/队伍/合作/需要/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00460",
+      "split": "dev",
+      "video_path": "dev/K/dev-00460.mp4",
+      "sentence": "这个餐厅菜好吃吗？",
+      "gloss": "这里/餐厅/菜/好不好/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00461",
+      "split": "dev",
+      "video_path": "dev/K/dev-00461.mp4",
+      "sentence": "这么干太困难了。",
+      "gloss": "按照/这里/做/困难1/很1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00462",
+      "split": "dev",
+      "video_path": "dev/K/dev-00462.mp4",
+      "sentence": "这也太震撼了吧。",
+      "gloss": "这里/惊动/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00463",
+      "split": "dev",
+      "video_path": "dev/K/dev-00463.mp4",
+      "sentence": "这些事都由他来决定。",
+      "gloss": "这里/一些2/事情2/让（他）/决定/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00464",
+      "split": "dev",
+      "video_path": "dev/L/dev-00464.mp4",
+      "sentence": "这些水果感觉不是很新鲜。",
+      "gloss": "这/水果/新鲜2/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00465",
+      "split": "dev",
+      "video_path": "dev/L/dev-00465.mp4",
+      "sentence": "这些衣服我已经穿不上了。",
+      "gloss": "大家/衣服/穿/不行2/。",
+      "note": "穿"
+    },
+    {
+      "sample_id": "dev-00466",
+      "split": "dev",
+      "video_path": "dev/L/dev-00466.mp4",
+      "sentence": "这件事不能这么算了。",
+      "gloss": "这/事2/算了/不行1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00467",
+      "split": "dev",
+      "video_path": "dev/L/dev-00467.mp4",
+      "sentence": "这件事值得我们深思。",
+      "gloss": "这/事1/我们/思考/思考/值/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00468",
+      "split": "dev",
+      "video_path": "dev/L/dev-00468.mp4",
+      "sentence": "这位先生好谦虚。",
+      "gloss": "这/男/谦虚/很1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00469",
+      "split": "dev",
+      "video_path": "dev/L/dev-00469.mp4",
+      "sentence": "这俩人太般配了。",
+      "gloss": "他俩/合适2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00470",
+      "split": "dev",
+      "video_path": "dev/L/dev-00470.mp4",
+      "sentence": "这只宠物狗叫什么名字？",
+      "gloss": "这/狗2/姓名/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00471",
+      "split": "dev",
+      "video_path": "dev/L/dev-00471.mp4",
+      "sentence": "这员工看起来怎么这么眼熟？",
+      "gloss": "这/工作/人/眼/熟悉/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00472",
+      "split": "dev",
+      "video_path": "dev/L/dev-00472.mp4",
+      "sentence": "这周末我有一个聚会。",
+      "gloss": "星期六/星期日/我/和/有/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00473",
+      "split": "dev",
+      "video_path": "dev/L/dev-00473.mp4",
+      "sentence": "这家自助餐很便宜。",
+      "gloss": "这/自助餐/钱/便宜/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00474",
+      "split": "dev",
+      "video_path": "dev/L/dev-00474.mp4",
+      "sentence": "这男的看起来有点眼熟。",
+      "gloss": "这/男/眼/熟悉/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00475",
+      "split": "dev",
+      "video_path": "dev/L/dev-00475.mp4",
+      "sentence": "这把游戏你赢了。",
+      "gloss": "游戏/你/赢2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00476",
+      "split": "dev",
+      "video_path": "dev/L/dev-00476.mp4",
+      "sentence": "这是一个大家都熟悉的东西。",
+      "gloss": "这/东西2/大家/熟悉/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00477",
+      "split": "dev",
+      "video_path": "dev/L/dev-00477.mp4",
+      "sentence": "这是一个很有价值的经验。",
+      "gloss": "这/经验/价值/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00478",
+      "split": "dev",
+      "video_path": "dev/L/dev-00478.mp4",
+      "sentence": "这是一件价值五百万的礼物。",
+      "gloss": "这/礼物/钱/5/一百/万/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00479",
+      "split": "dev",
+      "video_path": "dev/L/dev-00479.mp4",
+      "sentence": "这是你的妈妈吗？",
+      "gloss": "这/你/妈妈/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00480",
+      "split": "dev",
+      "video_path": "dev/L/dev-00480.mp4",
+      "sentence": "这是我朋友，帅吧。",
+      "gloss": "我/朋友/帅/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00481",
+      "split": "dev",
+      "video_path": "dev/L/dev-00481.mp4",
+      "sentence": "这是我的女婿。",
+      "gloss": "我/女婿/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00482",
+      "split": "dev",
+      "video_path": "dev/L/dev-00482.mp4",
+      "sentence": "这是我的问题，请不要怪他。",
+      "gloss": "这/问题/我/责怪/他/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00483",
+      "split": "dev",
+      "video_path": "dev/L/dev-00483.mp4",
+      "sentence": "这是无人售票车。",
+      "gloss": "这/汽车1/人/卖/票/没有2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00484",
+      "split": "dev",
+      "video_path": "dev/L/dev-00484.mp4",
+      "sentence": "这是违法的我们不能干。",
+      "gloss": "这/违法1/我们/干/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00485",
+      "split": "dev",
+      "video_path": "dev/L/dev-00485.mp4",
+      "sentence": "这条狗好可爱。",
+      "gloss": "狗2/可爱/可爱/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00486",
+      "split": "dev",
+      "video_path": "dev/L/dev-00486.mp4",
+      "sentence": "这栋楼需要先付订金。",
+      "gloss": "这/楼/提前1/钱/首先/支付/需要1/。",
+      "note": "支付"
+    },
+    {
+      "sample_id": "dev-00487",
+      "split": "dev",
+      "video_path": "dev/L/dev-00487.mp4",
+      "sentence": "这次吃饭我请客。",
+      "gloss": "这/饭/我/请/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00488",
+      "split": "dev",
+      "video_path": "dev/L/dev-00488.mp4",
+      "sentence": "这片绿叶好漂亮。",
+      "gloss": "茶/茶/漂亮/漂亮/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00489",
+      "split": "dev",
+      "video_path": "dev/L/dev-00489.mp4",
+      "sentence": "这种东西有什么值得高兴的？",
+      "gloss": "这/东西2/高兴/值/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00490",
+      "split": "dev",
+      "video_path": "dev/L/dev-00490.mp4",
+      "sentence": "这种事可以答应他。",
+      "gloss": "这/事1/答应/他/可以/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00491",
+      "split": "dev",
+      "video_path": "dev/L/dev-00491.mp4",
+      "sentence": "这种类型的电影你喜欢看吗？",
+      "gloss": "电影/种类/这/你/喜欢/看/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00492",
+      "split": "dev",
+      "video_path": "dev/L/dev-00492.mp4",
+      "sentence": "这空调是不是坏了？",
+      "gloss": "空调/好像/不行2/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00493",
+      "split": "dev",
+      "video_path": "dev/L/dev-00493.mp4",
+      "sentence": "这艘游轮能乘坐很多人。",
+      "gloss": "这/船/人/多/坐/可以/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00494",
+      "split": "dev",
+      "video_path": "dev/L/dev-00494.mp4",
+      "sentence": "这药好喝吗？",
+      "gloss": "药/好吃/？",
+      "note": "好吃"
+    },
+    {
+      "sample_id": "dev-00495",
+      "split": "dev",
+      "video_path": "dev/L/dev-00495.mp4",
+      "sentence": "这菜看起来不错。",
+      "gloss": "菜/看/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00496",
+      "split": "dev",
+      "video_path": "dev/L/dev-00496.mp4",
+      "sentence": "这里面外人不能进去。",
+      "gloss": "这/外/人/进/不行1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00497",
+      "split": "dev",
+      "video_path": "dev/L/dev-00497.mp4",
+      "sentence": "这里面装的是什么？",
+      "gloss": "这/里面/什么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00498",
+      "split": "dev",
+      "video_path": "dev/L/dev-00498.mp4",
+      "sentence": "这香蕉吃起来软软的。",
+      "gloss": "香蕉/吃/软1/软1/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00499",
+      "split": "dev",
+      "video_path": "dev/L/dev-00499.mp4",
+      "sentence": "这鱼不太新鲜。",
+      "gloss": "鱼/新鲜2/不/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00500",
+      "split": "dev",
+      "video_path": "dev/L/dev-00500.mp4",
+      "sentence": "迷路了怎么办？",
+      "gloss": "路/模糊/怎么/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00501",
+      "split": "dev",
+      "video_path": "dev/L/dev-00501.mp4",
+      "sentence": "我这是明智的选择。",
+      "gloss": "这/挑选/我/优雅/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00502",
+      "split": "dev",
+      "video_path": "dev/L/dev-00502.mp4",
+      "sentence": "那个人太不可思议了。",
+      "gloss": "这/人/奇怪2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00503",
+      "split": "dev",
+      "video_path": "dev/L/dev-00503.mp4",
+      "sentence": "那个坐位没人，我们快过去。",
+      "gloss": "那/坐/有/我们/去/快/快/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00504",
+      "split": "dev",
+      "video_path": "dev/L/dev-00504.mp4",
+      "sentence": "那个方案确实不错。",
+      "gloss": "那/方案/好/好/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00505",
+      "split": "dev",
+      "video_path": "dev/L/dev-00505.mp4",
+      "sentence": "那个男人会做饭。",
+      "gloss": "那/男/做饭/会/。",
+      "note": "做饭"
+    },
+    {
+      "sample_id": "dev-00506",
+      "split": "dev",
+      "video_path": "dev/L/dev-00506.mp4",
+      "sentence": "那个男人有点眼熟。",
+      "gloss": "那/男/眼/熟悉/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00507",
+      "split": "dev",
+      "video_path": "dev/L/dev-00507.mp4",
+      "sentence": "那个饭店你去吃过吗？",
+      "gloss": "那/饭店/你/以前/吃/有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00508",
+      "split": "dev",
+      "video_path": "dev/L/dev-00508.mp4",
+      "sentence": "那也太不可思议了。",
+      "gloss": "那/惊讶/奇怪2/。",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00509",
+      "split": "dev",
+      "video_path": "dev/L/dev-00509.mp4",
+      "sentence": "那路公交车怎么还没到？",
+      "gloss": "公交车/久/力/？",
+      "note": "久"
+    },
+    {
+      "sample_id": "dev-00510",
+      "split": "dev",
+      "video_path": "dev/L/dev-00510.mp4",
+      "sentence": "都下午了，你怎么还没吃午餐？",
+      "gloss": "现在/下午1/你/中午1/吃/没有2/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00511",
+      "split": "dev",
+      "video_path": "dev/L/dev-00511.mp4",
+      "sentence": "都晚上了，还没他的消息吗？",
+      "gloss": "现在/晚上/他/消息/没有2/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00512",
+      "split": "dev",
+      "video_path": "dev/L/dev-00512.mp4",
+      "sentence": "银行今天有上班吗？",
+      "gloss": "今天/银行/工作/有/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00513",
+      "split": "dev",
+      "video_path": "dev/L/dev-00513.mp4",
+      "sentence": "飞机飞往上海吗？",
+      "gloss": "飞机/上海/是/？",
+      "note": "nan"
+    },
+    {
+      "sample_id": "dev-00514",
+      "split": "dev",
+      "video_path": "dev/L/dev-00514.mp4",
+      "sentence": "饮酒对身体不好。",
+      "gloss": "酒/身体/不好/。",
+      "note": "不好"
+    },
+    {
+      "sample_id": "dev-00515",
+      "split": "dev",
+      "video_path": "dev/L/dev-00515.mp4",
+      "sentence": "高兴的事情太多了。",
+      "gloss": "高兴/事2/多/多/。",
+      "note": "nan"
+    }
+  ]
+}

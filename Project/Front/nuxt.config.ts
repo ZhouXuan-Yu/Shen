@@ -30,8 +30,11 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: process.env.API_BASE_URL || 'http://localhost:8000/api/v1',
-      wsUrl: process.env.WS_URL || 'ws://localhost:8000',
+      // 默认指向手语识别 FastAPI 服务端口（避免和其他 8000 端口服务冲突）
+      apiBase: process.env.API_BASE_URL || 'http://localhost:9000/api/v1',
+      // 上传图片 / 视频识别接口单独配置基础地址，避免重复拼接 /api/v1 前缀导致 404
+      uploadBase: process.env.UPLOAD_BASE_URL || 'http://localhost:9000',
+      wsUrl: process.env.WS_URL || 'ws://localhost:9000',
     },
   },
 

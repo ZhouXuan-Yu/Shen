@@ -63,16 +63,26 @@ export const useDictionaryStore = defineStore('dictionary', () => {
   // API 基础地址
   const apiBase = computed(() => {
     if (typeof window !== 'undefined') {
-      return (window as any).ENV?.API_BASE_URL || 'http://localhost:8000'
+      // 优先使用 window.ENV，其次使用 Nuxt runtimeConfig.public.apiBase
+      const fromWindow = (window as any).ENV?.API_BASE_URL
+      if (fromWindow) return fromWindow
+
+      const nuxtConfig = useRuntimeConfig?.()
+      if (nuxtConfig?.public?.apiBase) {
+        // runtimeConfig.public.apiBase 已经包含了 /api/v1 前缀
+        return nuxtConfig.public.apiBase.replace(/\/$/, '')
+      }
     }
-    return 'http://localhost:8000'
+    // 后备：对齐后端 9000 端口
+    return 'http://localhost:9000/api/v1'
   })
 
   // 方法
   async function fetchWords() {
     loading.value = true
     try {
-      const response = await fetch(`${apiBase.value}/api/v1/dictionary/?page=1&limit=100`)
+      // 注意：后端路由为 /api/v1/dictionary/list
+      const response = await fetch(`${apiBase.value}/dictionary/list?page=1&limit=100`)
       const data = await response.json()
       
       if (data.code === 200) {
@@ -87,7 +97,7 @@ export const useDictionaryStore = defineStore('dictionary', () => {
 
   async function fetchCategories() {
     try {
-      const response = await fetch(`${apiBase.value}/api/v1/dictionary/categories/list`)
+      const response = await fetch(`${apiBase.value}/dictionary/categories/list`)
       const data = await response.json()
       
       if (data.code === 200) {
@@ -112,7 +122,7 @@ export const useDictionaryStore = defineStore('dictionary', () => {
         params.append('category', category)
       }
 
-      const response = await fetch(`${apiBase.value}/api/v1/dictionary/search?${params}`)
+      const response = await fetch(`${apiBase.value}/dictionary/search?${params}`)
       const data = await response.json()
       
       if (data.code === 200) {
@@ -142,7 +152,7 @@ export const useDictionaryStore = defineStore('dictionary', () => {
 
   async function getWordById(id: string) {
     try {
-      const response = await fetch(`${apiBase.value}/api/v1/dictionary/${id}`)
+      const response = await fetch(`${apiBase.value}/dictionary/${id}`)
       const data = await response.json()
       
       if (data.code === 200) {

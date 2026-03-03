@@ -47,6 +47,10 @@
               <i class="bi bi-images mr-2"></i>
               图片序列翻译
             </NuxtLink>
+            <NuxtLink to="/video-translate" class="btn btn-secondary btn-lg btn-pill hover:bg-gray-50 transition-all">
+              <i class="bi bi-film mr-2"></i>
+              视频翻译
+            </NuxtLink>
             <NuxtLink to="/about" class="btn btn-ghost btn-lg btn-pill">
               了解更多
             </NuxtLink>
@@ -131,9 +135,14 @@
                     98% 准确
                   </span>
                 </div>
-                <NuxtLink to="/translate" class="btn btn-primary w-100 rounded-pill">
-                  立即体验
-                </NuxtLink>
+                <div class="d-grid gap-2">
+                  <NuxtLink to="/translate" class="btn btn-primary w-100 rounded-pill">
+                    图片序列翻译
+                  </NuxtLink>
+                  <NuxtLink to="/video-translate" class="btn btn-outline-primary w-100 rounded-pill">
+                    视频翻译
+                  </NuxtLink>
+                </div>
               </div>
             </div>
           </div>

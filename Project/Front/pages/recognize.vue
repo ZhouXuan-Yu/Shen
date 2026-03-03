@@ -288,6 +288,7 @@
 
 <script setup lang="ts">
 import { useSpeech } from '~/composables/useSpeech'
+import type { ApiResponse, UploadRecognitionResponse } from '~/types'
 
 // SEO 元信息
 useSeoMeta({
@@ -300,6 +301,8 @@ const videoRef = ref<HTMLVideoElement | null>(null)
 const skeletonCanvasRef = ref<HTMLCanvasElement | null>(null)
 
 // Composables
+const config = useRuntimeConfig()
+
 const camera = useCamera()
 const recognitionStore = useRecognitionStore()
 const toast = useToast()
@@ -309,6 +312,8 @@ const speech = useSpeech()
 const loading = ref(true)
 const showResultPanel = ref(true)
 const recordingDuration = ref('00:00')
+const isRequesting = ref(false)
+let lastCaptureTime = 0
 let animationFrameId: number | null = null
 let durationInterval: ReturnType<typeof setInterval> | null = null
 
@@ -396,10 +401,15 @@ async function toggleRecording() {
 function startCaptureLoop() {
   function capture() {
     if (recognitionStore.isRecording && videoRef.value) {
-      const frameData = camera.captureFrame()
+      const now = Date.now()
+      const intervalMs = 1000
 
+      if (now - lastCaptureTime >= intervalMs && !isRequesting.value) {
+      const frameData = camera.captureFrame()
       if (frameData) {
-        simulateRecognition()
+          lastCaptureTime = now
+          recognizeFrame(frameData)
+        }
       }
 
       animationFrameId = requestAnimationFrame(capture)
@@ -409,38 +419,70 @@ function startCaptureLoop() {
   capture()
 }
 
-// 模拟识别（开发测试用）
-function simulateRecognition() {
-  interface ResultItem {
-    text: string
-    pinyin: string
-    meaning: string
+function dataUrlToFile(dataUrl: string, filename: string): File {
+  const arr = dataUrl.split(',')
+
+  // 基本校验，避免 undefined 传入 match / atob
+  const header = arr[0]
+  const base64 = arr[1]
+  if (!header || !base64) {
+    throw new Error('Invalid data URL')
   }
 
-  const results: ResultItem[] = [
-    { text: '你好', pinyin: 'nǐ hǎo', meaning: '用于问候别人' },
-    { text: '谢谢', pinyin: 'xiè xiè', meaning: '表示感激' },
-    { text: '再见', pinyin: 'zài jiàn', meaning: '告别用语' },
-    { text: '我爱你', pinyin: 'wǒ ài nǐ', meaning: '表达爱意' },
-    { text: '对不起', pinyin: 'duì bù qǐ', meaning: '表示歉意' },
-    { text: '没关系', pinyin: 'méi guān xì', meaning: '表示原谅' },
-  ]
+  const mimeMatch = header.match(/:(.*?);/)
+  const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg'
+  const bstr = atob(base64)
+  let n = bstr.length
+  const u8arr = new Uint8Array(n)
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n)
+  }
+  return new File([u8arr], filename, { type: mime })
+}
 
-  if (Math.random() > 0.7) {
-    const randomIndex = Math.floor(Math.random() * results.length)
-    const randomResult = results[randomIndex]
-    
-    if (randomResult) {
+async function recognizeFrame(frameData: string) {
+  if (isRequesting.value) return
+
+  isRequesting.value = true
+  try {
+    console.log('[recognize.vue] 即将发送实时识别请求', {
+      apiBase: config.public.apiBase,
+      url: `${config.public.apiBase}/recognize/upload`,
+      frameLength: frameData.length,
+      isRecording: recognitionStore.isRecording,
+    })
+
+    const file = dataUrlToFile(frameData, `frame_${Date.now()}.jpg`)
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const response = await $fetch<ApiResponse<UploadRecognitionResponse>>(
+      `${config.public.apiBase}/recognize/upload`,
+      {
+        method: 'POST',
+        body: formData,
+      },
+    )
+
+    console.log('[recognize.vue] 收到后端响应', response)
+
+    const data = response.data
+    const top = data.results[0]
+    if (!top) return
+
       recognitionStore.setResult({
-        text: randomResult.text,
-        pinyin: randomResult.pinyin,
-        meaning: randomResult.meaning,
-        confidence: 75 + Math.random() * 25,
+      text: top.text,
+      pinyin: top.pinyin,
+      meaning: top.meaning,
+      confidence: top.confidence,
         timestamp: new Date().toISOString(),
       })
-      
+    recognitionStore.setConfidence(top.confidence)
       showResultPanel.value = true
-    }
+  } catch (error) {
+    console.error('实时识别失败:', error)
+  } finally {
+    isRequesting.value = false
   }
 }
 

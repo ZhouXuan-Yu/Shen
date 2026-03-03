@@ -12,13 +12,13 @@
 用法示例（在 AAA 目录下）：
 ------------------------------------------------
 1）用视频测试：
-    python demo_infer.py --video D:\path\to\your_video.mp4
+    python demo_infer.py --video D:\\path\\to\\your_video.mp4
 
 2）用图片测试：
-    python demo_infer.py --image D:\path\to\your_image.jpg
+    python demo_infer.py --image D:\\path\\to\\your_image.jpg
 
 3）指定模型路径（如果不在默认位置）：
-    python demo_infer.py --video xxx.mp4 --checkpoint D:\Aprogress\Shen\AAA\output\ctc_lstm\best_model.pt
+    python demo_infer.py --video xxx.mp4 --checkpoint D:\\Aprogress\\Shen\\AAA\\output\\ctc_lstm\\last_checkpoint.pt
 """
 
 import argparse
@@ -34,7 +34,10 @@ from ctc_dataset import Vocabulary
 from extract_features import ResNetFeatureExtractor, load_video_frames, cfg as feat_cfg
 
 
-DEFAULT_CKPT = os.path.join("output", "ctc_lstm", "best_model.pt")
+AAA_ROOT = os.path.dirname(os.path.abspath(__file__))
+# 默认权重放在 AAA/output/... 下。用绝对路径，避免因当前工作目录不同导致找不到文件。
+# 这里默认使用训练脚本保存的最佳模型 best_model.pt
+DEFAULT_CKPT = os.path.join(AAA_ROOT, "output", "ctc_lstm", "best_model.pt")
 
 
 def load_checkpoint(

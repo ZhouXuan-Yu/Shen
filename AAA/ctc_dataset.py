@@ -21,55 +21,73 @@ from torch.utils.data import Dataset
 from torch.nn.utils.rnn import pad_sequence
 
 
-def process_gloss_to_chars(gloss_str: str) -> List[str]:
+# 在 CTC 中，我们需要“语义保持 + 变体编号保留”的 Gloss 级标签，而不是单字拆分。
+# 例如：
+#   原始 Gloss: "一定1/身体/保养/好/要/。"
+#   目标序列:   ["一定1", "身体", "保养", "好", "要"]
+# 因此这里严格按 '/' 切分，并过滤句末标点与空字符串。
+PUNCTUATIONS = {"。", "，", "？", "！", ".", ",", "?", "!"}
+
+
+def process_gloss(gloss_str: str) -> List[str]:
     """
-    将原始 Gloss 字符串转换为单字序列（标签降维的核心逻辑）。
+    将原始 Gloss 字符串解析为「Gloss 级」标记序列：
+
+    1. 使用 '/' 作为唯一分隔符进行切分；
+    2. 去除前后空白与空字符串；
+    3. 过滤中英文句末标点（。 ， ？ ！ . , ? !）。
 
     示例：
-        输入:  "小/生命/到/家/大/快乐/给/可以/。"
-        1) 去掉所有 '/'  -> "小生命到家大快乐给可以。"
-        2) 按字符拆分     -> ['小', '生', '命', '到', '家', '大', '快', '乐', '给', '可', '以', '。']
-
-    注意：
-    - 这里故意不用复杂分词，保持“简单粗暴且稳定”。
+        输入:  "一定1/身体/保养/好/要/。"
+        输出:  ["一定1", "身体", "保养", "好", "要"]
     """
-    cleaned_str = str(gloss_str).replace("/", "")
-    char_list = list(cleaned_str)
-    return char_list
+    if not isinstance(gloss_str, str):
+        gloss_str = str(gloss_str)
+
+    raw_tokens = gloss_str.split("/")
+    tokens: List[str] = []
+    for tok in raw_tokens:
+        t = tok.strip()
+        if not t:
+            continue
+        if t in PUNCTUATIONS:
+            continue
+        tokens.append(t)
+    return tokens
 
 
 class Vocabulary:
     """
-    CTC 用字符级词表（0 号为 blank, 1 号为 unk）
+    CTC 用 Gloss 级词表（0 号为 blank, 1 号为 unk）
 
     与 nn.CTCLoss 的约定：
     - blank 索引必须为 0（blank=0）
-    - 其余有效字符索引从 2 开始，1 预留为 <unk>
+    - 其余有效 token 索引从 2 开始，1 预留为 <unk>
     """
 
     def __init__(self):
-        # 0: blank, 1: unk，其余为实际字符
+        # 0: blank, 1: unk，其余为实际 Gloss token
         self.token2id: Dict[str, int] = {"<blank>": 0, "<unk>": 1}
         self.id2token: Dict[int, str] = {0: "<blank>", 1: "<unk>"}
         self.n_tokens: int = 2
 
-    def build_vocab(self, char_sequences: List[List[str]]) -> None:
+    def build_vocab(self, token_sequences: List[List[str]]) -> None:
         """
-        从“字符序列列表”构建词表。
+        从「Gloss 级 token 序列列表」构建词表。
 
         参数：
-        - char_sequences: 形如 [['小','生','命'], ['很','好','。'], ...]
+        - token_sequences: 形如 [['一定1','身体','保养'], ['很好'], ...]
         """
-        for seq in char_sequences:
-            for ch in seq:
-                if ch not in self.token2id:
+        for seq in token_sequences:
+            for tok in seq:
+                if tok not in self.token2id:
                     idx = self.n_tokens
-                    self.token2id[ch] = idx
-                    self.id2token[idx] = ch
+                    self.token2id[tok] = idx
+                    self.id2token[idx] = tok
                     self.n_tokens += 1
 
     def encode(self, tokens: List[str]) -> List[int]:
-        """将字符列表编码为 ID 列表（空白仍由 CTC 在时间维度产生）"""
+        """将 token 列表编码为 ID 列表（空白仍由 CTC 在时间维度产生）"""
         return [self.token2id.get(t, self.token2id["<unk>"]) for t in tokens]
 
     def decode(self, ids: List[int]) -> List[str]:
@@ -144,13 +162,13 @@ class CSLFeatureDataset(Dataset):
             translator = str(row["Translator"])  # A-L
             gloss_str = str(row["Gloss"])
 
-            # 1) Gloss -> 字符序列（先去掉 '/', 再逐字拆分）
-            char_list = process_gloss_to_chars(gloss_str)
-            if not char_list:
+            # 1) Gloss -> Gloss 级 token 序列（严格保留变体编号，如 "一定1"）
+            token_list = process_gloss(gloss_str)
+            if not token_list:
                 continue
 
-            # 2) 字符序列 -> 索引序列
-            gloss_ids = self.vocab.encode(char_list)
+            # 2) token 序列 -> 索引序列
+            gloss_ids = self.vocab.encode(token_list)
 
             feat_name = f"{number}_{translator}.npy"
             feat_path = os.path.join(self.features_dir, feat_name)
@@ -182,29 +200,6 @@ class CSLFeatureDataset(Dataset):
         item = self.samples[idx]
         feats = np.load(item.feature_path)  # (T, 512)
         feats_tensor = torch.from_numpy(feats).float()
-
-        # ---- 特征级数据增强（仅训练集使用）----
-        # 参考语音 / 手语识别中的 SpecAugment 思路：
-        # - 对时间维做随机遮挡（time masking），增强对局部缺失的鲁棒性
-        # - 对特征通道做随机遮挡（feature masking），缓解过拟合
-        if self.split == "train":
-            T, C = feats_tensor.shape
-            if T > 0:
-                # 时间遮挡：随机选一段时间置零
-                time_mask_ratio = 0.15  # 最多遮掉 15% 帧
-                max_time_mask = max(1, int(T * time_mask_ratio))
-                # 以一定概率做一次 time mask
-                if torch.rand(1).item() < 0.5:
-                    mask_len = torch.randint(1, max_time_mask + 1, (1,)).item()
-                    start = torch.randint(0, max(1, T - mask_len + 1), (1,)).item()
-                    feats_tensor[start : start + mask_len, :] = 0.0
-
-                # 特征通道遮挡：随机屏蔽部分维度
-                num_feat_mask = max(1, C // 16)  # 遮挡约 1/16 的通道
-                if torch.rand(1).item() < 0.5:
-                    mask_channels = torch.randperm(C)[:num_feat_mask]
-                    feats_tensor[:, mask_channels] = 0.0
-        # ------------------------------------
 
         gloss_ids_tensor = torch.tensor(item.gloss_ids, dtype=torch.long)
         return feats_tensor, gloss_ids_tensor

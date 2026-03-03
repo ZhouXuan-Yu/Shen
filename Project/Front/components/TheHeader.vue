@@ -31,6 +31,14 @@
             图片翻译
           </NuxtLink>
           <NuxtLink
+            to="/video-translate"
+            class="nav-link"
+            active-class="nav-link-active"
+          >
+            <i class="bi bi-camera-reels mr-1.5"></i>
+            视频翻译
+          </NuxtLink>
+          <NuxtLink
             to="/dictionary"
             class="nav-link"
             active-class="nav-link-active"
@@ -125,6 +133,15 @@
             <i class="bi bi-images mr-3"></i>
             <span>图片翻译</span>
             <span class="ml-auto text-xs text-gray-400">多图序列分析</span>
+          </NuxtLink>
+          <NuxtLink
+            to="/video-translate"
+            class="mobile-nav-link"
+            @click="mobileMenuOpen = false"
+          >
+            <i class="bi bi-camera-reels mr-3"></i>
+            <span>视频翻译</span>
+            <span class="ml-auto text-xs text-gray-400">整段视频识别</span>
           </NuxtLink>
           <NuxtLink
             to="/dictionary"

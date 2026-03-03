@@ -42,7 +42,9 @@ class TemporalConvBiLSTM(nn.Module):
         hidden_size: int = 256,
         num_layers: int = 2,
         num_classes: int = 1000,
-        dropout: float = 0.1,
+        # 统一将模型中的 dropout 设置为 0.2，以在欠拟合阶段释放一定拟合能力
+        #（包括 1D-CNN 与 BiLSTM 内部的 dropout）
+        dropout: float = 0.2,
         num_cnn_layers: int = 1,
     ):
         super().__init__()
@@ -163,15 +165,19 @@ class CTCTrainer:
         self.device = device
 
         self.criterion = nn.CTCLoss(blank=0, zero_infinity=True)
-        # 使用 AdamW，并加入适度的 weight_decay 做 L2 正则，缓解过拟合
+        # AdamW：学习率由外部传入，允许 weight_decay 由调用方显式控制
         self.optimizer = torch.optim.AdamW(
             self.model.parameters(), lr=lr, weight_decay=weight_decay
         )
 
-        # AMP 混合精度（仅在 CUDA 上启用），参考语音 / 手语 CTC 常规配置
+        # AMP 混合精度：
+        # - 在 CUDA 设备上默认启用，以提升训练速度与稳定性
+        # - 在 CPU 上自动禁用
         self.use_amp = self.device.type == "cuda"
-        # 兼容旧版 PyTorch：使用 torch.cuda.amp.GradScaler 接口
         self.scaler = torch.cuda.amp.GradScaler(enabled=self.use_amp)
+
+        # 调试标记：用于在训练的第一个 epoch 的第一个 batch 上打印核心张量信息
+        self._debug_print_done: bool = False
 
     @staticmethod
     def _ctc_greedy_ids(
@@ -179,6 +185,8 @@ class CTCTrainer:
         out_lengths: torch.Tensor,
         labels: torch.Tensor,
         label_lengths: torch.Tensor,
+        epoch: int | None = None,
+        batch_idx: int | None = None,
     ) -> Tuple[int, int, int, int]:
         """
         计算一个 batch 内的 CTC greedy 解码准确率（在 ID 级别，不依赖词表）：
@@ -223,6 +231,18 @@ class CTCTrainer:
                 num_seqs += 1
                 token_total += L_b
 
+                # 透视镜：每 10 个 epoch，在第一个 batch 的第一个样本上打印一次预测 vs 标签
+                if (
+                    epoch is not None
+                    and batch_idx is not None
+                    and epoch % 10 == 0
+                    and batch_idx == 0
+                    and b == 0
+                ):
+                    print(f"\n[DEBUG Epoch {epoch}] 序列对比:")
+                    print(f"  预测 IDs (pred_seq): {pred_seq}")
+                    print(f"  真实 IDs (tgt_seq): {tgt_seq}")
+
                 # token 级别：按最短长度对齐后统计完全相等的 token 数
                 min_len = min(len(pred_seq), len(tgt_seq))
                 for i in range(min_len):
@@ -235,7 +255,7 @@ class CTCTrainer:
 
         return token_correct, token_total, seq_correct, num_seqs
 
-    def train_epoch(self, dataloader) -> TrainStats:
+    def train_epoch(self, dataloader, epoch: int | None = None) -> TrainStats:
         self.model.train()
         total_loss = 0.0
         num_batches = 0
@@ -244,45 +264,136 @@ class CTCTrainer:
         total_seq_correct = 0
         total_seq_count = 0
 
-        for batch in tqdm(dataloader, desc="Train", unit="batch"):
-            features = batch["features"].to(self.device)          # (B, T, C)
-            # (B, L_max) 的 padding 标签
-            labels = batch["labels"].to(self.device)
+        for batch_idx, batch in enumerate(tqdm(dataloader, desc="Train", unit="batch")):
+            # ----------------------------------------------------------
+            # 1. 从 batch 中取出特征与标签，并搬到指定设备上
+            #    features: (B, T, C)  变长帧特征（已在 collate_fn 中对齐为同一 T）
+            #    labels:   (B, L_max) padding 后的字符标签序列
+            #    feature_lengths: (B,) 每个样本的真实帧长度 T_i
+            #    label_lengths:   (B,) 每个样本的真实标签长度 L_i
+            # ----------------------------------------------------------
+            features = batch["features"].to(self.device)  # (B, T, C)
+            labels = batch["labels"].to(self.device)      # (B, L_max)
             feature_lengths = batch["feature_lengths"].to(self.device)  # (B,)
             label_lengths = batch["label_lengths"].to(self.device)      # (B,)
 
+            # ----------------------------------------------------------
+            # 2. 【核心防御】过滤异常样本：要求时间步长 T 严格大于标签长度 L
+            #    对于 CTC 来说，若时间步数 T <= 标签长度 L，则：
+            #    - 无法在时间轴上插入足够的 blank
+            #    - 会导致 loss = inf 或 NaN，进而拖垮整个 batch 的反向传播
+            #
+            #    这里的逻辑：
+            #    - 先构造一个布尔掩码 valid_mask = (feature_lengths > label_lengths)
+            #    - 若整个 batch 都是无效样本，则直接跳过该 batch
+            #    - 否则仅保留合法样本子集进行后续前向 & 反向计算
+            # ----------------------------------------------------------
+            valid_mask = feature_lengths > label_lengths
+            if not valid_mask.any():
+                # 整个 batch 都不满足 T > L，直接跳过，防止 CTC 报错
+                print("⚠️ 发现异常样本：该 Batch 内所有样本均满足 T <= L，已跳过该 Batch")
+                continue
+
+            if not valid_mask.all():
+                # 部分样本非法，仅保留合法子集；这在极少数降采样过强或标签异常时发生
+                features = features[valid_mask]
+                labels = labels[valid_mask]
+                feature_lengths = feature_lengths[valid_mask]
+                label_lengths = label_lengths[valid_mask]
+                print("⚠️ 发现部分异常样本 T <= L，已在当前 Batch 中剔除这些样本")
+
             self.optimizer.zero_grad()
 
-            # AMP 前向与反向
+            # ----------------------------------------------------------
+            # 3. 前向传播 + CTC Loss 计算（支持 AMP 混合精度）
+            #    model(features, feature_lengths) 会返回：
+            #       - log_probs:    (T_max, B_eff, num_classes)
+            #       - out_lengths:  (B_eff,)  每个样本真实的时间步长 T_i
+            #    其中 B_eff 是过滤异常样本后剩余的 batch 大小。
+            # ----------------------------------------------------------
             with torch.cuda.amp.autocast(enabled=self.use_amp):
                 log_probs, out_lengths = self.model(features, feature_lengths)
+
+                # 额外安全检查（正常情况下 out_lengths == feature_lengths）：
+                # 再次确保 out_lengths > label_lengths，从输入到输出全程满足 CTC 约束
+                if not (out_lengths > label_lengths).all():
+                    print("⚠️ 发现模型输出长度 T_out <= 标签长度 L，已跳过该 Batch")
+                    continue
+
+                # ------------------------------------------------------
+                # 调试监控（仅在第一个 epoch 的第一个有效 batch 上触发一次）：
+                # 核对 CTC 相关核心张量的形状与长度关系：
+                #   - log_probs 的 shape
+                #   - labels 的 shape 及前若干个标签 ID
+                #   - out_lengths 与 label_lengths 的取值
+                # ------------------------------------------------------
+                if not self._debug_print_done:
+                    print("[DEBUG] log_probs shape:", tuple(log_probs.shape))
+                    print("[DEBUG] labels shape:", tuple(labels.shape))
+                    # 仅打印第一个样本的前若干标签，避免输出过长
+                    if labels.shape[0] > 0:
+                        first_len = int(label_lengths[0].item())
+                        preview = labels[0, : min(first_len, 32)].tolist()
+                        print("[DEBUG] first labels (truncated):", preview)
+                        print("[DEBUG] first label length:", first_len)
+                    print("[DEBUG] out_lengths:", out_lengths.tolist())
+                    print("[DEBUG] label_lengths:", label_lengths.tolist())
+                    self._debug_print_done = True
+
                 # nn.CTCLoss 支持 targets 为 (B, L_max)，配合 label_lengths 使用
                 loss = self.criterion(
-                    log_probs, labels, out_lengths, label_lengths
+                    log_probs,  # (T_max, B_eff, C)
+                    labels,     # (B_eff, L_max)
+                    out_lengths,
+                    label_lengths,
                 )
 
-            # 统计当前 batch 的准确率
+            # ----------------------------------------------------------
+            # 4. 统计当前 batch 的 CTC greedy 解码准确率
+            #    - token_accuracy：逐 token 对齐后，预测 ID 与标签 ID 完全相等的比例
+            #    - seq_accuracy： 整句 ID 序列完全匹配的比例
+            # ----------------------------------------------------------
             (
                 token_correct,
                 token_total,
                 seq_correct,
                 num_seqs,
             ) = self._ctc_greedy_ids(
-                log_probs.detach(), out_lengths, labels, label_lengths
+                log_probs.detach(),
+                out_lengths,
+                labels,
+                label_lengths,
+                epoch=epoch,
+                batch_idx=batch_idx,
             )
             total_token_correct += token_correct
             total_token_count += token_total
             total_seq_correct += seq_correct
             total_seq_count += num_seqs
 
+            # ----------------------------------------------------------
+            # 5. 反向传播 + 梯度裁剪 + 参数更新
+            #
+            # 【核心防御】梯度裁剪（Gradient Clipping）：
+            # - CTC 在训练早期对齐尚不稳定时，极易出现梯度爆炸
+            # - 若不加限制，参数会被巨大梯度一步“打崩”，模型长期卡在输出全 blank 的坏局部最优
+            # - 这里强制约束所有参数梯度的 L2 范数不超过 max_norm=5.0
+            #
+            # 对于 AMP 混合精度：
+            # - 先使用 scaler.scale(loss).backward() 计算缩放后的梯度
+            # - 再通过 scaler.unscale_(optimizer) 将梯度还原到实值
+            # - 然后再做 clip_grad_norm_，这样裁剪的是“真实梯度”
+            # ----------------------------------------------------------
             if self.use_amp:
                 self.scaler.scale(loss).backward()
-                nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=5.0)
+                # 将梯度从缩放空间还原到真实空间，便于正确执行梯度裁剪
+                self.scaler.unscale_(self.optimizer)
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=5.0)
                 self.scaler.step(self.optimizer)
                 self.scaler.update()
             else:
                 loss.backward()
-                nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=5.0)
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=5.0)
                 self.optimizer.step()
 
             total_loss += loss.item()
@@ -302,7 +413,7 @@ class CTCTrainer:
         return TrainStats(loss=avg_loss, token_accuracy=token_acc, seq_accuracy=seq_acc)
 
     @torch.no_grad()
-    def evaluate(self, dataloader) -> TrainStats:
+    def evaluate(self, dataloader, epoch: int | None = None) -> TrainStats:
         self.model.eval()
         total_loss = 0.0
         num_batches = 0
@@ -311,17 +422,36 @@ class CTCTrainer:
         total_seq_correct = 0
         total_seq_count = 0
 
-        for batch in tqdm(dataloader, desc="Val", unit="batch"):
+        for batch_idx, batch in enumerate(tqdm(dataloader, desc="Val", unit="batch")):
             features = batch["features"].to(self.device)
             labels = batch["labels"].to(self.device)
             feature_lengths = batch["feature_lengths"].to(self.device)
             label_lengths = batch["label_lengths"].to(self.device)
 
+            # 与 train_epoch 保持一致的安全过滤逻辑：
+            # 1) 先过滤掉 T <= L 的异常样本，避免 CTC 在验证阶段产生无意义的巨大 loss
+            valid_mask = feature_lengths > label_lengths
+            if not valid_mask.any():
+                # 整个 batch 都是异常样本，则直接跳过该 batch
+                print("⚠️ [Val] 发现异常样本：该 Batch 内所有样本均满足 T <= L，已跳过该 Batch")
+                continue
+
+            if not valid_mask.all():
+                # 仅保留合法子集
+                features = features[valid_mask]
+                labels = labels[valid_mask]
+                feature_lengths = feature_lengths[valid_mask]
+                label_lengths = label_lengths[valid_mask]
+                print("⚠️ [Val] 发现部分异常样本 T <= L，已在当前 Batch 中剔除这些样本")
+
             log_probs, out_lengths = self.model(features, feature_lengths)
 
-            loss = self.criterion(
-                log_probs, labels, out_lengths, label_lengths
-            )
+            # 再次确保 out_lengths > label_lengths，从输入到输出全程满足 CTC 约束
+            if not (out_lengths > label_lengths).all():
+                print("⚠️ [Val] 发现模型输出长度 T_out <= 标签长度 L，已跳过该 Batch")
+                continue
+
+            loss = self.criterion(log_probs, labels, out_lengths, label_lengths)
             total_loss += loss.item()
             num_batches += 1
 
@@ -331,7 +461,12 @@ class CTCTrainer:
                 seq_correct,
                 num_seqs,
             ) = self._ctc_greedy_ids(
-                log_probs, out_lengths, labels, label_lengths
+                log_probs,
+                out_lengths,
+                labels,
+                label_lengths,
+                epoch=epoch,
+                batch_idx=batch_idx,
             )
             total_token_correct += token_correct
             total_token_count += token_total

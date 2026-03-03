@@ -512,11 +512,14 @@ useSeoMeta({
 })
 
 // 类型定义
+import type { ApiResponse, UploadRecognitionResponse } from '~/types'
+
 interface UploadedFile {
   id: string
   name: string
   size: number
   previewUrl: string
+  file: File
 }
 
 interface TranslationResult {
@@ -528,6 +531,8 @@ interface TranslationResult {
 }
 
 // 状态
+const config = useRuntimeConfig()
+
 const isDragging = ref(false)
 const uploading = ref(false)
 const uploadProgress = ref(0)
@@ -600,6 +605,7 @@ async function processFiles(files: File[]) {
       name: file.name,
       size: file.size,
       previewUrl,
+      file,
     })
 
     uploadProgress.value = Math.round(((i + 1) / validFiles.length) * 80)
@@ -656,59 +662,79 @@ async function startTranslation() {
 
   uploading.value = true
   uploadProgress.value = 0
-  uploadStatus.value = '正在分析图片序列...'
-  uploadStatusIcon.value = 'bi bi-gear-wide-connected'
+  uploadStatus.value = '正在上传图片...'
+  uploadStatusIcon.value = 'bi bi-cloud-arrow-up'
 
-  // 模拟分析过程
-  const steps = ['检测图片数量', '分析连贯性', '识别动作', '生成语义']
-  for (let i = 0; i < steps.length; i++) {
-    uploadStatus.value = steps[i] + '...'
-    await new Promise(resolve => setTimeout(resolve, 500))
-    uploadProgress.value = 20 + (i + 1) * 15
-  }
-
-  // 生成模拟结果
-  const mockResults = [
-    { text: '你好', pinyin: 'nǐ hǎo', meaning: '用于问候别人很高兴见到你' },
-    { text: '谢谢', pinyin: 'xiè xiè', meaning: '表示感激和感谢之情' },
-    { text: '再见', pinyin: 'zài jiàn', meaning: '告别时用语，希望再次相见' },
-    { text: '我爱你', pinyin: 'wǒ ài nǐ', meaning: '表达爱意和深厚的感情' },
-    { text: '对不起', pinyin: 'duì bù qǐ', meaning: '表示歉意和歉仄' },
-    { text: '没关系', pinyin: 'méi guān xì', meaning: '表示原谅或不在意' },
-  ]
-  
-  const randomResult = mockResults[Math.floor(Math.random() * mockResults.length)]
-  
-  if (randomResult) {
-    result.value = {
-      text: randomResult.text,
-      pinyin: randomResult.pinyin,
-      meaning: randomResult.meaning,
-      confidence: 85 + Math.random() * 15,
-      actions: ['起始动作', '过渡动作', '收尾动作']
+  try {
+    const target = uploadedFiles.value[0]
+    if (!target) {
+      throw new Error('没有可用的图片')
     }
+
+    const formData = new FormData()
+    formData.append('file', target.file)
+
+    console.log('[translate.vue] 即将发送翻译请求', {
+      apiBase: config.public.apiBase,
+      url: `${config.public.apiBase}/recognize/upload`,
+      fileName: target.name,
+      fileSize: target.size,
+    })
+
+    uploadProgress.value = 30
+    uploadStatus.value = '正在调用识别服务...'
+    uploadStatusIcon.value = 'bi bi-gear-wide-connected'
+
+    const response = await $fetch<ApiResponse<UploadRecognitionResponse>>(
+      `${config.public.uploadBase}/recognize/upload`,
+      {
+        method: 'POST',
+        body: formData,
+      },
+    )
+
+    console.log('[translate.vue] 收到后端响应', response)
+
+    uploadProgress.value = 80
+
+    const data = response.data
+    const top = data.results[0]
+  
+    if (!top) {
+      throw new Error('识别结果为空')
+    }
+
+    result.value = {
+      text: top.text,
+      pinyin: top.pinyin,
+      meaning: top.meaning,
+      confidence: top.confidence,
+      actions: ['起始动作', '过渡动作', '收尾动作'],
   }
 
-  // 添加到历史记录
-  if (result.value) {
     recognitionStore.addToHistory({
-      id: Date.now().toString(),
-      type: 'image_sequence',
-      result: result.value.text,
-      confidence: result.value.confidence,
-      thumbnail: uploadedFiles.value[0]?.previewUrl || '',
-      createdAt: new Date().toISOString(),
+      id: data.id || Date.now().toString(),
+      type: 'upload_image',
+      result: top.text,
+      confidence: top.confidence,
+      thumbnail: target.previewUrl,
+      createdAt: data.createdAt || new Date().toISOString(),
     })
-  }
 
   uploadStatus.value = '翻译完成'
   uploadStatusIcon.value = 'bi bi-check-circle-fill'
   uploadProgress.value = 100
   
+    toast.success('翻译完成')
+  } catch (error: any) {
+    console.error('翻译失败:', error)
+    uploadStatus.value = '翻译失败'
+    uploadStatusIcon.value = 'bi bi-exclamation-triangle'
+    toast.error(error?.message || '翻译失败，请稍后重试')
+  } finally {
   await new Promise(resolve => setTimeout(resolve, 500))
   uploading.value = false
-  
-  toast.success('翻译完成')
+  }
 }
 
 // 格式化时间

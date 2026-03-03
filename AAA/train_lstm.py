@@ -15,9 +15,8 @@ from typing import Any, Dict
 
 import torch
 from torch.utils.data import DataLoader
-from torch.optim.lr_scheduler import ReduceLROnPlateau
 
-from ctc_dataset import CSLFeatureDataset, Vocabulary, collate_fn, process_gloss_to_chars
+from ctc_dataset import CSLFeatureDataset, Vocabulary, collate_fn, process_gloss
 from ctc_model import TemporalConvBiLSTM, CTCTrainer
 
 
@@ -31,35 +30,34 @@ class Config:
 
     OUTPUT_DIR: str = os.path.join("output", "ctc_lstm")
 
-    # 模型参数（字符级 CTC，略微减小隐藏维度与层数，便于稳定收敛）
+    # 模型参数（Gloss 级 CTC，默认容量用于正式训练）
     INPUT_SIZE: int = 512
     HIDDEN_SIZE: int = 256
     NUM_LAYERS: int = 2
-    DROPOUT: float = 0.1
+    # 正式训练阶段：统一使用适中的 dropout 以提升泛化（作用于 1D-CNN 与 BiLSTM）
+    DROPOUT: float = 0.2
 
-    # 训练参数
-    # - 字符级标签后，标签序列变长，优化相对更难，可适当减小 batch_size
-    # - 学习率使用 1e-3（或 5e-4）是 CTC 训练的常见选择
-    BATCH_SIZE: int = 24
+    # 训练参数（正式训练）
+    # - 建议根据显存大小在 4~32 之间调整 batch_size
+    BATCH_SIZE: int = 8
+    # AdamW 初始学习率 + 权重衰减（配合余弦退火与 warmup）
     LR: float = 1e-3
     WEIGHT_DECAY: float = 1e-4
-    EPOCHS: int = 80
+    # 正式训练轮数
+    EPOCHS: int = 250
+    # 学习率 warmup 轮数（前 WARMUP_EPOCHS 采用线性 warmup）
+    WARMUP_EPOCHS: int = 10
+    # 早停机制配置：patience=20，且前 MIN_EPOCHS_NO_EARLY_STOP 轮绝不触发早停
+    PATIENCE: int = 20
+    MIN_EPOCHS_NO_EARLY_STOP: int = 250
     DEVICE: torch.device = torch.device(
         "cuda" if torch.cuda.is_available() else "cpu"
     )
 
-    # 学习率调度与早停
-    # - factor 较小：每次降低到原来的 1/10，配合更长的 patience
-    # - patience 稍大：给模型更多 epoch 在同一学习率下收敛
-    LR_FACTOR: float = 0.1
-    LR_PATIENCE: int = 5          # 若验证集 loss 多轮不下降，则降低 LR
-    MIN_LR: float = 1e-5
-    # 早停耐心加长一些，避免 CTC 训练前期震荡时过早停止
-    EARLY_STOP_PATIENCE: int = 15  # 若验证集在若干轮内无提升，则提前停止
+    # 学习率调度与早停在正式训练阶段开启（见 main 中的 warmup + CosineAnnealingLR）
 
     # 每个划分最多使用多少样本：
-    # - 之前为了“先跑通”，只取 200/50 个样本，模型几乎学不到东西；
-    # - 现在默认用全部样本进行正式训练。
+    # - 正式训练阶段使用全量数据，因此设置为 None
     MAX_TRAIN_SAMPLES: int | None = None
     MAX_VAL_SAMPLES: int | None = None
 
@@ -91,21 +89,21 @@ def _safe_torch_save(obj: Dict[str, Any], path: str, desc: str = "") -> None:
 
 def build_vocabulary() -> Vocabulary:
     """
-    从 train/dev 标签构建**字符级**词表。
+    从 train/dev 标签构建 **Gloss 级** 词表。
 
-    对应规划中的「Gloss -> 单字序列」：
-    - 先用 process_gloss_to_chars 将 "小/生命/到/家/。" 变成 ['小','生','命','到','家','。']
-    - 再用 Vocabulary.build_vocab 统计所有出现的字符，分配索引。
+    对应规划中的「Gloss -> token 序列」：
+    - 先用 process_gloss 将 "一定1/身体/保养/好/要/。" 变成 ['一定1','身体','保养','好','要']
+    - 再用 Vocabulary.build_vocab 统计所有出现的 Gloss token，分配索引。
 
     词表约定：
     - 0: <blank>（CTC blank）
     - 1: <unk>
-    - 2..N: 实际汉字 / 标点
+    - 2..N: 实际 Gloss token
     """
     import pandas as pd
 
     vocab = Vocabulary()
-    char_seqs = []
+    token_seqs = []
 
     for split in ["train", "dev"]:
         csv_path = os.path.join(cfg.LABEL_DIR, f"{split}.csv")
@@ -127,12 +125,12 @@ def build_vocabulary() -> Vocabulary:
             raise RuntimeError(f"无法在 {csv_path} 中找到 Number/Translator 列")
 
         for gloss_str in df["Gloss"]:
-            chars = process_gloss_to_chars(gloss_str)
-            if chars:
-                char_seqs.append(chars)
+            tokens = process_gloss(gloss_str)
+            if tokens:
+                token_seqs.append(tokens)
 
-    vocab.build_vocab(char_seqs)
-    print(f"Char-level vocabulary size (including <blank>, <unk>): {len(vocab)}")
+    vocab.build_vocab(token_seqs)
+    print(f"Gloss-level vocabulary size (including <blank>, <unk>): {len(vocab)}")
     return vocab
 
 
@@ -202,7 +200,7 @@ def main(resume: bool = False) -> None:
         dropout=cfg.DROPOUT,
     )
 
-    # 训练器：使用 AdamW + weight decay
+    # 训练器：AdamW + AMP（Cosine 学习率调度在此脚本中管理）
     trainer = CTCTrainer(
         model,
         device=cfg.DEVICE,
@@ -210,55 +208,52 @@ def main(resume: bool = False) -> None:
         weight_decay=cfg.WEIGHT_DECAY,
     )
 
-    # 学习率调度器：根据验证集 CTC Loss 自适应降低学习率
-    # 为兼容不同版本的 PyTorch，这里只使用位置参数，避免某些版本不支持特定关键字参数
-    # ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=10, ...)
-    scheduler = ReduceLROnPlateau(
-        trainer.optimizer,
-        "min",  # mode
-        cfg.LR_FACTOR,  # factor
-        cfg.LR_PATIENCE,  # patience
-    )
-
     best_val_loss = float("inf")
     best_path = os.path.join(cfg.OUTPUT_DIR, "best_model.pt")
-    epochs_no_improve = 0
     last_ckpt_path = os.path.join(cfg.OUTPUT_DIR, "last_checkpoint.pt")
     start_epoch = 0
+    epochs_no_improve = 0
 
-    # 3.1 可选：从上一次的 checkpoint 继续训练
-    if resume:
-        if os.path.exists(last_ckpt_path):
-            print(f"[断点续训] 加载 checkpoint: {last_ckpt_path}")
-            # PyTorch 2.6 起 torch.load 默认 weights_only=True，会禁止反序列化自定义类
-            # 这里的 checkpoint 完全来自本地训练，属于“可信来源”，因此显式关闭 weights_only
-            ckpt = torch.load(
-                last_ckpt_path,
-                map_location=cfg.DEVICE,
-                weights_only=False,
-            )
-            model.load_state_dict(ckpt["model_state_dict"])
+    # 学习率调度器：前 cfg.WARMUP_EPOCHS 轮手动线性 warmup，之后使用 CosineAnnealingLR
+    from torch.optim.lr_scheduler import CosineAnnealingLR
+
+    cosine_epochs = max(cfg.EPOCHS - cfg.WARMUP_EPOCHS, 1)
+    scheduler = CosineAnnealingLR(
+        trainer.optimizer,
+        T_max=cosine_epochs,
+    )
+
+    # 3.1 可选：从上一次的 checkpoint 继续训练（不再保存/恢复 scheduler 与早停状态）
+    if resume and os.path.exists(last_ckpt_path):
+        print(f"[断点续训] 加载 checkpoint: {last_ckpt_path}")
+        ckpt = torch.load(
+            last_ckpt_path,
+            map_location=cfg.DEVICE,
+            weights_only=False,
+        )
+        model.load_state_dict(ckpt["model_state_dict"])
+        if "optimizer_state_dict" in ckpt:
             trainer.optimizer.load_state_dict(ckpt["optimizer_state_dict"])
-            if "scheduler_state_dict" in ckpt:
-                scheduler.load_state_dict(ckpt["scheduler_state_dict"])
-            best_val_loss = ckpt.get("best_val_loss", best_val_loss)
-            epochs_no_improve = ckpt.get("epochs_no_improve", 0)
-            start_epoch = ckpt.get("epoch", 0) + 1
-            print(
-                f" 从第 {start_epoch + 1} 个 epoch 开始继续训练 "
-                f"(当前 best_val_loss={best_val_loss:.4f}, "
-                f"epochs_no_improve={epochs_no_improve})"
-            )
-        else:
-            print(
-                f"[断点续训] 未找到 checkpoint 文件: {last_ckpt_path}，将从头开始训练。"
-            )
+        best_val_loss = ckpt.get("best_val_loss", best_val_loss)
+        start_epoch = ckpt.get("epoch", 0) + 1
+        print(
+            f" 从第 {start_epoch + 1} 个 epoch 开始继续训练 "
+            f"(当前 best_val_loss={best_val_loss:.4f})"
+        )
 
-    # 4. 训练循环
+    # 4. 正式训练循环：AdamW + AMP + 余弦退火 + early stopping
     for epoch in range(start_epoch, cfg.EPOCHS):
+        # 学习率调度：前 cfg.WARMUP_EPOCHS 轮线性 warmup，之后进入 Cosine 退火阶段
+        if epoch < cfg.WARMUP_EPOCHS:
+            warmup_factor = float(epoch + 1) / float(max(cfg.WARMUP_EPOCHS, 1))
+            for param_group in trainer.optimizer.param_groups:
+                param_group["lr"] = cfg.LR * warmup_factor
+        else:
+            scheduler.step()
+
         print(f"\n===== Epoch {epoch + 1}/{cfg.EPOCHS} =====")
-        train_stats = trainer.train_epoch(train_loader)
-        val_stats = trainer.evaluate(val_loader)
+        train_stats = trainer.train_epoch(train_loader, epoch=epoch)
+        val_stats = trainer.evaluate(val_loader, epoch=epoch)
 
         print(f"Train CTC Loss: {train_stats.loss:.4f}")
         print(f" Val  CTC Loss: {val_stats.loss:.4f}")
@@ -275,13 +270,7 @@ def main(resume: bool = False) -> None:
                 f"seq acc: {val_stats.seq_accuracy * 100:.2f}%"
             )
 
-        # 根据验证集 loss 调整学习率
-        scheduler.step(val_stats.loss)
-        # 打印当前学习率（以第一个 param_group 为准）
-        current_lr = trainer.optimizer.param_groups[0]["lr"]
-        print(f" 当前学习率: {current_lr:.6f}")
-
-        # 保存最好模型
+        # 保存最好模型 & 更新 early stopping 统计
         if val_stats.loss < best_val_loss:
             best_val_loss = val_stats.loss
             epochs_no_improve = 0
@@ -298,9 +287,6 @@ def main(resume: bool = False) -> None:
             print(f"[保存最佳模型] {best_path} (val_loss={best_val_loss:.4f})")
         else:
             epochs_no_improve += 1
-            print(
-                f" 验证集未提升轮数: {epochs_no_improve}/{cfg.EARLY_STOP_PATIENCE}"
-            )
 
         # 另存一份「最近一次状态」用于断点续训
         _safe_torch_save(
@@ -308,9 +294,7 @@ def main(resume: bool = False) -> None:
                 "epoch": epoch,
                 "model_state_dict": model.state_dict(),
                 "optimizer_state_dict": trainer.optimizer.state_dict(),
-                "scheduler_state_dict": scheduler.state_dict(),
                 "best_val_loss": best_val_loss,
-                "epochs_no_improve": epochs_no_improve,
                 "vocab": vocab,
                 "config": _build_ckpt_config(vocab),
             },
@@ -318,10 +302,15 @@ def main(resume: bool = False) -> None:
             desc="断点续训 checkpoint last_checkpoint.pt",
         )
 
-        # 提前停止：若验证集若干轮未提升，则终止训练
-        if epochs_no_improve >= cfg.EARLY_STOP_PATIENCE:
+        # 早停机制：patience=cfg.PATIENCE，且前 cfg.MIN_EPOCHS_NO_EARLY_STOP 轮绝不触发早停
+        current_epoch_idx = epoch + 1  # 以 1 开始计数
+        if (
+            current_epoch_idx > cfg.MIN_EPOCHS_NO_EARLY_STOP
+            and epochs_no_improve >= cfg.PATIENCE
+        ):
             print(
-                f"\n[早停] 验证集 loss 已连续 {cfg.EARLY_STOP_PATIENCE} 轮无明显提升，停止训练。"
+                f"\n[Early Stopping] 连续 {epochs_no_improve} 个 epoch "
+                f"验证集未提升，且已超过前 {cfg.MIN_EPOCHS_NO_EARLY_STOP} 轮硬限制，提前停止训练。"
             )
             break
 

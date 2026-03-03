@@ -1,17 +1,27 @@
 """
 FastAPI 主应用模块
-手语词典本地向量检索服务（纯内存实现）
+- 手语词典本地向量检索服务（纯内存实现）
+- 手语识别服务（图片 / 视频 / CTC 模型）
 """
+import os
 import time
 import base64
+import traceback
 from io import BytesIO
 from typing import List, Optional
-from fastapi import FastAPI, HTTPException, UploadFile
+from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from PIL import Image
 import uvicorn
+import tempfile
+
+from . import ctc_service
+from .rag_index_dev import get_video_rag_index_dev
+
+print("[main] 已导入 ctc_service，用于 /api/v1/recognize/upload 接口")
 
 app = FastAPI(title="HandTalk AI - Sign Language Dictionary", version="1.0.0")
 
@@ -23,6 +33,37 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# 本地离线视频静态服务（替代 Nginx）
+# Windows 本地实际目录示例：D:/Aprogress/Shen/dataset/CE-CSL/CE-CSL/video
+# 目录层级（当前文件位置）：
+#   Back/app/main.py
+#   Back/..
+#   Project/Back/..
+#   Project/..
+#   Shen （仓库根目录，dataset 就放在这里）
+# 默认规则：
+#   1. 优先使用环境变量 CECSL_VIDEO_ROOT
+#   2. 否则使用仓库根目录（Shen）下的 dataset/CE-CSL/CE-CSL/video
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # Project/Back
+PARENT_ROOT = os.path.dirname(PROJECT_ROOT)  # Project
+REPO_ROOT = os.path.dirname(PARENT_ROOT)  # Shen（仓库根目录）
+DEFAULT_VIDEO_ROOT = os.path.join(REPO_ROOT, "dataset", "CE-CSL", "CE-CSL", "video")
+CECSL_VIDEO_ROOT = os.getenv("CECSL_VIDEO_ROOT", DEFAULT_VIDEO_ROOT)
+
+if os.path.isdir(CECSL_VIDEO_ROOT):
+    # 挂载到 /cecsl/video，与后端 rag_index 中的默认 video_base_url 对齐
+    app.mount(
+        "/cecsl/video",
+        StaticFiles(directory=CECSL_VIDEO_ROOT),
+        name="cecsl_video",
+    )
+    print(f"[main] 已挂载本地 CE-CSL 视频目录: {CECSL_VIDEO_ROOT} -> /cecsl/video")
+else:
+    print(
+        f"[main] 警告: 本地 CE-CSL 视频目录不存在: {CECSL_VIDEO_ROOT}，"
+        "如需启用文本→视频播放，请设置环境变量 CECSL_VIDEO_ROOT"
+    )
 
 # ==================== 内存数据存储 ====================
 # 手语词典数据（模拟数据库）
@@ -403,13 +444,15 @@ class ImageRecognitionRequest(BaseModel):
 import torch
 import numpy as np
 
-# 尝试导入识别模块
+# 尝试导入旧的 ResNet 识别模块（仅用于 /api/v1/recognize/image）
 try:
-    from recognizer import SignLanguageRecognizer, get_recognizer
+    from recognizer import SignLanguageRecognizer, get_recognizer  # type: ignore
     RECOGNIZER_AVAILABLE = True
+    print("[main] ResNet 识别模块已成功导入（/api/v1/recognize/image 可用）")
 except ImportError:
     RECOGNIZER_AVAILABLE = False
-    print("警告: 识别模块不可用，请先训练模型")
+    print("警告: ResNet 识别模块导入失败（这不影响 CTC 模型 /api/v1/recognize/upload 接口）")
+    traceback.print_exc()
 
 # 设备配置
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -529,6 +572,128 @@ async def recognize_video(file: UploadFile = None):
     }
 
 
+@app.post("/recognize/upload")
+@app.post("/api/v1/recognize/upload")
+async def recognize_upload(file: UploadFile | None = None):
+    """
+    通用文件上传识别接口（对齐前端接口文档 /recognize/upload）
+
+    - 支持视频文件：使用 CTC 模型做整段视频识别
+    - 支持图片文件：视作单帧“短视频”做识别
+    """
+    start = int(time.time() * 1000)
+
+    if file is None:
+        print("[recognize_upload] 未收到文件")
+        return JSONResponse(
+            status_code=400,
+            content={"code": 400, "message": "请上传文件", "data": None},
+        )
+
+    filename = file.filename or "upload"
+    suffix = os.path.splitext(filename)[1].lower()
+    content_type = file.content_type or ""
+
+    print(
+        f"[recognize_upload] 收到上传文件: name={filename}, suffix={suffix}, "
+        f"content_type={content_type}"
+    )
+
+    is_image = content_type.startswith("image/") or suffix in {".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp"}
+    is_video = content_type.startswith("video/") or suffix in {".mp4", ".mov", ".avi", ".mkv", ".webm"}
+
+    print(
+        f"[recognize_upload] 文件类型判定: is_image={is_image}, is_video={is_video}"
+    )
+
+    if not (is_image or is_video):
+        print("[recognize_upload] 不支持的文件类型，直接返回 400")
+        return JSONResponse(
+            status_code=400,
+            content={"code": 400, "message": "暂不支持的文件类型", "data": None},
+        )
+
+    # 将上传内容写入临时文件，交给底层 CTC 服务处理
+    contents = await file.read()
+    print(f"[recognize_upload] 上传文件大小: {len(contents)} 字节")
+
+    with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+        tmp.write(contents)
+        tmp_path = tmp.name
+
+    print(f"[recognize_upload] 已写入临时文件: {tmp_path}")
+
+    try:
+        if is_video:
+            print("[recognize_upload] 调用 ctc_service.recognize_video_file")
+            result = ctc_service.recognize_video_file(tmp_path)
+
+            data = {
+                "id": f"rec_{int(time.time() * 1000)}",
+                "results": [
+                    {
+                        "text": result["text"],
+                        "pinyin": "",
+                        "meaning": "",
+                        "confidence": result["confidence"],
+                        "startTime": result["startTime"],
+                        "endTime": result["endTime"],
+                    }
+                ],
+                "videoDuration": result["videoDuration"],
+                "processedFrames": result["processedFrames"],
+                "createdAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            }
+        else:
+            # 图片识别
+            print("[recognize_upload] 调用 ctc_service.recognize_image_file")
+            result = ctc_service.recognize_image_file(tmp_path)
+
+            data = {
+                "id": f"rec_{int(time.time() * 1000)}",
+                "results": [
+                    {
+                        "text": result["text"],
+                        "pinyin": "",
+                        "meaning": "",
+                        "confidence": result["confidence"],
+                        "startTime": 0.0,
+                        "endTime": 0.0,
+                    }
+                ],
+                "videoDuration": 0.0,
+                "processedFrames": 1,
+                "createdAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            }
+
+        took = int(time.time() * 1000) - start
+        data["tookMs"] = took
+
+        print(
+            "[recognize_upload] 识别成功，准备返回给前端: "
+            f"text={data['results'][0]['text']!r}, confidence={data['results'][0]['confidence']}, "
+            f"tookMs={took}"
+        )
+
+        return {
+            "code": 200,
+            "message": "识别成功",
+            "data": data,
+        }
+    except Exception as e:
+        print("[recognize_upload] 识别过程中发生异常:", repr(e))
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=500,
+            content={"code": 500, "message": f"识别失败: {str(e)}", "data": None},
+        )
+    finally:
+        try:
+            os.remove(tmp_path)
+        except OSError:
+            pass
+
+
 @app.get("/api/v1/recognize/status")
 async def get_recognizer_status():
     """获取识别服务状态"""
@@ -591,6 +756,95 @@ async def recognizer_health():
             "module_available": RECOGNIZER_AVAILABLE
         }
     }
+
+
+# ==================== 文本 → 视频检索接口（CE-CSL） ====================
+
+
+@app.get("/api/v1/video_rag/search")
+async def video_rag_search(
+    query: str = "",
+    top_k: int = 10,
+):
+    """
+    文本 → 视频 检索接口
+
+    - query: 中文句子或自然语言描述
+    - top_k: 返回的结果数量
+    """
+    start = int(time.time() * 1000)
+
+    query = (query or "").strip()
+    if not query:
+        return {
+            "code": 200,
+            "message": "success",
+            "data": {
+                "results": [],
+                "total": 0,
+                "took_ms": int(time.time() * 1000) - start,
+                "query": query,
+            },
+        }
+
+    try:
+        index = get_video_rag_index_dev()
+        results = index.search(query=query, top_k=top_k)
+        took = int(time.time() * 1000) - start
+
+        return {
+            "code": 200,
+            "message": "success",
+            "data": {
+                "results": results,
+                "total": len(results),
+                "took_ms": took,
+                "query": query,
+            },
+        }
+    except Exception as e:
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=500,
+            content={
+                "code": 500,
+                "message": f"检索失败: {str(e)}",
+                "data": None,
+            },
+        )
+
+
+@app.get("/api/v1/video_rag/random")
+async def video_rag_random(limit: int = 10):
+    """
+    随机推荐若干视频样本，用于页面初始展示
+    """
+    start = int(time.time() * 1000)
+
+    try:
+        index = get_video_rag_index_dev()
+        results = index.get_random(limit=limit)
+        took = int(time.time() * 1000) - start
+
+        return {
+            "code": 200,
+            "message": "success",
+            "data": {
+                "results": results,
+                "total": len(results),
+                "took_ms": took,
+            },
+        }
+    except Exception as e:
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=500,
+            content={
+                "code": 500,
+                "message": f"获取随机推荐失败: {str(e)}",
+                "data": None,
+            },
+        )
 
 
 # ==================== 启动入口 ====================
