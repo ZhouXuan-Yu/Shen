@@ -59,19 +59,18 @@
           <div class="text-xs font-medium text-gray-400">
             {{ group.dateLabel }}
           </div>
-          <div class="row g-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div
               v-for="record in group.items"
               :key="record.id"
-              class="col-6 col-md-4 col-lg-3"
             >
               <div
-                class="card card-hover h-100 cursor-pointer"
+                class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition cursor-pointer flex flex-col h-full overflow-hidden"
                 @click="handleRecordClick(record)"
               >
-                <!-- 缩略图 -->
+                <!-- 缩略图 / 占位 -->
                 <div
-                  class="relative aspect-video bg-gray-100 rounded-t-xl overflow-hidden"
+                  class="relative aspect-video bg-gray-50"
                 >
                   <img
                     v-if="record.thumbnail"
@@ -80,20 +79,24 @@
                   />
                   <div
                     v-else
-                    class="w-full h-full flex items-center justify-center"
+                    class="absolute inset-0 flex items-center justify-center"
                   >
-                    <i
-                      :class="
-                        record.type === 'upload_video'
-                          ? 'bi bi-camera-video'
-                          : 'bi bi-image'
-                      "
-                      class="text-3xl text-gray-300"
-                    ></i>
+                    <div
+                      class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-900/5"
+                    >
+                      <i
+                        :class="
+                          record.type === 'upload_video'
+                            ? 'bi bi-camera-video'
+                            : 'bi bi-image'
+                        "
+                        class="text-2xl text-gray-300"
+                      ></i>
+                    </div>
                   </div>
                   <!-- 类型标签 -->
                   <span
-                    class="absolute bottom-2 right-2 px-2 py-0.5 bg-black/50 rounded text-white text-xs"
+                    class="absolute bottom-2 right-2 px-2 py-0.5 rounded-full bg-black/50 text-white text-[10px] tracking-wide"
                   >
                     {{
                       record.type === 'upload_video'
@@ -105,20 +108,20 @@
                   </span>
                 </div>
                 <!-- 详情 -->
-                <div class="p-3">
-                  <h3 class="font-bold text-primary-900 truncate">
+                <div class="p-3 space-y-2">
+                  <h3 class="font-semibold text-primary-900 text-sm line-clamp-2 min-h-[2.75rem]">
                     {{ record.result }}
                   </h3>
-                  <div class="flex items-center justify-between mt-2">
-                    <span class="text-xs text-gray-500">
+                  <div class="flex items-center justify-between text-xs text-gray-500">
+                    <span>
                       {{ formatTime(record.createdAt) }}
                     </span>
                     <span
-                      class="text-xs"
+                      class="font-medium"
                       :class="
                         record.confidence >= 90
-                          ? 'text-success'
-                          : 'text-warning'
+                          ? 'text-green-600'
+                          : 'text-amber-500'
                       "
                     >
                       {{ Math.round(record.confidence) }}%
@@ -284,6 +287,16 @@ function handleRecordClick(record: HistoryItem) {
   if (record.type === 'upload_video') {
     router.push({
       path: '/video-translate',
+      query: {
+        historyId: record.id,
+      },
+    })
+    return
+  }
+
+  if (record.type === 'upload_image') {
+    router.push({
+      path: '/translate',
       query: {
         historyId: record.id,
       },

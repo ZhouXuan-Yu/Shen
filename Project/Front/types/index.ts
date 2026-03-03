@@ -94,6 +94,8 @@ export interface UploadRecognitionResponse {
   videoDuration?: number
   processedFrames: number
   createdAt: string
+  /** 用户上传视频（如果有）对应的可访问地址，相对后端根路径，例如 /uploads/video/xxx.mp4 */
+  videoUrl?: string
 }
 
 // ==================== 词典相关类型 ====================
@@ -139,6 +141,8 @@ export interface HistoryRecord {
   result: string
   confidence: number
   duration?: number
+  /** 对于上传视频记录，保存可回放的视频地址（已拼接完整前缀） */
+  videoUrl?: string
   createdAt: string
   /** 是否被用户标记为收藏 */
   favorite?: boolean

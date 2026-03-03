@@ -337,6 +337,13 @@
                       <button class="btn btn-secondary btn-sm rounded-full" @click="copyResult">
                         <i class="bi bi-clipboard mr-1"></i>复制结果
                       </button>
+                      <button
+                        class="btn btn-secondary btn-sm rounded-full"
+                        :class="isCurrentFavorite ? 'bg-pink-100 text-pink-600 border-pink-200' : ''"
+                        @click.stop="toggleCurrentFavorite"
+                      >
+                        {{ isCurrentFavorite ? '已收藏' : '收藏' }}
+                      </button>
                       <button class="btn btn-secondary btn-sm rounded-full" @click="shareResult">
                         <i class="bi bi-share mr-1"></i>分享
                       </button>
@@ -546,7 +553,7 @@ useSeoMeta({
 })
 
 // 类型定义
-import type { ApiResponse, UploadRecognitionResponse } from '~/types'
+import type { ApiResponse, UploadRecognitionResponse, HistoryRecord } from '~/types'
 
 interface UploadedFile {
   id: string
@@ -582,6 +589,7 @@ const outputFormat = ref('text')
 const recognitionStore = useRecognitionStore()
 const toast = useToast()
 const speech = useSpeech()
+const route = useRoute()
 const currentHistoryId = ref<string | null>(null)
 
 const isCurrentFavorite = computed(() => {
@@ -821,6 +829,31 @@ function clearHistory() {
   recognitionStore.clearHistory()
   toast.success('历史记录已清除')
 }
+
+// 从历史记录回填结果（从 /profile/history 跳转而来）
+onMounted(() => {
+  const historyId = route.query.historyId as string | undefined
+  if (!historyId) return
+
+  if (process.client) {
+    recognitionStore.loadHistory()
+  }
+
+  const record = (recognitionStore.history as HistoryRecord[]).find(
+    (h) => h.id === historyId && h.type === 'upload_image',
+  )
+
+  if (!record) return
+
+  result.value = {
+    text: record.result,
+    pinyin: '',
+    meaning: '',
+    confidence: record.confidence,
+    actions: [],
+  }
+  currentHistoryId.value = record.id
+})
 
 // 加载历史记录
 function loadHistoryItem(record: any) {

@@ -7,6 +7,7 @@ import os
 import time
 import base64
 import traceback
+import shutil
 from io import BytesIO
 from typing import List, Optional
 from fastapi import FastAPI, UploadFile
@@ -64,6 +65,24 @@ else:
         f"[main] 警告: 本地 CE-CSL 视频目录不存在: {CECSL_VIDEO_ROOT}，"
         "如需启用文本→视频播放，请设置环境变量 CECSL_VIDEO_ROOT"
     )
+
+# 用户上传视频持久化存储目录与静态服务
+# - 默认路径：<仓库根目录>/uploads/video
+UPLOAD_VIDEO_ROOT = os.getenv(
+    "UPLOAD_VIDEO_ROOT",
+    os.path.join(REPO_ROOT, "uploads", "video"),
+)
+
+try:
+    os.makedirs(UPLOAD_VIDEO_ROOT, exist_ok=True)
+    app.mount(
+        "/uploads/video",
+        StaticFiles(directory=UPLOAD_VIDEO_ROOT),
+        name="upload_video",
+    )
+    print(f"[main] 已挂载用户上传视频目录: {UPLOAD_VIDEO_ROOT} -> /uploads/video")
+except Exception as e:
+    print(f"[main] 警告: 无法创建或挂载用户上传视频目录 {UPLOAD_VIDEO_ROOT}: {e}")
 
 # ==================== 内存数据存储 ====================
 # 手语词典数据（模拟数据库）
@@ -628,8 +647,22 @@ async def recognize_upload(file: UploadFile | None = None):
             print("[recognize_upload] 调用 ctc_service.recognize_video_file")
             result = ctc_service.recognize_video_file(tmp_path)
 
+            # 将视频文件从临时目录移动到持久化目录，生成可访问的 videoUrl
+            timestamp = int(time.time() * 1000)
+            safe_basename = os.path.basename(filename) or "video"
+            persistent_name = f"{timestamp}_{safe_basename}"
+            persistent_path = os.path.join(UPLOAD_VIDEO_ROOT, persistent_name)
+
+            try:
+                shutil.move(tmp_path, persistent_path)
+                print(f"[recognize_upload] 已保存用户视频到持久化目录: {persistent_path}")
+                video_url = f"/uploads/video/{persistent_name}"
+            except Exception as move_err:
+                print(f"[recognize_upload] 警告: 无法移动视频到持久化目录，将继续使用临时文件: {move_err}")
+                video_url = None
+
             data = {
-                "id": f"rec_{int(time.time() * 1000)}",
+                "id": f"rec_{timestamp}",
                 "results": [
                     {
                         "text": result["text"],
@@ -644,6 +677,9 @@ async def recognize_upload(file: UploadFile | None = None):
                 "processedFrames": result["processedFrames"],
                 "createdAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             }
+
+            if video_url:
+                data["videoUrl"] = video_url
         else:
             # 图片识别
             print("[recognize_upload] 调用 ctc_service.recognize_image_file")
@@ -688,8 +724,10 @@ async def recognize_upload(file: UploadFile | None = None):
             content={"code": 500, "message": f"识别失败: {str(e)}", "data": None},
         )
     finally:
+        # 如果文件还在临时目录中，则尝试删除（视频已被 move 时，tmp_path 已不存在）
         try:
-            os.remove(tmp_path)
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
         except OSError:
             pass
 

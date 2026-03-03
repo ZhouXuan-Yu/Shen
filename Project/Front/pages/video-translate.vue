@@ -121,13 +121,26 @@
                 </button>
               </div>
 
-              <div class="rounded-xl overflow-hidden bg-slate-900/5">
+              <div class="rounded-xl overflow-hidden bg-slate-900/5 min-h-[200px] flex items-center justify-center">
                 <video
                   v-if="videoPreviewUrl"
                   :src="videoPreviewUrl"
                   controls
                   class="w-full rounded-xl"
                 ></video>
+                <div
+                  v-else-if="result"
+                  class="flex flex-col items-center justify-center gap-2 text-xs text-slate-400 px-6 py-10 text-center"
+                >
+                  <i class="bi bi-film text-2xl text-slate-300"></i>
+                  <span>历史记录仅保存翻译结果，原始视频未保存，因此无法在此回放。</span>
+                </div>
+                <div
+                  v-else
+                  class="text-xs text-slate-400 px-6 py-10 text-center"
+                >
+                  上传视频后，这里将展示预览并支持播放。
+                </div>
               </div>
             </div>
           </div>
@@ -163,34 +176,33 @@
           <div
             class="min-h-[220px] rounded-3xl border border-stone-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)] animate-fade-up animation-delay-200"
           >
-            <h3 class="mb-4 flex items-center gap-2 font-semibold text-slate-900">
-              <i class="bi bi-translate text-emerald-500"></i>
-              翻译结果
-            </h3>
+            <div class="mb-4 flex items-center justify-between gap-2">
+              <h3 class="flex items-center gap-2 font-semibold text-slate-900">
+                <i class="bi bi-translate text-emerald-500"></i>
+                翻译结果
+              </h3>
+              <button
+                v-if="result"
+                class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium hover:bg-emerald-100 transition-colors"
+                :class="isCurrentFavorite ? 'text-pink-500 border-pink-200 bg-pink-50' : 'text-emerald-700'"
+                @click.stop="toggleCurrentFavorite"
+              >
+                <span>{{ isCurrentFavorite ? '已收藏' : '收藏' }}</span>
+              </button>
+            </div>
 
             <div v-if="result" class="space-y-4">
               <div
                 class="result-fade-in rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4"
               >
-                <div class="flex items-start justify-between gap-3">
-                  <div>
-                    <p class="mb-1 text-xs text-slate-500">识别文本</p>
-                    <p class="break-words text-2xl font-semibold leading-snug text-slate-900">
-                      {{ result.text }}
-                    </p>
-                    <p class="mt-2 text-xs text-slate-500">
-                      置信度：<span class="font-semibold text-emerald-600">{{ Math.round(result.confidence) }}%</span>
-                      <span v-if="result.videoDuration"> ｜ 视频时长约 {{ result.videoDuration.toFixed(1) }} 秒</span>
-                    </p>
-                  </div>
-                  <button
-                    class="mt-1 w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center hover:bg-emerald-200 transition-colors"
-                    :class="isCurrentFavorite ? 'text-pink-500' : 'text-emerald-700'"
-                    @click.stop="toggleCurrentFavorite"
-                  >
-                    <i :class="isCurrentFavorite ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
-                  </button>
-                </div>
+                <p class="mb-1 text-xs text-slate-500">识别文本</p>
+                <p class="break-words text-2xl font-semibold leading-snug text-slate-900">
+                  {{ result.text }}
+                </p>
+                <p class="mt-2 text-xs text-slate-500">
+                  置信度：<span class="font-semibold text-emerald-600">{{ Math.round(result.confidence) }}%</span>
+                  <span v-if="result.videoDuration"> ｜ 视频时长约 {{ result.videoDuration.toFixed(1) }} 秒</span>
+                </p>
               </div>
 
               <div class="flex flex-wrap gap-3">
@@ -319,6 +331,7 @@ function setVideoFile(file: File) {
   videoFile.value = file
   videoPreviewUrl.value = URL.createObjectURL(file)
   result.value = null
+  currentHistoryId.value = null
 }
 
 function clearVideo() {
@@ -382,12 +395,23 @@ async function startVideoTranslation() {
 
     const historyId = data.id || Date.now().toString()
 
+    // 为历史记录生成一张视频缩略图（首帧），用于“翻译历史 / 我的收藏”展示
+    let thumbnail: string | undefined
+    try {
+      thumbnail = await generateVideoThumbnail(videoFile.value)
+    } catch (e) {
+      console.warn('生成视频缩略图失败，将使用占位图:', e)
+    }
+
     recognitionStore.addToHistory({
       id: historyId,
       type: 'upload_video',
       result: top.text,
       confidence: top.confidence,
       duration: data.videoDuration || 0,
+      thumbnail,
+      // 将后端返回的相对 videoUrl 拼接为完整可访问地址，便于历史记录中直接回放
+      videoUrl: data.videoUrl ? `${config.public.uploadBase}${data.videoUrl}` : undefined,
       createdAt: data.createdAt || new Date().toISOString(),
       favorite: false,
     })
@@ -405,6 +429,64 @@ async function startVideoTranslation() {
     await new Promise(resolve => setTimeout(resolve, 500))
     uploading.value = false
   }
+}
+
+// 生成视频缩略图（首帧），以 base64 data URL 形式返回
+async function generateVideoThumbnail(file: File): Promise<string> {
+  if (typeof document === 'undefined') {
+    throw new Error('当前环境不支持生成视频缩略图')
+  }
+
+  return new Promise((resolve, reject) => {
+    const video = document.createElement('video')
+    const canvas = document.createElement('canvas')
+    const url = URL.createObjectURL(file)
+
+    let handled = false
+
+    const cleanup = () => {
+      if (handled) return
+      handled = true
+      URL.revokeObjectURL(url)
+    }
+
+    video.preload = 'metadata'
+    video.src = url
+    video.muted = true
+    video.playsInline = true
+
+    video.onloadeddata = () => {
+      // 取 0.1 秒或中间位置，避免黑屏
+      const targetTime =
+        isFinite(video.duration) && video.duration > 0
+          ? Math.min(video.duration / 2, 1)
+          : 0.1
+      video.currentTime = targetTime
+    }
+
+    video.onseeked = () => {
+      try {
+        canvas.width = video.videoWidth || 640
+        canvas.height = video.videoHeight || 360
+        const ctx = canvas.getContext('2d')
+        if (!ctx) {
+          throw new Error('无法获取 Canvas 上下文')
+        }
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.7)
+        cleanup()
+        resolve(dataUrl)
+      } catch (error) {
+        cleanup()
+        reject(error)
+      }
+    }
+
+    video.onerror = () => {
+      cleanup()
+      reject(new Error('视频加载失败，无法生成缩略图'))
+    }
+  })
 }
 
 function playVoice() {
@@ -446,6 +528,11 @@ onMounted(() => {
     videoDuration: record.duration || 0,
   }
   currentHistoryId.value = record.id
+
+  // 如果历史记录中保存了视频地址，则直接用于预览与回放
+  if (record.videoUrl) {
+    videoPreviewUrl.value = record.videoUrl
+  }
 })
 </script>
 

@@ -9,13 +9,30 @@
           </NuxtLink>
           <h1 class="font-medium text-primary-900">我的收藏</h1>
           <span class="text-xs text-gray-400">
-            共 {{ favoriteHistory.length }} 条
+            共 {{ filteredFavorites.length }} 条
           </span>
         </div>
       </div>
     </div>
 
     <div class="max-w-6xl mx-auto px-4 py-6">
+      <!-- 筛选标签，与历史记录一致：全部 / 视频 / 图片 -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-hide">
+        <button
+          v-for="filter in filters"
+          :key="filter.value"
+          class="badge whitespace-nowrap px-3 py-1.5 rounded-full transition-all"
+          :class="
+            activeFilter === filter.value
+              ? 'bg-primary-900 text-white'
+              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          "
+          @click="activeFilter = filter.value"
+        >
+          {{ filter.label }}
+        </button>
+      </div>
+
       <div v-if="groupedFavorites.length > 0" class="space-y-4">
         <div
           v-for="group in groupedFavorites"
@@ -25,16 +42,18 @@
           <div class="text-xs font-medium text-gray-400">
             {{ group.dateLabel }}
           </div>
-          <div class="row g-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div
               v-for="record in group.items"
               :key="record.id"
-              class="col-6 col-md-4 col-lg-3"
             >
-              <div class="card card-hover h-100 cursor-pointer">
-                <!-- 缩略图 -->
+              <div
+                class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition cursor-pointer flex flex-col h-full overflow-hidden"
+                @click="handleRecordClick(record)"
+              >
+                <!-- 缩略图 / 占位 -->
                 <div
-                  class="relative aspect-video bg-gray-100 rounded-t-xl overflow-hidden"
+                  class="relative aspect-video bg-gray-50"
                 >
                   <img
                     v-if="record.thumbnail"
@@ -43,21 +62,24 @@
                   />
                   <div
                     v-else
-                    class="w-full h-full flex items-center justify-center"
+                    class="absolute inset-0 flex items-center justify-center"
                   >
-                    <i
-                      :class="
-                        record.type === 'upload_video'
-                          ? 'bi bi-camera-video'
-                          : 'bi bi-image'
-                      "
-                      class="text-3xl text-gray-300"
-                    ></i>
+                    <div
+                      class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-900/5"
+                    >
+                      <i
+                        :class="
+                          record.type === 'upload_video'
+                            ? 'bi bi-camera-video'
+                            : 'bi bi-image'
+                        "
+                        class="text-2xl text-gray-300"
+                      ></i>
+                    </div>
                   </div>
-
                   <!-- 类型标签 -->
                   <span
-                    class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/50 rounded text-white text-xs"
+                    class="absolute bottom-2 right-2 px-2 py-0.5 rounded-full bg-black/50 text-white text-[10px] tracking-wide"
                   >
                     {{
                       record.type === 'upload_video'
@@ -67,27 +89,17 @@
                           : '其他'
                     }}
                   </span>
-
-                  <!-- 收藏标记 -->
-                  <span
-                    class="absolute top-2 right-2 w-7 h-7 rounded-full bg-pink-500 flex items-center justify-center shadow-lg"
-                  >
-                    <i class="bi bi-heart-fill text-white text-xs"></i>
-                  </span>
                 </div>
-
-                <!-- 文本信息 -->
-                <div class="p-3">
-                  <h3
-                    class="font-bold text-primary-900 line-clamp-2 min-h-[2.5rem]"
-                  >
+                <!-- 详情 -->
+                <div class="p-3 space-y-2">
+                  <h3 class="font-semibold text-primary-900 text-sm line-clamp-2 min-h-[2.75rem]">
                     {{ record.result }}
                   </h3>
-                  <div
-                    class="flex items-center justify-between mt-2 text-xs text-gray-500"
-                  >
-                    <span>{{ formatTime(record.createdAt) }}</span>
-                    <span class="text-green-600 font-medium">
+                  <div class="flex items-center justify-between text-xs text-gray-500">
+                    <span>
+                      {{ formatTime(record.createdAt) }}
+                    </span>
+                    <span class="font-medium text-green-600">
                       {{ Math.round(record.confidence) }}%
                     </span>
                   </div>
@@ -140,15 +152,30 @@
 useSeoMeta({ title: '我的收藏 - 译手 HandTalk AI' })
 
 const recognitionStore = useRecognitionStore()
+const router = useRouter()
+
+type FavoriteItem = (typeof recognitionStore.favoriteHistory)[number]
 
 const favoriteHistory = computed(() => recognitionStore.favoriteHistory)
+
+const activeFilter = ref('all')
+const filters = [
+  { label: '全部', value: 'all' },
+  { label: '视频', value: 'upload_video' },
+  { label: '图片', value: 'upload_image' },
+]
+
+const filteredFavorites = computed(() => {
+  if (activeFilter.value === 'all') return favoriteHistory.value
+  return favoriteHistory.value.filter((item) => item.type === activeFilter.value)
+})
 
 const pageSize = 12
 const visibleCount = ref(pageSize)
 
 const groupedFavorites = computed(() => {
   const groups: Record<string, typeof favoriteHistory.value> = {}
-  for (const item of favoriteHistory.value) {
+  for (const item of filteredFavorites.value) {
     const date = new Date(item.createdAt)
     const key = date.toISOString().slice(0, 10)
     if (!groups[key]) groups[key] = []
@@ -175,8 +202,7 @@ const groupedFavorites = computed(() => {
   }
 
   const slice = flat.slice(0, visibleCount.value)
-  const map: Record<string, { date: string; dateLabel: string; items: any[] }> =
-    {}
+  const map: Record<string, { date: string; dateLabel: string; items: any[] }> = {}
 
   for (const row of slice) {
     if (!map[row.groupDate]) {
@@ -192,9 +218,7 @@ const groupedFavorites = computed(() => {
   return Object.values(map).sort((a, b) => (a.date < b.date ? 1 : -1))
 })
 
-const hasMore = computed(
-  () => favoriteHistory.value.length > visibleCount.value,
-)
+const hasMore = computed(() => filteredFavorites.value.length > visibleCount.value)
 
 function loadMore() {
   visibleCount.value += pageSize
@@ -206,5 +230,28 @@ function formatTime(timestamp: string) {
     minute: '2-digit',
   })
 }
+
+function handleRecordClick(record: FavoriteItem) {
+  if (record.type === 'upload_video') {
+    router.push({
+      path: '/video-translate',
+      query: {
+        historyId: record.id,
+      },
+    })
+    return
+  }
+
+  if (record.type === 'upload_image') {
+    router.push({
+      path: '/translate',
+      query: {
+        historyId: record.id,
+      },
+    })
+  }
+}
+
+onMounted(() => recognitionStore.loadHistory())
 </script>
 
