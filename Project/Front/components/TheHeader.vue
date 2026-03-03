@@ -14,14 +14,14 @@
 
         <!-- 桌面端导航 -->
         <nav class="hidden md:flex items-center gap-2">
-          <NuxtLink
+          <!-- <NuxtLink
             to="/recognize"
             class="nav-link"
             active-class="nav-link-active"
           >
             <i class="bi bi-camera-video mr-1.5"></i>
             实时翻译
-          </NuxtLink>
+          </NuxtLink> -->
           <NuxtLink
             to="/translate"
             class="nav-link"
@@ -57,7 +57,7 @@
         </nav>
 
         <!-- 右侧操作区 -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
           <!-- 主题切换按钮 -->
           <button 
             class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
@@ -93,7 +93,7 @@
 
           <!-- 移动端菜单按钮 -->
           <button
-            class="md:hidden w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors"
+            class="md:hidden w-10 h-10 rounded-lg bg-white/80 border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-gray-100 transition-colors"
             @click="mobileMenuOpen = !mobileMenuOpen"
           >
             <i :class="mobileMenuOpen ? 'bi bi-x-lg' : 'bi bi-list'" class="text-xl"></i>

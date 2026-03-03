@@ -1,18 +1,18 @@
 <template>
   <div class="min-h-screen flex">
     <!-- 左侧品牌区域 -->
-    <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-800 via-purple-600 to-pink-600 relative overflow-hidden">
+    <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-teal-300 via-sky-300 to-lime-300 relative overflow-hidden">
       <!-- 背景装饰 -->
       <div class="absolute inset-0">
-        <div class="absolute top-20 right-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 left-20 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
-        <div class="absolute top-1/3 right-1/3 w-64 h-64 bg-purple-400/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-20 right-20 w-72 h-72 bg-white/30 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 left-20 w-96 h-96 bg-teal-200/40 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/3 right-1/3 w-64 h-64 bg-lime-200/30 rounded-full blur-3xl"></div>
       </div>
       
       <!-- 内容 -->
-      <div class="relative z-10 flex flex-col justify-center px-16 text-white">
+      <div class="relative z-10 flex flex-col justify-center px-16 text-teal-900">
         <NuxtLink to="/" class="flex items-center gap-3 mb-16">
-          <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-lg flex items-center justify-center">
+          <div class="w-14 h-14 rounded-xl bg-white/70 backdrop-blur-lg flex items-center justify-center">
             <span class="text-2xl">🤟</span>
           </div>
           <div>
@@ -33,16 +33,16 @@
         <!-- 统计数据 -->
         <div class="grid grid-cols-3 gap-6">
           <div>
-            <div class="text-3xl font-bold">100K+</div>
-            <div class="text-white/60 text-sm">翻译次数</div>
+            <div class="text-3xl font-bold text-teal-900">100K+</div>
+            <div class="text-teal-900/70 text-sm">翻译次数</div>
           </div>
           <div>
-            <div class="text-3xl font-bold">98%</div>
-            <div class="text-white/60 text-sm">准确率</div>
+            <div class="text-3xl font-bold text-teal-900">98%</div>
+            <div class="text-teal-900/70 text-sm">准确率</div>
           </div>
           <div>
-            <div class="text-3xl font-bold">1M+</div>
-            <div class="text-white/60 text-sm">用户数</div>
+            <div class="text-3xl font-bold text-teal-900">1M+</div>
+            <div class="text-teal-900/70 text-sm">用户数</div>
           </div>
         </div>
       </div>
@@ -54,25 +54,25 @@
         <!-- 移动端 Logo -->
         <div class="lg:hidden text-center mb-8">
           <NuxtLink to="/" class="inline-flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-400 to-lime-400 flex items-center justify-center shadow-lg">
               <span class="text-xl">🤟</span>
             </div>
-            <span class="text-2xl font-bold text-primary-900">译手</span>
+            <span class="text-2xl font-bold text-teal-900">译手</span>
           </NuxtLink>
         </div>
 
         <!-- 标题 -->
         <div class="text-center mb-10">
-          <h2 class="text-3xl font-bold text-primary-900 mb-3">创建账号</h2>
-          <p class="text-gray-600">注册译手，开始使用手语翻译</p>
+          <h2 class="text-3xl font-bold text-teal-900 mb-3">创建账号</h2>
+          <p class="text-slate-600">注册译手，解锁全功能手语翻译体验</p>
         </div>
 
         <!-- 注册表单 -->
         <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-8">
-          <form @submit.prevent="handleRegister" class="space-y-5">
+          <form @submit.prevent="handleRegister" class="space-y-6">
             <!-- 用户名 -->
             <div class="space-y-2">
-              <label class="block text-sm font-medium text-gray-700 ml-1">用户名</label>
+              <label class="block text-sm font-medium text-slate-700 ml-1">用户名</label>
               <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <i class="bi bi-person text-gray-400 text-lg"></i>
@@ -89,7 +89,7 @@
 
             <!-- 邮箱 -->
             <div class="space-y-2">
-              <label class="block text-sm font-medium text-gray-700 ml-1">邮箱地址</label>
+              <label class="block text-sm font-medium text-slate-700 ml-1">邮箱地址</label>
               <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <i class="bi bi-envelope text-gray-400 text-lg"></i>
@@ -106,7 +106,7 @@
 
             <!-- 密码 -->
             <div class="space-y-2">
-              <label class="block text-sm font-medium text-gray-700 ml-1">密码</label>
+              <label class="block text-sm font-medium text-slate-700 ml-1">密码</label>
               <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <i class="bi bi-lock text-gray-400 text-lg"></i>
@@ -150,7 +150,7 @@
 
             <!-- 确认密码 -->
             <div class="space-y-2">
-              <label class="block text-sm font-medium text-gray-700 ml-1">确认密码</label>
+              <label class="block text-sm font-medium text-slate-700 ml-1">确认密码</label>
               <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <i class="bi bi-lock-fill text-gray-400 text-lg"></i>
@@ -176,21 +176,21 @@
             <div class="flex items-start gap-2">
               <input
                 type="checkbox"
-                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-purple-600 focus:ring-purple-500 mt-1"
+                class="w-4 h-4 mt-0.5 rounded border-gray-300 text-teal-600 focus:ring-teal-500 mt-1"
                 v-model="agreeTerms"
               />
-              <span class="text-sm text-gray-600">
-                我已阅读并同意 
-                <a href="#" class="text-purple-600 hover:text-purple-700">服务条款</a> 
-                和 
-                <a href="#" class="text-purple-600 hover:text-purple-700">隐私政策</a>
+              <span class="text-sm text-slate-600 leading-relaxed">
+                我已阅读并同意
+                <a href="#" class="text-teal-600 hover:text-teal-700 font-medium">服务条款</a>
+                和
+                <a href="#" class="text-teal-600 hover:text-teal-700 font-medium">隐私政策</a>
               </span>
             </div>
 
             <!-- 注册按钮 -->
             <button
               type="submit"
-              class="btn w-full py-4 rounded-xl text-lg font-medium bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              class="btn w-full py-4 rounded-xl text-lg font-medium bg-gradient-to-r from-teal-400 via-sky-400 to-lime-400 text-white shadow-lg shadow-teal-400/40 hover:shadow-xl hover:shadow-teal-500/50 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               :disabled="loading || !agreeTerms"
             >
               <span v-if="loading" class="spinner-border spinner-border-sm mr-2"></span>
@@ -213,15 +213,15 @@
               <div class="w-full border-t border-gray-200"></div>
             </div>
             <div class="relative flex justify-center">
-              <span class="px-4 bg-white text-gray-400 text-sm">已有账号</span>
+              <span class="px-4 bg-white text-gray-400 text-sm">或者</span>
             </div>
           </div>
 
           <!-- 登录链接 -->
-          <p class="text-center text-gray-600">
-            立即 
+          <p class="text-center text-slate-600 mt-8">
+            已有账号？
             <NuxtLink to="/auth/login" class="text-purple-600 hover:text-purple-700 font-medium transition-colors">
-              登录账号
+              立即登录
             </NuxtLink>
           </p>
         </div>
@@ -263,8 +263,8 @@ const sendingCaptcha = ref(false)
 const error = ref('')
 
 // Composables
-const config = useRuntimeConfig()
 const toast = useToast()
+const authStore = useAuthStore()
 
 // 密码强度计算
 const passwordStrength = computed(() => {
@@ -290,7 +290,7 @@ const passwordTextColor = computed(() => {
   return colors[passwordStrength.value]
 })
 
-// 发送验证码
+// 发送验证码（示例，占位逻辑）
 async function sendCaptcha() {
   if (!form.email) {
     toast.error('请输入邮箱地址')
@@ -305,9 +305,8 @@ async function sendCaptcha() {
   
   sendingCaptcha.value = true
   try {
-    // TODO: 调用后端 API
     await new Promise(resolve => setTimeout(resolve, 1000))
-    toast.success('验证码已发送至您的邮箱')
+    toast.success('验证码已发送至您的邮箱（示例）')
   } catch {
     toast.error('验证码发送失败')
   } finally {
@@ -315,7 +314,7 @@ async function sendCaptcha() {
   }
 }
 
-// 处理注册
+// 处理注册：本地固化保存账号信息，注册后再去登录
 async function handleRegister() {
   error.value = ''
   
@@ -348,9 +347,17 @@ async function handleRegister() {
   
   loading.value = true
   try {
-    // TODO: 调用后端 API
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    toast.success('注册成功！请登录您的账号')
+    const localUser: any = {
+      username: form.username,
+      email: form.email,
+      avatar: '',
+      // 仅用于本地示例，真实项目不要明文保存密码
+      password: form.password,
+    }
+
+    authStore.setUser(localUser)
+
+    toast.success('注册成功！请使用该账户登录')
     await navigateTo('/auth/login')
   } catch {
     error.value = '注册失败，请稍后重试'

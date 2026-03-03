@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { User, LoginRequest, LoginResponse } from '~/types'
+import type { User, LoginRequest } from '~/types'
+
+const LOCAL_TOKEN_KEY = 'token'
+const LOCAL_USER_KEY = 'auth_user'
 
 export const useAuthStore = defineStore('auth', () => {
   // 状态
@@ -14,17 +17,30 @@ export const useAuthStore = defineStore('auth', () => {
   const userAvatar = computed(() => user.value?.avatar || '')
 
   // 方法
-  function setToken(newToken: string) {
+  function setToken(newToken: string | null) {
     token.value = newToken
     if (newToken) {
-      localStorage.setItem('token', newToken)
+      localStorage.setItem(LOCAL_TOKEN_KEY, newToken)
     } else {
-      localStorage.removeItem('token')
+      localStorage.removeItem(LOCAL_TOKEN_KEY)
     }
   }
 
-  function setUser(newUser: User) {
+  function setUser(newUser: User | null) {
     user.value = newUser
+
+    // 仅在提供了密码信息时才更新本地缓存（用于注册或修改密码场景）
+    const anyUser = newUser as any
+    if (newUser && anyUser?.password) {
+      const cached = {
+        username: anyUser.username,
+        email: anyUser.email,
+        avatar: anyUser.avatar || '',
+        // 仅用于本地 demo，真实项目不要明文保存密码
+        password: anyUser.password,
+      }
+      localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(cached))
+    }
   }
 
   async function login(credentials: LoginRequest): Promise<boolean> {
@@ -32,23 +48,41 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
 
     try {
-      const config = useRuntimeConfig()
-      const response = await $fetch<{ code: number; message: string; data: LoginResponse }>(
-        `${config.public.apiBase}/auth/login`,
-        {
-          method: 'POST',
-          body: credentials,
-        }
-      )
-
-      if (response.code === 200 && response.data) {
-        setToken(response.data.token)
-        setUser(response.data.user)
-        return true
+      const raw = localStorage.getItem(LOCAL_USER_KEY)
+      if (!raw) {
+        error.value = '尚未注册账号，请先完成注册'
+        return false
       }
 
-      error.value = response.message || '登录失败'
-      return false
+      let saved: any
+      try {
+        saved = JSON.parse(raw)
+      } catch {
+        error.value = '本地账户数据异常，请重新注册'
+        return false
+      }
+
+      if (saved.email !== (credentials as any).email) {
+        error.value = '该邮箱尚未注册，请先注册账号'
+        return false
+      }
+
+      if (saved.password !== (credentials as any).password) {
+        error.value = '邮箱或密码不正确'
+        return false
+      }
+
+      const mockToken = `local-token-${Date.now()}`
+      setToken(mockToken)
+
+      // 登录后只挂载运行时 user，不覆盖本地密码信息
+      user.value = {
+        ...(user.value as any),
+        username: saved.username,
+        email: saved.email,
+        avatar: saved.avatar || '',
+      } as User
+      return true
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : '登录失败，请重试'
       error.value = errorMessage
@@ -60,16 +94,30 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function logout() {
     user.value = null
-    token.value = null
-    localStorage.removeItem('token')
+    setToken(null)
     await navigateTo('/auth/login')
   }
 
   function initAuth() {
-    const savedToken = localStorage.getItem('token')
+    const savedToken = localStorage.getItem(LOCAL_TOKEN_KEY)
+    const rawUser = localStorage.getItem(LOCAL_USER_KEY)
+
     if (savedToken) {
       token.value = savedToken
-      // 可以在这里添加获取用户信息的逻辑
+    }
+
+    if (rawUser) {
+      try {
+        const parsed: any = JSON.parse(rawUser)
+        user.value = {
+          ...(user.value as any),
+          username: parsed.username,
+          email: parsed.email,
+          avatar: parsed.avatar || '',
+        } as User
+      } catch {
+        // ignore parse error
+      }
     }
   }
 
@@ -90,5 +138,4 @@ export const useAuthStore = defineStore('auth', () => {
     initAuth,
   }
 })
-
 

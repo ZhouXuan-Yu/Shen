@@ -6,12 +6,12 @@
         <div class="flex items-center gap-4">
           <!-- 头像 -->
           <div class="w-20 h-20 rounded-full bg-accent-gradient flex items-center justify-center text-white text-2xl font-bold">
-            {{ userStore.user?.username?.charAt(0).toUpperCase() || 'U' }}
+            {{ authStore.user?.username?.charAt(0).toUpperCase() || 'U' }}
           </div>
           <!-- 用户信息 -->
           <div class="flex-1">
-            <h1 class="text-xl font-bold text-primary-900">{{ userStore.user?.username || '用户名' }}</h1>
-            <p class="text-gray-500 text-sm">{{ userStore.user?.phone || '未登录' }}</p>
+            <h1 class="text-xl font-bold text-primary-900">{{ authStore.user?.username || '未登录用户' }}</h1>
+            <p class="text-gray-500 text-sm">{{ authStore.user?.email || '请先登录或注册账号' }}</p>
           </div>
           <!-- 设置按钮 -->
           <NuxtLink to="/profile/settings" class="btn btn-ghost btn-icon">
@@ -96,15 +96,14 @@
 <script setup lang="ts">
 useSeoMeta({ title: '个人中心 - 译手 HandTalk AI' })
 
-const userStore = useAuthStore()
+const authStore = useAuthStore()
 const toast = useToast()
 
 const stats = reactive({ total: 128, today: 5, accuracy: 94 })
 
-function handleLogout() {
-  userStore.logout()
+async function handleLogout() {
+  await authStore.logout()
   toast.success('已退出登录')
-  navigateTo('/')
 }
 </script>
 

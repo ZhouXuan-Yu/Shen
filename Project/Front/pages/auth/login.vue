@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex">
     <!-- 左侧品牌区域 -->
-    <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800 relative overflow-hidden">
+    <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-teal-300 via-sky-300 to-lime-300 relative overflow-hidden">
       <!-- 背景装饰 -->
       <div class="absolute inset-0">
         <div class="absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
@@ -10,23 +10,23 @@
       </div>
       
       <!-- 内容 -->
-      <div class="relative z-10 flex flex-col justify-center px-16 text-white">
+      <div class="relative z-10 flex flex-col justify-center px-16 text-teal-900">
         <NuxtLink to="/" class="flex items-center gap-3 mb-16">
-          <div class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-lg flex items-center justify-center">
+          <div class="w-14 h-14 rounded-xl bg-white/70 backdrop-blur-lg flex items-center justify-center">
             <span class="text-2xl">🤟</span>
           </div>
           <div>
             <span class="text-3xl font-bold">译手</span>
-            <p class="text-white/60 text-sm">HandTalk AI</p>
+            <p class="text-teal-800/70 text-sm">HandTalk AI</p>
           </div>
         </NuxtLink>
         
-        <h1 class="text-5xl font-bold mb-6 leading-tight">
+        <h1 class="text-5xl font-bold mb-6 leading-tight text-teal-900">
           让手语翻译<br />
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-purple-300">像呼吸一样自然</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 via-sky-200 to-lime-200">像呼吸一样自然</span>
         </h1>
         
-        <p class="text-xl text-white/80 mb-10 max-w-md leading-relaxed">
+        <p class="text-xl text-teal-900/80 mb-10 max-w-md leading-relaxed">
           面向中国市场的 AI 手语翻译应用，用科技传递人文关怀，消除听障人士与健听人之间的沟通障碍。
         </p>
         
@@ -60,17 +60,17 @@
         <!-- 移动端 Logo -->
         <div class="lg:hidden text-center mb-8">
           <NuxtLink to="/" class="inline-flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-400 to-lime-400 flex items-center justify-center shadow-lg">
               <span class="text-xl">🤟</span>
             </div>
-            <span class="text-2xl font-bold text-primary-900">译手</span>
+            <span class="text-2xl font-bold text-teal-900">译手</span>
           </NuxtLink>
         </div>
 
         <!-- 标题 -->
         <div class="text-center mb-10">
-          <h2 class="text-3xl font-bold text-primary-900 mb-3">欢迎回来</h2>
-          <p class="text-gray-600">登录账号，开始使用手语翻译</p>
+          <h2 class="text-3xl font-bold text-teal-900 mb-3">欢迎回来</h2>
+          <p class="text-slate-600">登录账号，开始使用手语翻译</p>
         </div>
 
         <!-- 登录表单 -->
@@ -78,7 +78,7 @@
           <form @submit.prevent="handleLogin" class="space-y-6">
             <!-- 邮箱输入 -->
             <div class="space-y-2">
-              <label class="block text-sm font-medium text-gray-700 ml-1">邮箱地址</label>
+              <label class="block text-sm font-medium text-slate-700 ml-1">邮箱地址</label>
               <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <i class="bi bi-envelope text-gray-400 text-lg"></i>
@@ -95,7 +95,7 @@
 
             <!-- 密码输入 -->
             <div class="space-y-2">
-              <label class="block text-sm font-medium text-gray-700 ml-1">密码</label>
+              <label class="block text-sm font-medium text-slate-700 ml-1">密码</label>
               <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <i class="bi bi-lock text-gray-400 text-lg"></i>
@@ -125,9 +125,9 @@
                   class="w-4 h-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                   v-model="rememberMe"
                 />
-                <span class="text-sm text-gray-600">记住我</span>
+                <span class="text-sm text-slate-600">记住我</span>
               </label>
-              <a href="#" class="text-sm text-purple-600 hover:text-purple-700 font-medium transition-colors">
+              <a href="#" class="text-sm text-teal-600 hover:text-teal-700 font-medium transition-colors">
                 忘记密码？
               </a>
             </div>
@@ -135,7 +135,7 @@
             <!-- 登录按钮 -->
             <button
               type="submit"
-              class="btn w-full py-4 rounded-xl text-lg font-medium bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              class="btn w-full py-4 rounded-xl text-lg font-medium bg-gradient-to-r from-teal-400 via-sky-400 to-lime-400 text-white shadow-lg shadow-teal-400/40 hover:shadow-xl hover:shadow-teal-500/50 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               :disabled="authStore.loading"
             >
               <span v-if="authStore.loading" class="spinner-border spinner-border-sm mr-2"></span>
@@ -162,22 +162,12 @@
             </div>
           </div>
 
-          <!-- 第三方登录 -->
-          <div class="grid grid-cols-2 gap-4">
-            <button class="flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all">
-              <i class="bi bi-wechat text-xl text-green-500"></i>
-              <span class="text-sm text-gray-600">微信登录</span>
-            </button>
-            <button class="flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all">
-              <i class="bi bi-github text-xl"></i>
-              <span class="text-sm text-gray-600">GitHub</span>
-            </button>
-          </div>
+          <!-- 预留第三方登录区域（当前项目暂不提供） -->
         </div>
 
         <!-- 注册链接 -->
         <div class="mt-8 text-center">
-          <p class="text-gray-600">
+          <p class="text-slate-600">
             还没有账号？
             <NuxtLink to="/auth/register" class="text-purple-600 hover:text-purple-700 font-medium transition-colors">
               免费注册

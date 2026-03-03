@@ -1,85 +1,107 @@
 <template>
-  <div class="pt-16 min-h-screen bg-gradient-to-b from-gray-50 to-white">
+  <div class="relative pt-20 min-h-screen overflow-hidden bg-stone-50">
     <!-- 顶部导航栏 -->
-    <div class="sticky top-16 z-30 bg-white/80 backdrop-blur-lg border-b border-gray-100">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex items-center justify-between py-3">
+    <div class="sticky top-0 z-30 border-b border-white/60 bg-white/60 backdrop-blur-xl">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
           <div class="flex items-center gap-3">
-            <NuxtLink to="/" class="flex items-center gap-2 text-gray-600 hover:text-primary-900 transition-colors">
+            <NuxtLink
+              to="/"
+              class="flex items-center gap-2 text-slate-700 hover:text-emerald-700 transition-colors"
+            >
               <i class="bi bi-arrow-left text-lg"></i>
               <span class="hidden sm:inline">返回</span>
             </NuxtLink>
-            <div class="h-6 w-px bg-gray-200"></div>
-            <h1 class="text-lg font-semibold text-primary-900">图片序列翻译</h1>
+            <div class="h-6 w-px bg-slate-200/60"></div>
+            <span class="text-sm font-medium tracking-wide text-slate-500">
+              图片序列翻译
+            </span>
           </div>
-          
+
           <!-- 快捷操作 -->
           <div v-if="uploadedFiles.length > 0" class="flex items-center gap-2">
-            <button 
-              class="btn btn-secondary btn-sm rounded-full"
+            <button
+              class="inline-flex items-center gap-1 rounded-full border border-stone-200 bg-white/80 px-3 py-1.5 text-xs font-medium text-slate-500 shadow-sm hover:bg-stone-50"
               @click="clearAllFiles"
             >
-              <i class="bi bi-trash mr-1"></i>
-              清除
+              <i class="bi bi-trash text-slate-400"></i>
+              清除全部
             </button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 py-10">
-      <!-- 页面标题区域 -->
-      <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-primary-900 mb-4">
-          <span class="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-            图片序列手语翻译
-          </span>
-        </h1>
-        <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-          上传连贯图片序列，通过多张连续图片分析准确识别完整的手语动作含义
-        </p>
+    <div class="relative max-w-6xl mx-auto px-4 py-10">
+      <!-- 顶部标题：极简大字号 + 信息层级 + 不对称布局 -->
+      <div class="mb-12 animate-fade-up md:flex md:items-end md:justify-between">
+        <div class="max-w-xl">
+          <p class="mb-3 text-[11px] font-semibold tracking-[0.22em] text-emerald-600 uppercase">
+            IMAGE · SIGN LANGUAGE · SEQUENCE
+          </p>
+          <h1
+            class="font-semibold tracking-tight text-slate-900 text-3xl sm:text-4xl md:text-5xl leading-tight"
+          >
+            上传手语图片序列，一次性看懂整句含义
+          </h1>
+          <p class="mt-4 text-base md:text-lg text-slate-600">
+            上传连贯的手语图片序列，系统会按顺序分析每一帧动作，并给出自然流畅的中文翻译。
+          </p>
+        </div>
+        <div class="mt-6 md:mt-0 md:ml-10">
+          <div
+            class="inline-flex items-center gap-3 rounded-full border border-stone-200 bg-white/80 px-5 py-2 text-[11px] font-medium text-slate-500 shadow-sm rotate-[-2deg]"
+          >
+            <span
+              class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-semibold text-white"
+            >
+              CTC
+            </span>
+            <span class="tracking-[0.16em] uppercase">Image sequence translate</span>
+          </div>
+        </div>
       </div>
 
       <!-- 主要内容区域 -->
-      <div class="grid lg:grid-cols-3 gap-8">
-        <!-- 左侧：上传区域 -->
-        <div class="lg:col-span-2">
-          <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 overflow-hidden">
+      <div class="grid gap-8 md:grid-cols-12 md:items-start">
+        <!-- 左侧：上传区域（偏大） -->
+        <div class="md:col-span-7">
+          <div
+            class="relative rounded-3xl border border-stone-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)]"
+          >
             <!-- 拖拽上传区域 -->
             <div
-              class="relative border-2 border-dashed rounded-t-2xl p-10 text-center transition-all duration-300"
+              class="relative border border-dashed rounded-2xl p-8 text-center transition-all duration-300 bg-stone-50"
               :class="[
-                isDragging 
-                  ? 'border-blue-500 bg-blue-50' 
-                  : 'border-gray-200 hover:border-gray-300'
+                isDragging
+                  ? 'border-emerald-500 bg-emerald-50'
+                  : 'border-stone-300 hover:bg-white hover:border-emerald-500'
               ]"
               @dragenter.prevent="isDragging = true"
               @dragleave.prevent="isDragging = false"
               @dragover.prevent
               @drop.prevent="handleDrop"
             >
-              <!-- 背景装饰 -->
-              <div class="absolute inset-0 pointer-events-none">
-                <div class="absolute top-4 left-4 w-20 h-20 bg-blue-100 rounded-full opacity-50 blur-xl"></div>
-                <div class="absolute bottom-4 right-4 w-24 h-24 bg-purple-100 rounded-full opacity-50 blur-xl"></div>
-              </div>
-
-              <div v-if="!uploading" class="relative z-10">
+              <div v-if="!uploading" class="space-y-4">
                 <!-- 图标 -->
-                <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-lg">
+                <div
+                  class="w-20 h-20 mx-auto mb-3 rounded-2xl bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-300/40"
+                >
                   <i class="bi bi-images text-3xl text-white"></i>
                 </div>
-                
-                <h3 class="text-xl font-bold text-primary-900 mb-2">
-                  {{ uploadedFiles.length > 0 ? '添加更多图片' : '上传图片序列' }}
+
+                <h3 class="text-xl font-semibold text-slate-900">
+                  {{ uploadedFiles.length > 0 ? '添加更多图片' : '上传手语图片序列' }}
                 </h3>
-                <p class="text-gray-500 text-sm mb-6">
-                  拖拽图片到此区域，或点击下方按钮选择
+                <p class="text-slate-500 text-sm">
+                  拖拽图片到此区域，或点击下方按钮选择；建议按时间顺序选择图片。
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <label class="btn btn-primary rounded-xl cursor-pointer shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40">
-                    <i class="bi bi-cloud-upload mr-2"></i>
+                  <label
+                    class="group relative inline-flex items-center justify-center gap-2 rounded-xl border border-dashed border-stone-300 bg-white px-5 py-3 text-sm font-medium text-slate-800 shadow-sm cursor-pointer transition-colors hover:bg-stone-50"
+                  >
+                    <i class="bi bi-cloud-upload text-emerald-500 group-hover:text-emerald-600"></i>
                     选择图片
                     <input
                       type="file"
@@ -89,9 +111,11 @@
                       @change="handleFileSelect"
                     />
                   </label>
-                  
-                  <label class="btn btn-secondary rounded-xl cursor-pointer">
-                    <i class="bi bi-camera mr-2"></i>
+
+                  <!-- <label
+                    class="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-200 bg-stone-50 px-4 py-2 text-sm font-medium text-slate-700 cursor-pointer hover:bg-stone-100"
+                  >
+                    <i class="bi bi-camera text-emerald-500"></i>
                     拍照上传
                     <input
                       type="file"
@@ -101,20 +125,20 @@
                       multiple
                       @change="handleFileSelect"
                     />
-                  </label>
+                  </label> -->
                 </div>
 
-                <p class="text-gray-400 text-xs mt-6">
-                  支持 JPG, PNG 格式 | 建议上传 3-10 张连贯图片 | 单张最大 10MB
+                <p class="text-slate-400 text-xs mt-4">
+                  支持 JPG、PNG 等常见格式 ｜ 建议上传 3-10 张连贯图片 ｜ 单张最大 10MB
                 </p>
               </div>
 
               <!-- 上传进度 -->
-              <div v-else class="relative z-10 py-8">
-                <div class="w-24 h-24 mx-auto mb-4 relative">
+              <div v-else class="py-8 space-y-4">
+                <div class="w-24 h-24 mx-auto mb-2 relative">
                   <svg class="w-24 h-24 transform -rotate-90">
                     <circle
-                      class="text-gray-200"
+                      class="text-stone-200"
                       stroke-width="8"
                       stroke="currentColor"
                       fill="transparent"
@@ -123,7 +147,7 @@
                       :cy="48"
                     />
                     <circle
-                      class="text-blue-500"
+                      class="text-emerald-500"
                       stroke-width="8"
                       stroke="currentColor"
                       fill="transparent"
@@ -136,19 +160,19 @@
                     />
                   </svg>
                   <div class="absolute inset-0 flex items-center justify-center">
-                    <i :class="uploadStatusIcon" class="text-2xl text-blue-500"></i>
+                    <i :class="uploadStatusIcon" class="text-2xl text-emerald-500"></i>
                   </div>
                 </div>
-                
-                <h4 class="text-lg font-semibold text-primary-900 mb-2">
+
+                <h4 class="text-lg font-semibold text-slate-900">
                   {{ uploadStatus }}
                 </h4>
-                <p class="text-gray-500 mb-4">{{ uploadProgress }}%</p>
-                
+                <p class="text-slate-500 text-sm">{{ uploadProgress }}%</p>
+
                 <!-- 进度条 -->
-                <div class="max-w-xs mx-auto h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div 
-                    class="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300"
+                <div class="max-w-xs mx-auto h-2 bg-stone-200 rounded-full overflow-hidden">
+                  <div
+                    class="h-full bg-emerald-500 transition-all duration-300"
                     :style="{ width: `${uploadProgress}%` }"
                   ></div>
                 </div>
@@ -156,14 +180,14 @@
             </div>
 
             <!-- 已上传图片展示 -->
-            <div v-if="uploadedFiles.length > 0" class="p-6 border-t border-gray-100">
+            <div v-if="uploadedFiles.length > 0" class="p-6 border-t border-stone-100">
               <!-- 标题 -->
               <div class="flex items-center justify-between mb-4">
-                <h4 class="font-semibold text-primary-900 flex items-center gap-2">
-                  <i class="bi bi-images text-blue-500"></i>
+                <h4 class="font-semibold text-slate-900 flex items-center gap-2">
+                  <i class="bi bi-images text-emerald-500"></i>
                   已上传 ({{ uploadedFiles.length }} 张)
                 </h4>
-                <span class="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                <span class="text-xs text-slate-500 bg-stone-100 px-3 py-1 rounded-full">
                   {{ getSequenceTip() }}
                 </span>
               </div>
@@ -180,7 +204,7 @@
                   <div class="image-number">{{ index + 1 }}</div>
                   
                   <!-- 图片预览 -->
-                  <div class="aspect-square bg-gray-100 rounded-xl overflow-hidden relative">
+                  <div class="aspect-square bg-stone-100 rounded-xl overflow-hidden relative">
                     <img
                       :src="file.previewUrl"
                       :alt="file.name"
@@ -199,9 +223,11 @@
 
                 <!-- 添加更多 -->
                 <label class="image-card add-more">
-                  <div class="aspect-square bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition-all cursor-pointer">
-                    <i class="bi bi-plus-circle text-3xl text-gray-300 mb-2"></i>
-                    <span class="text-sm text-gray-500">添加更多</span>
+                  <div
+                    class="aspect-square bg-stone-50 rounded-xl border-2 border-dashed border-stone-200 flex flex-col items-center justify-center hover:border-emerald-500 hover:bg-emerald-50 transition-all cursor-pointer"
+                  >
+                    <i class="bi bi-plus-circle text-3xl text-stone-300 mb-2"></i>
+                    <span class="text-sm text-slate-500">添加更多</span>
                   </div>
                   <input
                     type="file"
@@ -214,10 +240,13 @@
               </div>
             </div>
           </div>
+        </div>
 
+        <!-- 右侧：翻译结果 + 参数设置和历史 -->
+        <div class="md:col-span-5 space-y-8">
           <!-- 翻译结果展示 -->
           <Transition name="slide-up">
-            <div v-if="result" class="mt-8 bg-white rounded-2xl shadow-xl shadow-gray-200/50 overflow-hidden">
+            <div v-if="result" class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 overflow-hidden">
               <!-- 头部 -->
               <div class="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-6">
                 <div class="flex items-center justify-between">
@@ -308,10 +337,6 @@
               </div>
             </div>
           </Transition>
-        </div>
-
-        <!-- 右侧：参数设置和历史 -->
-        <div class="space-y-8">
           <!-- 翻译设置 -->
           <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-6">
             <h3 class="font-semibold text-primary-900 mb-4 flex items-center gap-2">
