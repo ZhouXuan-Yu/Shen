@@ -31,7 +31,7 @@
         </p>
         
         <!-- 统计数据 -->
-        <div class="grid grid-cols-3 gap-6">
+        <!-- <div class="grid grid-cols-3 gap-6">
           <div>
             <div class="text-3xl font-bold text-teal-900">100K+</div>
             <div class="text-teal-900/70 text-sm">翻译次数</div>
@@ -44,7 +44,7 @@
             <div class="text-3xl font-bold text-teal-900">1M+</div>
             <div class="text-teal-900/70 text-sm">用户数</div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 

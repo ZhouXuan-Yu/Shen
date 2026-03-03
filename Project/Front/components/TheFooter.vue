@@ -109,7 +109,7 @@
       </div>
 
       <!-- 统计数据条 -->
-      <div class="mt-12 pt-8 border-t border-gray-200">
+      <!-- <div class="mt-12 pt-8 border-t border-gray-200">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div class="text-center">
             <div class="text-3xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">100K+</div>
@@ -128,7 +128,7 @@
             <div class="text-sm text-gray-500 mt-1">用户数</div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- 底部版权 -->
       <div class="mt-12 pt-8 border-t border-gray-200">

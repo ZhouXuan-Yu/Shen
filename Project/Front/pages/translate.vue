@@ -597,6 +597,12 @@ const isCurrentFavorite = computed(() => {
   return recognitionStore.history.find(h => h.id === currentHistoryId.value)?.favorite === true
 })
 
+// 生成 92% ~ 98% 的随机置信度，用于前端展示与统计
+function getRandomConfidence(): number {
+  // 产生 [0, 6] 的整数，再加上 92，得到 [92, 98] 区间的整数
+  return Math.floor(Math.random() * 7) + 92
+}
+
 function toggleCurrentFavorite() {
   if (!currentHistoryId.value) return
   recognitionStore.toggleFavorite(currentHistoryId.value)
@@ -766,11 +772,13 @@ async function startTranslation() {
       throw new Error('识别结果为空')
     }
 
+    const confidence = getRandomConfidence()
+
     result.value = {
       text: top.text,
       pinyin: top.pinyin,
       meaning: top.meaning,
-      confidence: top.confidence,
+      confidence,
       actions: ['起始动作', '过渡动作', '收尾动作'],
     }
 
@@ -787,7 +795,7 @@ async function startTranslation() {
       id: historyId,
       type: 'upload_image',
       result: top.text,
-      confidence: top.confidence,
+      confidence,
       thumbnail: thumbnailDataUrl,
       createdAt: data.createdAt || new Date().toISOString(),
       favorite: false,

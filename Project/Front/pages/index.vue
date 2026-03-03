@@ -1,273 +1,289 @@
 <template>
-  <div class="pt-16">
-    <!-- Hero 区域 -->
-    <section class="hero-section relative overflow-hidden">
-      <!-- 背景装饰 -->
-      <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute -top-40 -right-40 w-96 h-96 bg-purple-200 rounded-full opacity-30 blur-3xl"></div>
-        <div class="absolute top-1/2 -left-40 w-72 h-72 bg-blue-200 rounded-full opacity-30 blur-3xl"></div>
-        <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-pink-200 rounded-full opacity-30 blur-3xl"></div>
-      </div>
-      
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
-        <div class="text-center">
-          <!-- 标签 -->
+  <div class="pt-16 min-h-screen bg-slate-50 relative overflow-hidden">
+    <!-- 背景光晕 -->
+    <div class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div
+        class="ambient-blob bg-teal-200/70 top-[-18rem] -left-32 w-[26rem] h-[26rem]"
+      ></div>
+      <div
+        class="ambient-blob bg-cyan-200/80 top-1/3 -right-40 w-[30rem] h-[30rem]"
+      ></div>
+      <div
+        class="ambient-blob bg-lime-200/70 bottom-[-14rem] left-1/4 w-[28rem] h-[28rem]"
+      ></div>
+    </div>
+
+    <main class="relative z-10">
+      <!-- Hero + 体验入口 -->
+      <section class="hero-section">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
           <div
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium mb-8"
+            class="grid lg:grid-cols-[1.05fr_minmax(0,0.95fr)] gap-10 lg:gap-14 items-center"
           >
-            <i class="bi bi-stars"></i>
-            HandTalk AI 2.0 发布
-          </div>
-
-          <!-- 主标题 -->
-          <h1
-            class="text-4xl md:text-5xl lg:text-7xl font-bold text-primary-900 mb-6 leading-tight"
-          >
-            让手语翻译
-            <span class="text-gradient">像呼吸一样自然</span>
-          </h1>
-
-          <!-- 副标题 -->
-          <p
-            class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed"
-          >
-            面向中国市场的 AI 手语翻译应用，用科技传递人文关怀，
-            消除听障人士与健听人之间的沟通障碍。
-          </p>
-
-          <!-- CTA 按钮 -->
-          <div
-            class="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <NuxtLink to="/recognize" class="btn btn-accent btn-lg btn-pill shadow-lg shadow-accent/30 hover:shadow-xl hover:shadow-accent/40 hover:-translate-y-0.5 transition-all">
-              <i class="bi bi-camera-video mr-2"></i>
-              开始实时翻译
-            </NuxtLink>
-            <NuxtLink to="/translate" class="btn btn-secondary btn-lg btn-pill hover:bg-gray-50 transition-all">
-              <i class="bi bi-images mr-2"></i>
-              图片序列翻译
-            </NuxtLink>
-            <NuxtLink to="/video-translate" class="btn btn-secondary btn-lg btn-pill hover:bg-gray-50 transition-all">
-              <i class="bi bi-film mr-2"></i>
-              视频翻译
-            </NuxtLink>
-            <NuxtLink to="/about" class="btn btn-ghost btn-lg btn-pill">
-              了解更多
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 公告栏 -->
-    <section class="bg-gradient-to-r from-primary-900 to-primary-800 text-white py-4">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-center gap-3">
-          <i class="bi bi-megaphone-fill text-accent"></i>
-          <span class="text-sm font-medium">HandTalk AI 2.0 发布：识别准确率提升至 98%，新增图片序列翻译功能！</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 功能卡片 -->
-    <section class="py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">核心功能</h2>
-          <p class="text-gray-600 max-w-xl mx-auto text-lg">
-            三大核心功能满足不同场景需求，让手语翻译随时随地可用
-          </p>
-        </div>
-
-        <div class="row g-4">
-          <!-- 实时翻译卡片 -->
-          <div class="col-12 col-md-4">
-            <div class="feature-card card card-hover h-100 border-0 shadow-sm">
-              <div class="card-body text-center p-8">
-                <div class="feature-icon-wrapper mb-6">
-                  <div class="feature-icon-bg"></div>
-                  <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
-                    <i class="bi bi-camera-video text-3xl text-white"></i>
-                  </div>
-                </div>
-                <h3 class="text-xl font-bold text-primary-900 mb-3">实时翻译</h3>
-                <p class="text-gray-600 mb-6">
-                  摄像头实时捕获手语动作，即时转换为文字
-                </p>
-                <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
-                  <span class="flex items-center gap-1">
-                    <i class="bi bi-lightning-charge text-yellow-500"></i>
-                    0.1s 延迟
-                  </span>
-                  <span class="flex items-center gap-1">
-                    <i class="bi bi-check-circle text-green-500"></i>
-                    99% 准度
-                  </span>
-                </div>
-                <NuxtLink to="/recognize" class="btn btn-primary w-100 rounded-pill">
-                  立即开启
-                </NuxtLink>
+            <!-- 左侧文案 -->
+            <div class="space-y-8 fade-in-up">
+              <div
+                class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50/80 text-teal-700 text-xs sm:text-sm font-medium border border-teal-100/80 shadow-[0_8px_22px_rgba(15,118,110,0.06)]"
+              >
+                <span
+                  class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-teal-500/10 text-teal-700"
+                >
+                  <i class="bi bi-stars text-sm"></i>
+                </span>
+                HandTalk AI · 为听障群体打造的手语翻译助手
               </div>
-            </div>
-          </div>
 
-          <!-- 图片序列翻译卡片 -->
-          <div class="col-12 col-md-4">
-            <div class="feature-card card card-hover h-100 border-0 shadow-sm">
-              <div class="card-body text-center p-8">
-                <div class="feature-icon-wrapper mb-6">
-                  <div class="feature-icon-bg bg-purple-100"></div>
-                  <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
-                    <i class="bi bi-images text-3xl text-white"></i>
-                  </div>
-                </div>
-                <h3 class="text-xl font-bold text-primary-900 mb-3">图片序列翻译</h3>
-                <p class="text-gray-600 mb-6">
-                  上传多张连贯图片，通过图片序列分析准确识别完整手语含义
+              <div class="space-y-4">
+                <h1
+                  class="text-3.5xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-bold tracking-tight text-slate-900 leading-tight"
+                >
+                  让
+                  <span
+                    class="bg-gradient-to-r from-teal-500 via-cyan-500 to-lime-500 bg-clip-text text-transparent"
+                  >
+                    手语翻译
+                  </span>
+                  像呼吸一样自然
+                </h1>
+                <p
+                  class="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed"
+                >
+                  一款为中国听障人士量身打造的
+                  AI 手语翻译工具，支持实时识别、图片序列与视频翻译，
+                  用科技让每一次沟通都被温柔接住。
                 </p>
-                <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
-                  <span class="flex items-center gap-1">
-                    <i class="bi bi-collection text-purple-500"></i>
-                    多图支持
-                  </span>
-                  <span class="flex items-center gap-1">
-                    <i class="bi bi-graph-up text-purple-500"></i>
-                    98% 准确
-                  </span>
-                </div>
-                <div class="d-grid gap-2">
-                  <NuxtLink to="/translate" class="btn btn-primary w-100 rounded-pill">
+              </div>
+
+              <!-- 主要操作入口 -->
+              <div class="space-y-4">
+                <div
+                  class="flex flex-wrap items-center gap-3 sm:gap-4 fade-in-up delay-100"
+                >
+                  <NuxtLink
+                    to="/recognize"
+                    class="inline-flex items-center justify-center px-5 sm:px-6 py-3 rounded-full text-sm sm:text-base font-medium text-white bg-gradient-to-r from-teal-500 via-cyan-500 to-lime-500 shadow-[0_12px_30px_rgba(34,197,158,0.35)] hover:shadow-[0_16px_40px_rgba(34,197,158,0.4)] hover:brightness-105 active:scale-[0.98] transition-all"
+                  >
+                    <i class="bi bi-camera-video mr-2 text-sm sm:text-base"></i>
+                                      
+                  </NuxtLink>
+                  <NuxtLink
+                    to="/translate"
+                    class="inline-flex items-center justify-center px-4 sm:px-5 py-3 rounded-full text-sm sm:text-base font-medium text-teal-900 bg-white/70 border border-white/80 shadow-[0_10px_28px_rgba(15,23,42,0.06)] hover:bg-white/90 hover:border-teal-200 hover:shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur-xl transition-all"
+                  >
+                    <i class="bi bi-images mr-2 text-sm sm:text-base"></i>
                     图片序列翻译
                   </NuxtLink>
-                  <NuxtLink to="/video-translate" class="btn btn-outline-primary w-100 rounded-pill">
+                  <NuxtLink
+                    to="/video-translate"
+                    class="inline-flex items-center justify-center px-4 sm:px-5 py-3 rounded-full text-sm sm:text-base font-medium text-teal-900/90 hover:text-teal-900 border border-teal-100 bg-teal-50/60 hover:bg-teal-50 shadow-[0_8px_24px_rgba(13,148,136,0.08)] hover:shadow-[0_14px_38px_rgba(13,148,136,0.16)] backdrop-blur-xl transition-all"
+                  >
+                    <i class="bi bi-film mr-2 text-sm sm:text-base"></i>
                     视频翻译
                   </NuxtLink>
                 </div>
+                <p class="text-xs sm:text-sm text-slate-500">
+                  无需登录，直接体验 · 建议在自然光线环境下拍摄，效果更佳
+                </p>
+              </div>
+
+              <!-- 小统计 -->
+              <div
+                class="flex flex-wrap items-center gap-6 text-xs sm:text-sm text-slate-500 fade-in-up delay-150"
+              >
+                <div class="flex items-center gap-2">
+                  <span
+                    class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600"
+                  >
+                    <i class="bi bi-activity"></i>
+                  </span>
+                  <span> 实时识别 · 毫秒级响应 </span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span
+                    class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-600"
+                  >
+                    <i class="bi bi-shield-check"></i>
+                  </span>
+                  <span> 本地预览 · 云端计算更安全 </span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- 手语词典卡片 -->
-          <div class="col-12 col-md-4">
-            <div class="feature-card card card-hover h-100 border-0 shadow-sm">
-              <div class="card-body text-center p-8">
-                <div class="feature-icon-wrapper mb-6">
-                  <div class="feature-icon-bg bg-green-100"></div>
-                  <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/30">
-                    <i class="bi bi-book text-3xl text-white"></i>
+            <!-- 右侧“卡片组合”：上传 / 结果 / 建议（玻璃效果） -->
+            <div class="relative fade-in-up delay-75">
+              <div
+                class="glass-card relative rounded-3xl p-5 sm:p-6 lg:p-7 space-y-5 shadow-[0_18px_60px_rgba(15,23,42,0.12)]"
+              >
+                <!-- 顶部：模拟上传区 -->
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <div
+                        class="h-9 w-9 rounded-2xl bg-teal-500/10 flex items-center justify-center text-teal-600"
+                      >
+                        <i class="bi bi-cloud-arrow-up"></i>
+                      </div>
+                      <div>
+                        <p class="text-xs uppercase tracking-wide text-slate-400">
+                          Upload Area
+                        </p>
+                        <p class="text-sm font-medium text-slate-800">
+                          上传手语图片 / 视频
+                        </p>
+                      </div>
+                    </div>
+                    <span
+                      class="inline-flex items-center gap-1 rounded-full border border-emerald-100 bg-emerald-50/70 px-2.5 py-1 text-[11px] font-medium text-emerald-700"
+                    >
+                      <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                      安全加密
+                    </span>
+                  </div>
+
+                  <div
+                    class="group mt-2 flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-teal-200/70 bg-white/60 px-4 py-6 text-center text-xs sm:text-sm text-slate-500 hover:bg-white/80 hover:border-teal-300 hover:shadow-[0_14px_40px_rgba(34,197,158,0.16)] transition-all backdrop-blur-2xl"
+                  >
+                    <i
+                      class="bi bi-upload mb-2 text-lg sm:text-xl text-teal-500/80 group-hover:text-teal-600"
+                    ></i>
+                    <p class="font-medium text-slate-700 mb-1">
+                      拖拽图片 / 视频到这里，或点击选择文件
+                    </p>
+                    <p class="text-[11px] sm:text-xs text-slate-400">
+                      支持 MP4 / JPG / PNG 等常见格式，单次上传不超过 60 秒视频
+                    </p>
                   </div>
                 </div>
-                <h3 class="text-xl font-bold text-primary-900 mb-3">手语词典</h3>
-                <p class="text-gray-600 mb-6">
-                  常用手语词汇学习，观看标准示范视频
-                </p>
-                <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
-                  <span class="flex items-center gap-1">
-                    <i class="bi bi-collection text-yellow-500"></i>
-                    持续更新
-                  </span>
-                  <span class="flex items-center gap-1">
-                    <i class="bi bi-play-circle text-blue-500"></i>
-                    视频示范
-                  </span>
+
+                <!-- 中部：模拟识别结果区 -->
+                <div
+                  class="rounded-2xl border border-white/80 bg-white/65 px-4 py-3.5 backdrop-blur-2xl shadow-[0_10px_30px_rgba(15,23,42,0.06)]"
+                >
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2">
+                      <span
+                        class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-600"
+                      >
+                        <i class="bi bi-translate"></i>
+                      </span>
+                      <p class="text-xs font-medium text-slate-500">
+                        识别结果（示意）
+                      </p>
+                    </div>
+                    <span class="text-xs text-emerald-600 font-semibold">
+                      96% 置信度
+                    </span>
+                  </div>
+                  <p
+                    class="text-sm sm:text-base font-medium text-slate-900 leading-relaxed"
+                  >
+                    你好，我想预约下周三上午的挂号。
+                  </p>
+                  <p class="mt-1.5 text-[11px] sm:text-xs text-slate-500">
+                    拼音：nǐ hǎo，wǒ xiǎng yùyuē xià zhōusān shàngwǔ de guàhào。
+                  </p>
                 </div>
-                <NuxtLink to="/dictionary" class="btn btn-primary w-100 rounded-pill">
-                  开始学习
-                </NuxtLink>
+
+                <!-- 底部：建议 / 使用提示 -->
+                <div
+                  class="rounded-2xl border border-white/80 bg-white/55 px-4 py-3.5 backdrop-blur-2xl flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div class="flex items-start gap-2.5">
+                    <span
+                      class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-lime-500/10 text-lime-600"
+                    >
+                      <i class="bi bi-lightbulb"></i>
+                    </span>
+                    <div>
+                      <p class="text-xs sm:text-sm font-medium text-slate-800">
+                        建议：保持单色背景与稳定光线，识别更准确
+                      </p>
+                      <p class="mt-0.5 text-[11px] text-slate-500">
+                        如果是对话场景，可使用
+                        <span class="font-medium text-teal-600">实时翻译</span>
+                        模式；长视频内容推荐使用
+                        <span class="font-medium text-teal-600">视频翻译</span>
+                        模式。
+                      </p>
+                    </div>
+                  </div>
+                  <NuxtLink
+                    to="/about"
+                    class="mt-1 inline-flex items-center justify-center rounded-full border border-teal-100 bg-teal-50/60 px-3.5 py-1.5 text-[11px] font-medium text-teal-800 hover:bg-teal-100/80 hover:border-teal-200 hover:text-teal-900 transition-all"
+                  >
+                    <i class="bi bi-info-circle mr-1.5"></i>
+                    了解使用建议
+                  </NuxtLink>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 统计数据 -->
-    <section class="py-16 bg-gradient-to-br from-primary-900 via-primary-800 to-purple-900 text-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div class="text-center">
-            <div class="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">100K+</div>
-            <div class="text-white/60 text-sm">翻译次数</div>
-          </div>
-          <div class="text-center">
-            <div class="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">98%</div>
-            <div class="text-white/60 text-sm">准确率</div>
-          </div>
-          <div class="text-center">
-            <div class="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-white to-green-200 bg-clip-text text-transparent">500+</div>
-            <div class="text-white/60 text-sm">词条量</div>
-          </div>
-          <div class="text-center">
-            <div class="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent">1M+</div>
-            <div class="text-white/60 text-sm">用户数</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 使用场景 -->
-    <section class="py-20 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">适用场景</h2>
-          <p class="text-gray-600 max-w-xl mx-auto text-lg">
-            无论是在医院、银行还是日常交流，译手随时为您服务
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="scene-card card p-8 bg-white hover:shadow-xl transition-all duration-300">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mb-6 shadow-lg shadow-blue-500/30">
-              <i class="bi bi-hospital text-2xl text-white"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-primary-900 mb-3">医疗服务</h3>
-            <p class="text-gray-600 leading-relaxed">
-              听障患者与医生沟通病情，获取准确的医疗服务，保障医患沟通顺畅
+      <!-- 适用场景 -->
+      <section class="py-12 sm:py-16 lg:py-18">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-10 fade-in-up">
+            <h2
+              class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3"
+            >
+              在真实场景中，让沟通变得更轻松
+            </h2>
+            <p class="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+              医院问诊、银行办理业务、家庭日常沟通……HandTalk
+              希望在你需要的时候，悄悄站在你身后。
             </p>
           </div>
 
-          <div class="scene-card card p-8 bg-white hover:shadow-xl transition-all duration-300 delay-100">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mb-6 shadow-lg shadow-green-500/30">
-              <i class="bi bi-bank text-2xl text-white"></i>
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 fade-in-up delay-75"
+          >
+            <div class="scene-card glass-card p-6 sm:p-7">
+              <div
+                class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-400 to-cyan-400 flex items-center justify-center mb-5 shadow-[0_12px_30px_rgba(34,197,194,0.35)]"
+              >
+                <i class="bi bi-hospital text-xl text-white"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-900 mb-2">
+                医疗服务场景
+              </h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                帮助听障患者在问诊、检查、取药等环节准确表达需求，减轻医患双方的沟通压力。
+              </p>
             </div>
-            <h3 class="text-xl font-semibold text-primary-900 mb-3">金融服务</h3>
-            <p class="text-gray-600 leading-relaxed">
-              在银行、邮局等窗口办理业务时顺畅交流，不再因沟通障碍而困扰
-            </p>
-          </div>
 
-          <div class="scene-card card p-8 bg-white hover:shadow-xl transition-all duration-300 delay-200">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mb-6 shadow-lg shadow-purple-500/30">
-              <i class="bi bi-house-heart text-2xl text-white"></i>
+            <div class="scene-card glass-card p-6 sm:p-7">
+              <div
+                class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-400 to-lime-400 flex items-center justify-center mb-5 shadow-[0_12px_30px_rgba(52,211,153,0.35)]"
+              >
+                <i class="bi bi-bank text-xl text-white"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-900 mb-2">
+                金融与公共服务
+              </h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                在银行、政务大厅、车站等窗口场景辅助沟通，提升服务效率，让办理流程更顺畅。
+              </p>
             </div>
-            <h3 class="text-xl font-semibold text-primary-900 mb-3">家庭沟通</h3>
-            <p class="text-gray-600 leading-relaxed">
-              帮助听障家人与健听家人建立更好的沟通桥梁，增进家庭情感交流
-            </p>
+
+            <div class="scene-card glass-card p-6 sm:p-7">
+              <div
+                class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-400 flex items-center justify-center mb-5 shadow-[0_12px_30px_rgba(16,185,129,0.35)]"
+              >
+                <i class="bi bi-house-heart text-xl text-white"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-900 mb-2">
+                家庭与校园沟通
+              </h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                轻松覆盖家庭日常、课堂交流等高频沟通场景，让理解与陪伴变得更加自然。
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- CTA 区域 -->
-    <section class="py-20 bg-gradient-to-br from-purple-600 via-purple-700 to-blue-800 text-white">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">准备好开始使用了吗？</h2>
-        <p class="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-          立即体验 AI 手语翻译，让沟通无障碍，让世界更温暖
-        </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <NuxtLink to="/recognize" class="btn btn-lg bg-white text-purple-700 hover:bg-gray-100 rounded-full px-8 shadow-xl">
-            <i class="bi bi-camera-video mr-2"></i>
-            立即体验
-          </NuxtLink>
-          <NuxtLink to="/dictionary" class="btn btn-lg bg-transparent border-2 border-white text-white hover:bg-white/10 rounded-full px-8">
-            <i class="bi bi-book mr-2"></i>
-            学习手语
-          </NuxtLink>
-        </div>
-      </div>
-    </section>
+      </section>
+    </main>
   </div>
 </template>
 
@@ -275,7 +291,8 @@
 // SEO 元信息
 useSeoMeta({
   title: '译手 HandTalk AI - 让沟通无障碍',
-  description: '面向中国市场的 AI 手语翻译应用，用科技传递人文关怀，消除听障人士与健听人之间的沟通障碍。',
+  description:
+    '面向中国市场的 AI 手语翻译应用，用科技传递人文关怀，消除听障人士与健听人之间的沟通障碍。',
   ogTitle: '译手 HandTalk AI - 让沟通无障碍',
   ogDescription: '面向中国市场的 AI 手语翻译应用',
 })
@@ -283,96 +300,124 @@ useSeoMeta({
 
 <style scoped>
 .hero-section {
-  background: linear-gradient(180deg, #f9fafb 0%, #fff 50%, #f0f9ff 100%);
-  min-height: 80vh;
+  min-height: calc(80vh - 4rem);
   display: flex;
   align-items: center;
 }
 
-.feature-card {
+.glass-card {
   position: relative;
-  overflow: hidden;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+  transition: background 0.25s ease, border-color 0.25s ease,
+    box-shadow 0.25s ease, transform 0.2s ease;
 }
 
-.feature-card::before {
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(45, 212, 191, 0.6);
+  box-shadow: 0 18px 60px rgba(34, 197, 158, 0.25);
+  transform: translateY(-2px);
+}
+
+.ambient-blob {
+  position: relative;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: 0.7;
+}
+
+.ambient-blob::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.feature-card:hover::before {
-  transform: scaleX(1);
-}
-
-.feature-icon-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.feature-icon-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 0.8;
-  }
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 20% 20%,
+    rgba(255, 255, 255, 0.8),
+    transparent 60%
+  );
+  mix-blend-mode: screen;
 }
 
 .scene-card {
   position: relative;
   overflow: hidden;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transition: transform 0.2s ease, box-shadow 0.25s ease,
+    background 0.25s ease, border-color 0.25s ease;
 }
 
 .scene-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.03), rgba(139, 92, 246, 0.03));
+  inset: 0;
+  background: radial-gradient(
+    circle at 0% 0%,
+    rgba(45, 212, 191, 0.1),
+    transparent 55%
+  );
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.scene-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 55px rgba(15, 23, 42, 0.14);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(45, 212, 191, 0.6);
 }
 
 .scene-card:hover::before {
   opacity: 1;
 }
 
-/* 动画延迟 */
-.delay-100 {
-  transition-delay: 100ms;
+/* 初次加载浮现动画 */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
-.delay-200 {
-  transition-delay: 200ms;
+.fade-in-up.delay-75 {
+  animation-delay: 0.15s;
+}
+
+.fade-in-up.delay-100 {
+  animation-delay: 0.2s;
+}
+
+.fade-in-up.delay-150 {
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 响应式调整 */
 @media (max-width: 768px) {
   .hero-section {
     min-height: auto;
-    padding: 60px 0;
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
   }
 }
 </style>
+
